@@ -1,0 +1,68 @@
+---
+title: "The effects of variability and similarity on talker-independent adaptation to Spanish-accented English"
+author:
+  - name: Holly A. Zaharchuk
+    email: holly.zaharchuk@uconn.edu
+    affiliation: a,b
+    correspondingauthor: true
+  - name: Janet G. van Hell
+    affiliation: a
+address:
+  - code: a
+    organization: "Department of Psychology, The Pennsylvania State University"
+  - code: b
+    organization: "Department of Speech, Language, and Hearing Sciences, University of Connecticut"
+abstract: |
+  to-do
+keywords: 
+  - to-do
+journal: "Journal of Memory and Language"
+date: "`r Sys.Date()`"
+classoption: preprint, 3p, authoryear
+bibliography: dissertation.bib
+csl: apa7_auth.csl
+linenumbers: true
+numbersections: true
+output: 
+  bookdown::pdf_book:
+    base_format: rticles::elsevier_article
+    keep_tex: true
+    citation_package: none
+    pandoc_args: [ "--csl", "apa7_auth.csl" ]
+header-includes:
+- \usepackage{tipa}
+---
+
+<!-- R set-up biblio-style: elsarticle-harv-->
+
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+# knitr settings
+options(kableExtra.auto_format = TRUE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE,
+                      fig.align = 'center', out.width = '\\textwidth')
+```
+
+```{r pkg}
+# load packages for making tables
+library(tidyverse)
+library(kableExtra)
+```
+
+```{r child = 'sections/1_intro.Rmd'}
+```
+
+```{r child = 'sections/2_exp1.Rmd'}
+```
+
+```{r child = 'sections/3_exp2.Rmd'}
+```
+
+```{r child = 'sections/4_exp3.Rmd'}
+```
+
+```{r child = 'sections/5_explore.Rmd'}
+```
+
+```{r child = 'sections/6_discuss.Rmd'}
+```
+

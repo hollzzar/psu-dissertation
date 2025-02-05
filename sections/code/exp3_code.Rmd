@@ -1,0 +1,620 @@
+---
+pagetitle: "general"
+---
+
+```{r exp_2_1}
+# Filter and factor
+dat_exp_2 <- dat_exp_filt %>%
+  dplyr::filter(version == "2a" & !is.na(vot)) %>%
+  mutate(across(.cols = c("participant", "stim", "type",
+                          "cond_sim", "cond_var"),
+                as.factor),
+         trial_cent = scale(trial)[,1],
+         vot_cent = scale(vot)[,1],
+         freq_cent = scale(FreqZipfUS)[,1])
+
+# Add contrasts
+contrasts(dat_exp_2$cond_sim) <- contrast_sim
+contrasts(dat_exp_2$cond_var) <- contrast_var
+contrasts(dat_exp_2$type) <- contrast_type
+```
+
+```{r exp_2_2}
+# Run
+exp_acc_2 <- glmer(resp_acc ~ cond_var*cond_sim*type + 
+                     trial_cent + freq_cent + vot_cent +
+                     (1|stim) + (cond_var:cond_sim + cond_var|participant),
+                   data = dat_exp_2,
+                   family = binomial,
+                   control = glmerControl(optimizer = "bobyqa"))
+
+# Model comparison
+exp_acc_2_comp <- Anova(exp_acc_2, test = "Chi", type = "III")
+
+# Pull
+exp_acc_2_comp_2_form <- mod_comp(exp_acc_2_comp, "cond_var:type")
+```
+
+```{r exp_2_3a, warning = FALSE, message = FALSE}
+# Means for Variability x Type
+exp_acc_2_means_simple <- emmeans(exp_acc_2, ~ cond_var*type)
+
+# Format
+exp_acc_2_means_simple_form <- exp_acc_2_means_simple %>%
+  summary(type = "response") %>%
+  mutate(report = sprintf("*M* = %.2f, 95%% CI [%.2f, %.2f]", 
+                          prob, asymp.LCL, asymp.UCL))
+
+# Contrasts
+exp_acc_2_cont_simple <- pairs(exp_acc_2_means_simple, 
+                            by = "type", adjust = "hommel") %>%
+  data.frame() %>%
+  dplyr::filter(`p.value` <= .05)
+
+# Means for three-way interaction
+exp_acc_2_means <- emmeans(exp_acc_2, ~ cond_sim*cond_var*type)
+
+# Format
+exp_acc_2_means_form <- exp_acc_2_means %>% 
+  summary(type = "response") %>%
+  left_join(tab_factor, by = c("cond_sim", "cond_var")) %>%
+  left_join(tab_type, by = "type")
+
+# Contrasts by Variability
+exp_acc_2_cont_var <- pairs(exp_acc_2_means, 
+                             by = c("type", "cond_var"), 
+                             adj = "hommel") %>%
+  data.frame() %>%
+  dplyr::filter(`p.value` <= .05)
+
+# Contrasts by Similarity
+exp_acc_2_cont_sim <- pairs(exp_acc_2_means, 
+                             by = c("type", "cond_sim"), 
+                             adj = "hommel") %>%
+  data.frame() %>%
+  dplyr::filter(`p.value` <= .05)
+```
+
+```{r exp_2_3b}
+# Variability x Type
+exp_acc_2_means_simple_var_non <- exp_acc_2_means_simple_form %>%
+  dplyr::filter(cond_var == "variant" & type == "nonword") %>%
+  pull(report)
+exp_acc_2_means_simple_invar_non <- exp_acc_2_means_simple_form %>%
+  dplyr::filter(cond_var == "invariant" & type == "nonword") %>%
+  pull(report)
+exp_acc_2_comp_simple_non <- pair_comp(exp_acc_2_cont_simple, "invariant - variant")
+```
+
+```{r exp_2_4}
+# Filter and factor
+dat_exp_2_rt <- dat_exp_rt %>%
+  left_join(tab_factor, by = c("cond_var", "cond_sim")) %>%
+  left_join(tab_type, by = c("type")) %>%
+  dplyr::filter(version == "2a" & !is.na(vot)) %>%
+  mutate(across(.cols = c("participant", "stim", "type",
+                          "cond_sim", "cond_var"),
+                as.factor),
+         trial_cent = scale(trial)[,1],
+         vot_cent = scale(vot)[,1],
+         freq_cent = scale(FreqZipfUS)[,1])
+
+# Add contrasts
+contrasts(dat_exp_2_rt$cond_sim) <- contrast_sim
+contrasts(dat_exp_2_rt$cond_var) <- contrast_var
+contrasts(dat_exp_2_rt$type) <- contrast_type
+```
+
+```{r exp_2_5}
+# Run
+exp_rt_2 <- lmer(inv_rt ~ cond_var*cond_sim*type + 
+                   trial_cent + freq_cent + vot_cent +
+                   (1|stim) + (1|participant),
+                 data = dat_exp_2_rt)
+
+# Model comparison
+exp_rt_2_comp <- Anova(exp_rt_2, test = "Chi", type = "III")
+
+# Format
+exp_rt_2_comp_3_form <- mod_comp(exp_rt_2_comp, "cond_var:cond_sim:type")
+exp_rt_2_comp_2_form <- mod_comp(exp_rt_2_comp, "cond_sim:type")
+```
+
+```{r exp_2_6, message = FALSE, warning = FALSE}
+# Means
+exp_rt_2_means <- emmeans(exp_rt_2, ~ cond_sim*cond_var*type)
+
+# Format
+exp_rt_2_means_form <- exp_rt_2_means %>%
+  apa_rt() %>%
+  left_join(tab_factor, by = c("cond_sim", "cond_var")) %>%
+  left_join(tab_type, by = "type")
+
+# Contrasts by Variability
+exp_rt_2_cont_var <- pairs(exp_rt_2_means, 
+                             by = c("type", "cond_var"), 
+                             adj = "hommel") %>%
+  data.frame() %>%
+  dplyr::filter(`p.value` <= .05)
+
+# Contrasts by Similarity
+exp_rt_2_cont_sim <- pairs(exp_rt_2_means, 
+                             by = c("type", "cond_sim"), 
+                             adj = "hommel") %>%
+  data.frame() %>%
+  dplyr::filter(`p.value` <= .05)
+```
+
+```{r exp_2_7}
+# Get average accuracy
+dat_exp_2_acc <- dat_exp_2 %>%
+  group_by(participant, cond_var, cond_sim, cond_exp, type) %>% 
+  summarise(mean_acc = mean(resp_acc), .groups = "keep") %>%
+  left_join(tab_factor, by = c("cond_var", "cond_sim")) %>%
+  left_join(tab_type, by = c("type"))
+
+# Get average RT
+dat_exp_2_sum <- dat_exp_2_rt %>%
+  group_by(participant, cond_var, cond_sim, cond_exp, type) %>% 
+  summarise(mean_rt = mean(real_rt), .groups = "keep") %>%
+  left_join(dat_exp_2_acc,
+            by = join_by(participant, cond_var, cond_sim, cond_exp, type))
+```
+
+```{r exp_2_8, include = FALSE}
+# Plot
+plot_exp_2_acc_var <- ggplot() +
+  geom_boxplot(data = dat_exp_2_acc, 
+               aes(x = cond_var_fac, y = mean_acc, 
+                   color = cond_exp_fac, fill = cond_exp_fac),
+               size = g_line, alpha = alpha_lev) +
+  geom_point(data = exp_acc_2_means_form,
+             aes(x = cond_var_fac, y = prob, group = cond_sim_fac), 
+             position = position_dodge(width = g_dodge),
+             color = "black", size = g_point*1.25) +
+  geom_errorbar(data = exp_acc_2_means_form,
+             aes(x = cond_var_fac, group = cond_sim_fac,
+                 ymin = `asymp.LCL`, ymax = `asymp.UCL`), 
+             position = position_dodge(width = g_dodge),
+             color = "black", width = 0.25, size = g_line) +
+  facet_grid(~ type_fac) + 
+  scale_color_manual(values = col_exp, name = "Exposure condition") +
+  scale_fill_manual(values = col_exp, name = "Exposure condition") +
+  xlab("Variability") +
+  ylab("Accuracy") +
+  scale_y_continuous(breaks = acc_seq) +
+  coord_cartesian(ylim = acc_range) +
+  theme_minimal() +
+  theme(text = element_text(family = font_fam, size = text_size)) +
+  guides(color = "none", fill = "none")
+  
+# Plot
+plot_exp_2_acc_sim <- ggplot() +
+  geom_boxplot(data = dat_exp_2_acc, 
+               aes(x = cond_sim_fac, y = mean_acc, 
+                   color = cond_exp_fac, fill = cond_exp_fac),
+               size = g_line, alpha = alpha_lev) +
+  geom_point(data = exp_acc_2_means_form,
+             aes(x = cond_sim_fac, y = prob, group = cond_var_fac), 
+             position = position_dodge(width = g_dodge),
+             color = "black", size = g_point*1.25) +
+  geom_errorbar(data = exp_acc_2_means_form,
+             aes(x = cond_sim_fac, group = cond_var_fac,
+                 ymin = `asymp.LCL`, ymax = `asymp.UCL`), 
+             position = position_dodge(width = g_dodge),
+             color = "black", width = 0.25, size = g_line) +
+  facet_grid(~ type_fac) + 
+  scale_color_manual(values = col_exp, name = "Exposure condition") +
+  scale_fill_manual(values = col_exp, name = "Exposure condition") +
+  xlab("Similarity") +
+  ylab("Accuracy") +
+  scale_y_continuous(breaks = acc_seq) +
+  coord_cartesian(ylim = acc_range) +
+  theme_minimal() +
+  theme(text = element_text(family = font_fam, size = text_size))  +
+  guides(color = "none", fill = "none")
+```
+
+```{r exp_2_9, include = FALSE}
+# Plot
+plot_exp_2_rt_var <- ggplot() +
+  geom_half_violin(data = dat_exp_2_rt, 
+                   aes(x = cond_var_fac, y = real_rt, 
+                       color = cond_exp_fac, fill = cond_exp_fac),
+                   scale = "count", alpha = alpha_lev) + 
+  geom_half_point(data = dat_exp_2_sum,
+                  aes(x = cond_var_fac, y = mean_rt, color = cond_exp_fac),
+                  alpha = alpha_lev) +
+  geom_point(data = exp_rt_2_means_form,
+             aes(x = cond_var_fac, y = rt, group = cond_sim_fac),
+             position = position_dodge(width = g_dodge),
+             color = "black", size = g_point*1.25) + 
+  geom_errorbar(data = exp_rt_2_means_form,
+                aes(x = cond_var_fac, group = cond_sim_fac,
+                    ymin = rt_low, ymax = rt_high), 
+                position = position_dodge(width = g_dodge),
+                color = "black", width = 0.25, size = g_line) +
+  facet_grid(~ type_fac) + 
+  scale_color_manual(values = col_exp, name = "Exposure condition") +
+  scale_fill_manual(values = col_exp, name = "Exposure condition") +
+  xlab("Variability") +
+  ylab("Reaction time (ms)") +
+  scale_y_continuous(breaks = seq(750, 2550, 300)) +
+  coord_cartesian(ylim = c(740, 2560)) +
+  theme_minimal() +
+  theme(text = element_text(family = font_fam, size = text_size))  +
+  guides(color = "none")
+  
+# Plot
+plot_exp_2_rt_sim <- ggplot() +
+  geom_half_violin(data = dat_exp_2_rt, 
+                   aes(x = cond_sim_fac, y = real_rt, 
+                       color = cond_exp_fac, fill = cond_exp_fac),
+                   scale = "count", alpha = alpha_lev) + 
+  geom_half_point(data = dat_exp_2_sum,
+                  aes(x = cond_sim_fac, y = mean_rt, color = cond_exp_fac),
+                  alpha = alpha_lev) +
+  geom_point(data = exp_rt_2_means_form,
+             aes(x = cond_sim_fac, y = rt, group = cond_var_fac),
+             position = position_dodge(width = g_dodge),
+             color = "black", size = g_point*1.25) + 
+  geom_errorbar(data = exp_rt_2_means_form,
+                aes(x = cond_sim_fac, group = cond_var_fac,
+                    ymin = rt_low, ymax = rt_high), 
+                position = position_dodge(width = g_dodge),
+                color = "black", width = 0.25, size = g_line) +
+  facet_grid(~ type_fac) + 
+  scale_color_manual(values = col_exp, name = "Exposure condition") +
+  scale_fill_manual(values = col_exp, name = "Exposure condition") +
+  xlab("Similarity") +
+  ylab("Reaction time (ms)") +
+  scale_y_continuous(breaks = seq(750, 2550, 300)) +
+  coord_cartesian(ylim = c(740, 2560)) +
+  theme_minimal() +
+  theme(text = element_text(family = font_fam, size = text_size)) +
+  guides(color = "none")
+```
+
+```{r exp_2_9_save_plot, include = FALSE}
+plot_exp_2 <- plot_exp_2_acc_var + plot_exp_2_rt_var + 
+  plot_exp_2_acc_sim + plot_exp_2_rt_sim +
+  plot_layout(nrow = 2, axes = "collect_y", guides = "collect") &
+  theme(legend.position = "bottom")
+
+# Save plot and crop to remove white space
+ggsave("outputs/plot_exp_2.png", plot_exp_2,
+       width = 5600, height = 4200, unit = "px", dpi = 300)
+knitr::plot_crop("outputs/plot_exp_2.png")
+```
+
+```{r test_2_1}
+# Filter and factor
+dat_test_2 <- dat_test_filt %>%
+  dplyr::filter(version %in% c("2a", "2b")) %>%
+  mutate(across(.cols = c("participant", "prime", "target", "match_type"),
+                as.factor),
+         trial_cent = scale(trial)[,1],
+         vot_cent = scale(vot)[,1],
+         freq_prime_cent = scale(FreqZipfUS_prime)[,1],
+         freq_target_cent = scale(FreqZipfUS_target)[,1]) %>%
+  left_join(tab_exp, by = "cond_exp")
+
+# Add contrasts
+contrasts(dat_test_2$cond_exp_fac) <- contrast_train
+contrasts(dat_test_2$match_type) <- contrast_match_2
+```
+
+```{r test_2_2}
+# Run
+test_acc_2_train <- glmer(resp_acc ~ cond_exp_fac*match_type + 
+                            trial_cent + freq_prime_cent:freq_target_cent + 
+                            vot_cent +
+                            (1|prime:target) + (1|participant),
+                          data = dat_test_2,
+                          family = binomial,
+                          control = glmerControl(optimizer = "bobyqa"))
+
+# Model comparison
+test_acc_2_train_comp <- Anova(test_acc_2_train, test = "Chi", type = "III")
+
+# Format
+test_acc_2_comp_form <- mod_comp(test_acc_2_train_comp, 
+                                 "cond_exp_fac:match_type")
+```
+
+```{r test_2_3a}
+# Get means
+test_acc_2_train_means <- emmeans(test_acc_2_train, 
+                                  ~ cond_exp_fac*match_type)
+
+# Format
+test_acc_2_train_form <- test_acc_2_train_means %>% 
+  summary(type = "response") %>%
+  mutate(report = sprintf("*M* = %.2f, 95%% CI [%.2f, %.2f]", 
+                          prob, asymp.LCL, asymp.UCL)) %>%
+  left_join(tab_match, by = "match_type")
+
+# Select contrasts
+test_acc_2_train_coef <- emmeans:::pairwise.emmc(levels(test_acc_2_train_means)$cond_exp_fac)
+test_acc_2_train_coef_1 <- test_acc_2_train_coef[c(1:4)]
+test_acc_2_train_coef_2 <- test_acc_2_train_coef[c(5:10)]
+
+# Run contrasts
+test_acc_2_train_cont_1 <- contrast(test_acc_2_train_means, 
+                                  test_acc_2_train_coef_1, 
+                                  by = "match_type", 
+                                  adj = "hommel")
+test_acc_2_train_cont_2 <- contrast(test_acc_2_train_means, 
+                                  test_acc_2_train_coef_2, 
+                                  by = "match_type", 
+                                  adj = "hommel") %>%
+  data.frame() %>%
+  dplyr::filter(`p.value` <= .05)
+```
+
+```{r test_2_3b}
+# Identity
+test_acc_2_train_indir_invar <- test_acc_2_train_form %>%
+  dplyr::filter(cond_exp_fac == "Indirect-Invariant" & match_type == "identity") %>%
+  pull(report)
+test_acc_2_train_dir_var <- test_acc_2_train_form %>%
+  dplyr::filter(cond_exp_fac == "Direct-Variant" & match_type == "identity") %>%
+  pull(report)
+test_acc_2_train_indir_var <- test_acc_2_train_form %>%
+  dplyr::filter(cond_exp_fac == "Indirect-Variant" & match_type == "identity") %>%
+  pull(report)
+test_acc_2_train_comp_indirinvar_dirvar <- pair_comp(test_acc_2_train_cont_2,
+                                                     "Direct-Variant - Indirect-Invariant")
+test_acc_2_train_comp_indir_varinvar <- pair_comp(test_acc_2_train_cont_2,
+                                                     "Indirect-Variant - Indirect-Invariant")
+```
+
+```{r test_2_4}
+# Filter and factor
+dat_test_2_rt <- dat_test_rt %>%
+  dplyr::filter(version %in% c("2a", "2b")) %>%
+  mutate(across(.cols = c("participant", "prime", "target", "match_type"),
+                as.factor),
+         trial_cent = scale(trial)[,1],
+         vot_cent = scale(vot)[,1],
+         freq_prime_cent = scale(FreqZipfUS_prime)[,1],
+         freq_target_cent = scale(FreqZipfUS_target)[,1]) %>%
+  left_join(tab_exp, by = "cond_exp")
+
+# Add contrasts
+contrasts(dat_test_2_rt$cond_exp_fac) <- contrast_train
+contrasts(dat_test_2_rt$match_type) <- contrast_match_2
+```
+
+```{r test_2_5}
+# Run
+test_rt_2_train <- lmer(inv_rt ~ cond_exp_fac*match_type + 
+                          trial_cent + freq_prime_cent:freq_target_cent + 
+                          vot_cent +
+                          (1|prime:target) + (1|participant),
+                        data = dat_test_2_rt)
+
+# Model comparison
+test_rt_2_train_comp <- Anova(test_rt_2_train, test = "Chi", type = "III")
+
+# Format
+test_rt_2_comp_form <- mod_comp(test_rt_2_train_comp, "cond_exp_fac:match_type")
+```
+
+```{r test_2_6a, warning = FALSE, message = FALSE}
+# Get means
+test_rt_2_train_means <- emmeans(test_rt_2_train, 
+                                 ~ cond_exp_fac*match_type)
+
+# Format
+test_rt_2_train_form <- test_rt_2_train_means %>%
+  apa_rt() %>%
+  left_join(tab_match, by = "match_type") %>%
+  left_join(tab_exp, by = "cond_exp_fac")
+
+# Select contrasts
+test_rt_2_train_coef <- emmeans:::pairwise.emmc(levels(test_rt_2_train_means)$cond_exp_fac)
+test_rt_2_train_coef <- test_rt_2_train_coef[c(1:4)]
+
+# Run contrasts
+test_rt_2_train_cont <- contrast(test_rt_2_train_means, 
+                                 test_rt_2_train_coef, 
+                                 by = "match_type", 
+                                 adj = "hommel") %>%
+  data.frame() %>%
+  dplyr::filter(`p.value` <= .05) %>%
+  left_join(tab_match, by = "match_type") %>%
+  rowwise() %>%
+  mutate(labs = labs_func(p.value))
+```
+
+```{r test_2_6b}
+# Competitor
+test_rt_2_train_no <- test_rt_2_train_form %>% 
+  dplyr::filter(cond_exp_fac == "Test-only" & match_type == "competitor") %>%
+  pull(report)
+test_rt_2_train_invsim <- test_rt_2_train_form %>% 
+  dplyr::filter(cond_exp_fac == "Direct-Invariant" & match_type == "competitor") %>%
+  pull(report)
+test_rt_2_no_invsim <- pair_comp(test_rt_2_train_cont, "Test-only - Direct-Invariant")
+```
+
+```{r test_2_7}
+# Get average accuracy
+dat_test_2_acc <- dat_test_2 %>%
+  group_by(participant, cond_exp, match_type) %>% 
+  summarise(mean_acc = mean(resp_acc), .groups = "keep") %>%
+  left_join(tab_exp, by = "cond_exp") %>%
+  left_join(tab_match, by = "match_type")
+
+# Get average RT
+dat_test_2_sum <- dat_test_2_rt %>%
+  group_by(participant, cond_exp, match_type) %>% 
+  summarise(mean_rt = mean(resp_rt), .groups = "keep") %>%
+  left_join(tab_exp, by = "cond_exp") %>%
+  left_join(tab_match, by = "match_type")
+```
+
+```{r test_2_8, include = FALSE}
+# Plot
+plot_test_2_acc <- ggplot() +
+  geom_boxplot(data = dat_test_2_acc, 
+               aes(x = cond_exp_fac, y = mean_acc,
+                   color = cond_exp_fac, 
+                   fill = cond_exp_fac),
+               size = g_line*1.25, alpha = alpha_lev,
+               outlier.size = g_point*1.25) +
+  geom_point(data = test_acc_2_train_form,
+             aes(x = cond_exp_fac, y = prob, 
+                 group = match_type_fac), 
+             position = position_dodge(width = g_dodge),
+             color = "black", size = g_point*1.5) +
+  geom_errorbar(data = test_acc_2_train_form,
+             aes(x = cond_exp_fac, group = match_type_fac,
+                 ymin = `asymp.LCL`, ymax = `asymp.UCL`), 
+             position = position_dodge(width = g_dodge),
+             color = "black", width = 0.25, size = g_line) +
+  facet_grid(~ match_type_fac) +
+  scale_color_manual(values = c("#A8A8A8", col_exp), name = "Exposure condition") +
+  scale_fill_manual(values = c("#A8A8A8", col_exp), name = "Exposure condition") +
+  xlab("Exposure condition") +
+  ylab("Accuracy") +
+  scale_y_continuous(breaks = seq(0, 1, 0.2)) +
+  scale_x_discrete(guide = guide_axis(angle = 45)) +
+  coord_cartesian(ylim = c(0, 1.01)) +
+  theme_minimal() +
+  theme(text = element_text(family = font_fam, size = text_size)) +
+  guides(color = "none", fill = "none")
+```
+
+```{r test_2_9}
+plot_test_2_rt <- ggplot() +
+  geom_half_violin(data = dat_test_2_rt, 
+                   aes(x = cond_exp_fac, y = resp_rt, 
+                       color = cond_exp_fac, fill = cond_exp_fac),
+                   scale = "count", alpha = alpha_lev) + 
+  geom_half_point(data = dat_test_2_sum,
+                  aes(x = cond_exp_fac, y = mean_rt, 
+                      color = cond_exp_fac),
+                  alpha = alpha_lev, size = g_point*1.25) +
+  geom_point(data = test_rt_2_train_form,
+             aes(x = cond_exp_fac, y = rt,
+                 group = cond_exp_fac),
+             position = position_dodge(width = g_dodge),
+             color = "black", size = g_point*1.5) + 
+  geom_errorbar(data = test_rt_2_train_form,
+                aes(x = cond_exp_fac, 
+                    group = cond_exp_fac,
+                    ymin = rt_low, ymax = rt_high), 
+                position = position_dodge(width = g_dodge),
+                color = "black", width = 0.25, size = g_line) +
+  facet_grid(~ match_type_fac) + 
+  scale_color_manual(values = c("#A8A8A8", col_exp), name = "Exposure condition") +
+  scale_fill_manual(values = c("#A8A8A8", col_exp), name = "Exposure condition") +
+  scale_x_discrete(guide = guide_axis(angle = 45)) +
+  scale_y_continuous(breaks = seq(250, 1750, 250)) +
+  coord_cartesian(ylim = c(250, 1750)) +
+  xlab("Exposure condition") +
+  ylab("Reaction time (ms)") +
+  theme_minimal() +
+  theme(text = element_text(family = font_fam, size = text_size))  +
+  guides(color = "none", fill = "none")
+```
+
+```{r test_2_9_save_plot, include = FALSE}
+plot_test_2 <- plot_test_2_acc + plot_test_2_rt +
+  plot_layout(nrow = 2, axes = "collect_x")
+
+# Save plot and crop to remove white space
+ggsave("outputs/plot_test_2.png", plot_test_2,
+       width = 5600, height = 4200, unit = "px", dpi = 300)
+knitr::plot_crop("outputs/plot_test_2.png")
+```
+
+```{r test_2a_4}
+# Filter and factor
+dat_test_2a_rt <- dat_test_rt %>%
+  dplyr::filter(version == "2a") %>%
+  mutate(across(.cols = c("participant", "prime", "target", "match_type",
+                          "cond_sim", "cond_var"),
+                as.factor),
+         trial_cent = scale(trial)[,1],
+         vot_cent = scale(vot)[,1],
+         freq_prime_cent = scale(FreqZipfUS_prime)[,1],
+         freq_target_cent = scale(FreqZipfUS_target)[,1])
+
+# Add contrasts
+contrasts(dat_test_2a_rt$cond_sim) <- contrast_sim
+contrasts(dat_test_2a_rt$cond_var) <- contrast_var
+contrasts(dat_test_2a_rt$match_type) <- contrast_match_2
+```
+
+```{r test_2a_5}
+# Run
+test_rt_2a <- lmer(inv_rt ~ cond_sim*cond_var*match_type + 
+                     trial_cent + freq_prime_cent:freq_target_cent + 
+                     vot_cent +
+                     (1|prime:target) + (1|participant),
+                   data = dat_test_2a_rt)
+
+# Model comparison
+test_rt_2a_comp <- Anova(test_rt_2a, test = "Chi", type = "III")
+
+# Format
+test_rt_2a_comp_var_form <- mod_comp(test_rt_2a_comp, "cond_var:match_type")
+test_rt_2a_comp_sim_form <- mod_comp(test_rt_2a_comp, "cond_sim:match_type")
+```
+
+```{r test_2a_6, warning = FALSE, message = FALSE}
+# Get means
+test_rt_2a_means_var <- emmeans(test_rt_2a, ~ cond_var*match_type)
+test_rt_2a_means_sim <- emmeans(test_rt_2a, ~ cond_sim*match_type)
+
+# Run contrasts
+test_rt_2a_cont_var <- pairs(test_rt_2a_means_var,
+                             by = "match_type", adj = "hommel")
+test_rt_2a_cont_sim <- pairs(test_rt_2a_means_sim, 
+                             by = "match_type", adj = "hommel")
+```
+
+```{r test_2a_7a, warning = FALSE, message = FALSE}
+# Get simple means
+test_rt_2a_means <- emmeans(test_rt_2a, ~ cond_var*cond_sim*match_type)
+
+# Format
+test_rt_2a_means_form <- apa_rt(test_rt_2a_means)
+
+# Run contrasts in Variability
+test_rt_2a_cont_var_simple <- test_rt_2a_means %>%
+  pairs(by = c("match_type", "cond_var"), adj = "hommel") %>%
+  summary(type = "response") %>%
+  data.frame() %>%
+  dplyr::filter(`p.value` <= .05) %>%
+  left_join(tab_match, by = "match_type") %>%
+  rowwise() %>%
+  mutate(labs = labs_func(p.value))
+
+# Run contrasts in Similarity 
+test_rt_2a_cont_sim_simple <- test_rt_2a_means %>%
+  pairs(by = c("match_type", "cond_sim"), adj = "hommel") %>%
+  summary(type = "response") %>%
+  data.frame() %>%
+  dplyr::filter(`p.value` <= .05) %>%
+  left_join(tab_match, by = "match_type") %>%
+  rowwise() %>%
+  mutate(labs = labs_func(p.value))
+```
+
+```{r test_2a_7b}
+# Competitor
+test_rt_2a_mean_comp_dir_invar <- test_rt_2a_means_form %>%
+  dplyr::filter(match_type == "competitor" & cond_sim == "direct" &
+                  cond_var == "invariant") %>%
+  pull(report)
+test_rt_2a_mean_comp_dir_var <- test_rt_2a_means_form %>%
+  dplyr::filter(match_type == "competitor" & cond_sim == "direct" &
+                  cond_var == "variant") %>%
+  pull(report)
+test_rt_2a_comp_dir_varinvar <- pair_comp(test_rt_2a_cont_sim_simple,
+                                          "invariant - variant")
+```

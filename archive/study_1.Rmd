@@ -1,0 +1,38 @@
+---
+citeproc: no
+output:
+  bookdown::pdf_document2:
+    fig_caption: yes
+    number_sections: yes
+    keep_tex: true
+    toc: false
+    pandoc_args: !expr rmdfiltr::add_replace_ampersands_filter(rmdfiltr::add_citeproc_filter(args = NULL))
+documentclass: elsarticle
+classoption: preprint
+bibliography: dissertation.bib
+header-includes:
+- \usepackage{tipa}
+---
+
+<!-- R set-up -->
+
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+# knitr settings
+options(kableExtra.auto_format = TRUE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE,
+                      fig.align = 'center', out.width = '\\textwidth')
+```
+
+```{r child = 'sections/1_intro.Rmd'}
+```
+
+\newpage
+
+\section*{References}
+
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\noindent
+
+::: {#refs}
+:::

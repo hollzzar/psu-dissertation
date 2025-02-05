@@ -1,0 +1,220 @@
+---
+output: bookdown::pdf_document2
+---
+
+# Cross-experiment analyses: Investigating participant- and talker-specific effects
+
+## Correlation analysis: Individual differences in adaptation
+
+Having analyzed the task data, we now turn to the post-experiment questionnaire.
+We were interested in the relations between a participant's perception of the test talkers and their performance on the test task.
+To investigate these relations, we quantified the questionnaire responses and correlated them with overall task performance.
+The labels for the items in Figure \@ref(fig:corr-fig) are included in parentheses next to their descriptions below.
+
+### Post-experiment questionnaire {#corr-mat}
+
+Here we describe the items in the questionnaire and how they were coded for analysis.
+Items requiring ratings were collected on five-point scales anchored at the endpoints with labels containing the modifier "very" and a relevant adjective (e.g., "very weak" and "very strong" for accent strength).
+Items requiring categorical responses were collected by presenting a relevant set of options to choose from (see below).
+The options for these items were presented in alphabetical order.
+
+#### Talker questionnaire items
+
+Participants indicated whether the talker had an accent or not, then rated the strength of the accent (Talker accent strength) and identified the type of accent.
+For the type of accent, participants selected all that applied from the following options: city or region in the US; city or region outside the US; social, racial, or ethnic group; another language; and speech or language impairment.
+
+Next, participants rated how well they understood the talker (Talker comprehensibility) and how easy it was to understand the talker (Talker ease).
+They also identified the talker's L1 and proficiency in their L1.
+Participants selected from a list of the top 10 most spoken languages in the world [@ethnologue2024_2], as well as a "None of these" option.
+Participants then indicated whether the talker knew a second language or not; if so, they identified the talker's L2 and rated their proficiency.
+The same options for identifying the talker's L1 were provided for the L2.
+
+Regarding the L1 and L2 proficiency ratings, we included whichever rating was provided for English (Talker English rating).
+Regarding the first and second languages, we collapsed across the two responses and coded them according to typological distance from Spanish (Talker language accuracy).
+Responses that only included English were coded as 0.
+Otherwise, responses identifying either the L1 or L2 as Spanish were coded as 5, Portuguese as 4, French as 3, another Indo-European language (Urdu, Hindi, Bengali, or Russian) as 2, and a language from a different family (Mandarin, Standard Arabic, or Other) as 1.
+
+Finally, participants identified the talker's place of origin.
+They began by selecting a global region---Africa, Americas, Asia, Europe, or Oceania---followed by a sub-region within the chosen region [@un2024].
+If the Americas region was selected, participants were also able to select a specific country within their chosen sub-region.
+We coded responses by distance from the correct sub-region (Talker region accuracy), such that Americas-Central was 5, Americas-Northern was 4, Americas-Caribbean was 3, Americas-Southern was 2, Europe was 1, and all other responses were 0.
+
+#### Participant questionnaire items
+
+Participants indicated whether they had an accent or not, then rated the strength of the accent (Own accent strength) and identified the type of accent from the options described above.
+To measure the overlap between a participant's perception of their own accent and their perception of the talker's accent, we divided the number of labels in common by the total number of unique labels from both responses (Own accent comparison).
+For example, if a participant selected "social, racial, or ethnic group" for their own accent and "social, racial, or ethnic group" and "another language" for the talker's accent, their value would be 0.5 (i.e., 1 common label / 2 total unique labels).
+
+In addition, participants identified their L1 and rated their proficiency.
+They also indicated whether they knew a second language or not; if they responded "yes", they identified the L2 from the options described above and rated their proficiency.
+Participants also identified their place of origin as described above and indicated whether they currently lived in this location or not.
+At the end of the questionnaire, participants provided their age and indicated whether they had normal/corrected-to-normal vision or not, whether they had normal hearing or not, and whether they had a history of language disorders or not.
+
+### Test task performance measures
+
+We calculated two measures of test task performance.
+First, we calculated d-prime, where hits were the correctly identified Identity targets and false alarms were the incorrectly identified Competitor targets.
+The rates were calculated using the loglinear approach to handle extreme values of 1/0 [@hautus1995].
+For Experiments 1 and 2, correct/incorrect identification meant matching the visual target with the auditory prime.
+For Experiment 3, this meant making a lexical decision on the visual target.
+To account for this discrepancy in the underlying task, we z-scored the hit and false alarm rates separately for the two test tasks (Test accuracy).
+This procedure provided a task-neutral base from which to assign the ultimate d-prime scores across participants.
+Second, we calculated the difference in mean reaction time between Competitor and Identity targets for accurate responses.
+These differences were also z-scored separately for the two test tasks (Test RT).
+
+### Analysis approach
+
+All participants across the three experiments were included in the correlation analysis (*N* = `r sum(par_qual)`).
+There were six measures related to the participant's perception of the talker's speech: Talker accent strength, Talker comprehensibility, Talker ease, Talker English rating, Talker language accuracy, and Talker region accuracy.
+In addition, there was one measure related to the participants themselves---Own accented strength---and another at the intersection of participant and talker---Own accent comparison.
+We also included Test accuracy and Test RT.
+Pairwise correlations were calculated with the *psych* package [@revelle2023].
+Hommel corrections were applied to the *p* values.
+
+### Results
+
+All pairwise correlations are illustrated in Figure \@ref(fig:corr-fig).
+Test accuracy was positively correlated with both Talker ease and Talker comprehensibility, such that a participant's d-prime increased as their perception of how easy it was to understand the talker increased (`r corr_ease_d`) and as their perception of how well they understood the talker increased (`r corr_comp_d`).
+Talker ease and Talker comprehensibility were themselves positively correlated (`r corr_ease_comp`).
+
+```{r corr-fig, fig.cap = "Cross-experiment correlation matrix comparing test task performance and post-experiment questionnaire items. Asterisks indicate significance levels: *** < .001, ** < .01, * < .05.", dpi = 300}
+knitr::include_graphics("sections/code/outputs/corr_plot_1.png")
+```
+
+### Discussion
+
+A participant's perceptions of the test talker's speech---Talker ease, comprehensibility, accent strength, and English rating---were strongly correlated with one another.
+Talker accent strength was negatively correlated with the other three measures, such that higher (stronger) accent ratings were associated with lower ease, comprehensibility, and English ratings.
+Of these four measures, Talker ease and comprehensibility were associated with actual task performance, albeit weakly.
+Overall, these results suggest that high-level perceptions of a talker are related to low-level speech recognition.
+However, intuitions about the source of a talker's accent---here, Mexican varieties of Spanish---did not correlate with test task d-prime scores or RTs.
+To further investigate the relations between the subjective and objective performance measures, we conducted a second set of analyses focusing on the details of the test task.
+
+## Between-task analysis: Effects of experimental design on adaptation {#explore-follow}
+
+The correlation analysis investigated the one-to-one relations between our test task and questionnaire measures.
+Here, we follow up on this general analysis by investigating specific differences in performance by talker, task, and training.
+
+### Analysis approach
+
+Since Talker ease, comprehensibility, accent strength, and English ratings were highly correlated, we averaged across these four measures to create one score (Talker judgments).
+Before averaging, Talker English rating was reverse-coded, such that "very strong" became 1 (rather than 5) and "very weak" became 5 (rather than 1), in order to align its valence with the other three measures.
+We also averaged Talker language accuracy and region accuracy (Talker accuracy).
+
+We ran two sets of linear models using the *stats* package [@rcore2022].
+The first set of analyses investigated the two summary measures from the post-experiment questionnaire (Talker judgments and Talker accuracy).
+We modeled the interaction between Talker and Training and the main effect of Task.
+The four levels of Talker (1, 2, 3, 4) were coded with Helmert contrasts.
+The two levels of Task (Matching, Primed lexical decision) and Training (Exposure, Test-only) were sum contrast-coded.
+Participants from all three experiments were included in this set of analyses (*N* = `r sum(par_qual)`).
+
+The second set of analyses investigated the two test task performance measures (Test accuracy and Test RT).
+As in the first set of analyses, we modeled the interaction between Talker and Training and the main effect of Task.
+Mean-centered Talker judgments was included as a covariate.
+We removed participants with z-scores above 4 or below -4 from the two test task performance analyses, leaving `r num_prime` participants in the Test accuracy analysis and `r num_rt` participants in the Test RT analysis.
+We used the *car* package to calculate Type-III analysis-of-variance tables and conduct chi-square tests [@fox2019].
+We used the *emmeans* package to calculate estimated marginal means and conduct pairwise comparisons [@lenth2022].
+Hommel adjustments were applied to the pairwise *p*-values.
+
+### Results
+
+In the Talker judgments analysis, we observed significant main effects of Talker (`r mod_spk_comp_speaker_form`) and Training (`r mod_spk_comp_train_form`).
+Regarding the effect of Talker, Talker 1 received more favorable talker ratings (`r mod_spk_means_speaker_form$report[1]`) than Talker 4 (`r mod_spk_means_speaker_form$report[4]`; `r mod_spk_cont_speaker`).
+The ratings for Talker 2 (`r mod_spk_means_speaker_form$report[2]`) and Talker 3 (`r mod_spk_means_speaker_form$report[3]`) fell between those for the other two talkers.
+Regarding the effect of Training, participants in the Test-only group gave higher talker ratings (`r mod_train_without`) than participants in any of the exposure groups (`r mod_train_with`; `r mod_spk_cont_train`).
+There were no main effects or interactions in the Talker accuracy analysis (*ps* > .05).
+
+In the Test accuracy analysis, we observed a significant interaction between Talker and Task (`r mod_prime_comp_int`), as well as main effects of Talker (`r mod_prime_comp_speaker`) and Talker judgments (`r mod_prime_comp_spk_mean`).
+Regarding the main effect of Talker judgments, higher ratings were associated with higher d-prime scores (`r mod_prime_beta_mean`).
+
+
+
+Because the presence or absence of training influences the interpretation of the results, we conducted pairwise comparisons between talkers by each combination of Task and Training.
+These simple effects are shown in Figure \@ref(fig:explore-fig-prime).
+We also conducted pairwise comparisons by each combination of Task and Talker, but there were no differences between levels of Training (*ps* > .05).
+
+```{r explore-fig-prime, fig.cap = "Test task accuracy by talker. Results divided by task (rows) and training (columns). Boxplots (left) and point plots (right) present values by participant. Plots are overlaid with estimated marginal means and 95\\% confidence intervals. Asterisks indicate significance levels from pairwise comparisons: *** < .001, ** < .01, * < .05. Test task accuracy calculated as d-prime: z-scored hit rate (percent correct Identity targets) minus z-scored false alarm rate (percent incorrect Competitor targets). Raw difference between hit rate and false alarm rate presented on secondary y axis.", dpi = 300}
+knitr::include_graphics("sections/code/outputs/plot_explore_prime.png")
+```
+
+In the Test RT analysis, we observed a significant interaction between Talker and Training (`r mod_rt_comp_int`), as well as main effects of Talker (`r mod_rt_comp_speaker`) and Talker judgments (`r mod_rt_comp_spk_mean`).
+Because the type of task influences the interpretation of the results, we conducted pairwise comparisons by each combination of Task and Training.
+These simple effects can be found in Figure \@ref(fig:explore-fig-rt).
+Regarding Talker judgments, higher ratings were associated with lower than average differences between Competitor and Identity target RTs (`r mod_rt_beta_mean`).
+We also conducted pairwise comparisons by each combination of Task and Talker.
+Here, we observed a difference between levels of Training for Talker 1 in the primed lexical decision task (Experiment 3), such that the average difference was negative without training (`r mod_rt_means_wout_1`) and positive with training (`r mod_rt_means_with_1`; `r mod_rt_means_cont_2`).
+To investigate the source of this training effect, we conducted separate two-sample t-tests on the raw RTs for Competitor and Identity targets to compare the means for the exposure groups and Test-only group in the primed lexical decision task.
+Training significantly increased the RTs for Competitor targets, such that the exposure groups had slower RTs (`r zero_formatting(mod_rt_raw_comp$estimate[1])` ms) than the Test-only group (`r zero_formatting(mod_rt_raw_comp$estimate[2])` ms; `r mod_rt_raw_comp_rep`).
+For Identity targets, the difference in RTs between the exposure groups (`r zero_formatting(mod_rt_raw_id$estimate[1])` ms) and Test-only group (`r zero_formatting(mod_rt_raw_id$estimate[2])` ms) was not significant (`r mod_rt_raw_id_rep`).
+
+```{r explore-fig-rt, fig.cap = "Test task RT by talker. Results divided by task (rows) and training (columns). Boxplots (left) and point plots (right) present values by participant. Plots are overlaid with estimated marginal means and 95\\% confidence intervals. Asterisks indicate significance levels from pairwise comparisons: *** < .001, ** < .01, * < .05. Test task RT calculated as z-scored difference between correct Competitor and Identity target RTs. Raw difference presented on secondary y axis.", dpi = 300}
+knitr::include_graphics("sections/code/outputs/plot_explore_rt.png")
+```
+
+### Discussion
+
+We followed up on the correlation analysis in the previous section by exploring the effects of talker, task, and training on participants' ratings of the test talker and their performance on the test task.
+Across our subjective and objective measures, talker was the strongest predictor.
+For the subjective measures, we found that Talker 1 received higher ratings than Talker 4.
+For the objective measures, we found that Talker 1 had the highest d-prime scores and Talker 4 had the lowest, particularly in the matching task (Experiments 1 and 2).
+Because training did not influence signal detection performance (i.e., d-prime), our results suggests an overall graded pattern of voiceless stop recognition from Talker 1 to Talkers 2 and 3 (who did not differ from one another) to Talker 4.
+In addition, we found that the difference between Competitor and Identity target RTs for Talker 1 was higher in the primed lexical decision task with training versus without training.
+This suggests that above and beyond baseline intelligibility, exposure to Spanish-accented speech improved perception of Talker 1 by reducing activation of lexical competitors.
+We also observed strong relations between talker ratings and test performance, with more favorable Talker judgments predicting higher accuracy and lower activation of competitors.
+Taken together, these results suggest that there was not only something special about Talker 1 as the test talker, but also something special about the combination of Talkers 2, 3, and 4 as the exposure talkers.
+In the next section, we investigate the acoustic-phonetic properties of the four talkers to interpret these results.
+
+## Talker analyses: Characterizing voiceless stop VOT distributions {#explore-spk}
+
+In the correlation analysis, we established that a participant's perceptions of the test talker were associated with their test task accuracy.
+In the follow-up analyses, we also established that judgments and behavior both differed by test talker.
+In this section, we compare the VOT distributions of the talkers to better understand these differences in performance between talkers.
+Figure \@ref(fig:ptk-vot-fig) visualizes the cue-category distributions for each talker and onset with respect to the L1 US English mean (see below).
+
+```{r ptk-vot-fig, fig.cap = "Smoothed density estimates of VOT by talker and onset. Dotted lines represent L1 US English means from Chodroff and Wilson (2019).", dpi = 300}
+knitr::include_graphics("sections/code/outputs/vot_ptk_plot.png")
+```
+
+### Talker-specific analysis of voiceless stop VOT
+
+We first investigate the extent to which each talker's voiceless stop VOTs diverge from L1 US English "norms," which represent our listeners' prior beliefs about these distributions.
+We used the VOT dataset compiled by @chodroff2019 to determine the mean VOT for each voiceless stop onset among L1 US English talkers (see Table \@ref(tab:spk-vot-mu)).
+We then conducted one-sample t-tests to compare each of the talkers' mean VOTs to the norm.
+These analyses included both the exposure (multisyllabic) and test (monosyllabic) stimuli (48 items per onset per talker).
+Table \@ref(tab:spk-vot-mu) provides the difference in means and asterisks indicating the significance level from each analysis (corrected for multiple comparisons with the Hommel method).
+
+```{r spk-vot-mu}
+tab_voice_mu %>%
+  kable(caption = "Mean difference between L1 US English and talker mean VOTs by onset. Asterisks indicate significance levels from two-sample t-tests: *** < .001, ** < .01, * < .05. English means from Chodroff and Wilson (2019).",
+        escape = FALSE) %>%
+  kable_styling(bootstrap_options = "bordered", latex_options = "scale_down") %>%
+  collapse_rows(columns = 1)
+```
+
+### Between-talker analysis of voiceless stop VOT
+
+We next investigate the extent to which each talker's mean VOTs differed from the other talkers'.
+This analysis provides a point of comparison to Xie and Myers' (2017) operationalization of exposure-test similarity.
+Here, we conducted two-sample t-tests on each pair of talkers by onset (48 items per onset per talker).
+The difference between each pair of means, along with asterisks indicating the significance levels from these tests (corrected for multiple comparisons with the Hommel method), are provided in Table \@ref(tab:spk-vot-mat).
+
+```{r spk-vot-mat}
+matrix_voice %>%
+  kable(caption = "Mean difference in VOT between talkers (row minus column) by onset. Asterisks indicate significance levels from two-sample t-tests: *** < .001, ** < .01, * < .05.",
+        escape = FALSE) %>%
+  kable_styling(bootstrap_options = "bordered", latex_options = "scale_down") %>%
+  collapse_rows(columns = 1)
+```
+
+### Discussion
+
+The two analyses conducted in this section show that our talkers differed from both L1 US English norms and one another in their VOT distributions.
+Talker 4 produced the most Spanish-like VOT distributions across places of articulation, with significantly shorter means in all comparisons.
+Talker 3 also differed from the L1 US English norms and the three other talkers, but in the opposite direction: her mean VOTs were significantly longer in all comparisons.
+Talkers 1 and 2 were the most similar to one another, with statistically equivalent mean VOTs for /p/ and /k/.
+Talker 1 was the most similar to the L1 US English norms, though both she and Talker 2 had significantly longer /k/ VOTs.
+Overall, each talker exhibited a unique pattern of VOT-stop distributions.
+The implications of these patterns for our results are discussed further in Section \@ref(discuss-sim).
+
+
+

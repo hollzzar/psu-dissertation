@@ -1,0 +1,1140 @@
+---
+pagetitle: "general"
+---
+
+```{r setup_2}
+# Source
+source("0_load_behave.R")
+```
+
+```{r par_load}
+# Load all participants
+dat_rem <- read.csv(paste(dat_path, "data/quality/remove_summary.csv", sep = "/"))
+
+# Load good participants
+dat_pro_qual <- read.csv(paste(dat_path, "data/quality/dat_pro.csv", sep = "/"))
+```
+
+```{r par_num}
+# Number of original participants
+par_all <- dat_rem %>%
+  group_by(version) %>%
+  summarise(all = n()) %>%
+  pull(all)
+
+# Number of eligible participants 1
+par_elig_1 <- dat_rem %>%
+  dplyr::filter(stage > 1) %>%
+  group_by(version) %>%
+  summarise(eligible = n()) %>%
+  pull(eligible)
+
+# Number of eligible participants 2
+par_elig_2 <- dat_rem %>%
+  dplyr::filter(stage > 2) %>%
+  group_by(version) %>%
+  summarise(eligible = n()) %>%
+  pull(eligible)
+
+# Number of participants passing quality check
+par_qual <- dat_rem %>%
+  dplyr::filter(stage > 3) %>%
+  group_by(version) %>%
+  summarise(quality = n()) %>%
+  pull(quality)
+
+# Make difference table
+par_diff <- tibble(all = par_all,
+                   elig_1 = par_elig_1,
+                   elig_2 = par_elig_2,
+                   qual = par_qual,
+                   diff_1 = all - elig_1,
+                   diff_2 = elig_1 - elig_2,
+                   diff_3 = elig_2 - qual)
+```
+
+```{r par_text}
+# Count per category per experiment: Sex
+par_sex <- dat_pro_qual %>%
+  group_by(version, sex) %>%
+  summarise(count = n(), .groups = "keep") %>%
+  mutate(report = paste(sex, count, sep = " = ")) %>%
+  group_by(version) %>%
+  summarise(sex = toString(report))
+
+# Calculate age stats
+par_age <- dat_pro_qual %>%
+  group_by(version) %>%
+  summarise(mean = round(mean(age), 0),
+            sd = round(sd(age), 0),
+            min = min(age), 
+            max = max(age)) %>%
+  ungroup() %>%
+  mutate(age = sprintf("*M* = %.0f, *SD* = %.0f, Min = %.0f, Max = %.0f", mean, sd, min, max))
+
+# Count per category per experiment: Race/ethnicity
+par_eth <- dat_pro_qual %>%
+  group_by(version, ethnicity) %>%
+  summarise(count = n(), .groups = "keep") %>%
+  replace_na(list(ethnicity = "Not provided")) %>%
+  mutate(ethnicity = if_else(ethnicity == "Mixed", "Multiple selected", ethnicity),
+         report = paste(ethnicity, count, sep = " = ")) %>%
+  group_by(version) %>%
+  summarise(eth = toString(report))
+
+# Combine
+par_text <- left_join(par_sex, par_age) %>%
+  left_join(par_eth) %>%
+  mutate(report = sprintf("Age: %s; Sex: %s; Race: %s", age, sex, eth))
+
+# Clean up
+rm(par_sex, par_age)
+```
+
+```{r norm_load}
+# Save file location
+norm_loc <- "~/Mirror/dissertation/5_norming/clean_dat/"
+
+# File names
+norm_files <- list.files(norm_loc)
+
+# Load data
+norm_dat <- lapply(norm_files, function(x) 
+  read.csv(paste0(norm_loc, x), stringsAsFactors = FALSE) %>%
+    mutate(participant = as.character(participant))) %>% 
+  bind_rows()
+```
+
+```{r norm_sum}
+# Get number of participants
+norm_pars <- length(unique(norm_dat$participant))
+
+# Original number of participants before exclusion
+norm_pars_all <- 217 + 205 + 215 + 51
+norm_pars_inelig <- 5 + 4 + 18 + 7
+norm_pars_bad <- 31 + 31 + 14 + 7
+
+# Difference
+norm_pars_elig <- norm_pars_all - norm_pars_inelig
+norm_pars_qual <- norm_pars_elig - norm_pars_bad
+```
+
+```{r rem_load}
+# Load removal summary
+dat_rem_all <- read.csv(paste(dat_path, "data/filtered/dat_rem_all.csv", sep = "/"))
+```
+
+```{r rem_reshape}
+# Removed for exposure
+dat_rem_exp <- dat_rem_all %>%
+  dplyr::filter(phase == "exp") %>%
+  rowwise() %>%
+  mutate(pct_1 = pct_formatting(rem_1/denom_1),
+         denom_2 = denom_1 - rem_1,
+         pct_2 = pct_formatting(rem_2/denom_2))
+
+# Removed for test with exposure
+dat_rem_test <- dat_rem_all %>%
+  dplyr::filter(phase == "test" & version %notin% c("1c", "2b")) %>%
+  mutate(exp = c(1,1,2))
+
+# Removed from test only
+dat_rem_only <- dat_rem_all %>%
+  dplyr::filter(version %in% c("1c", "2b")) %>%
+  mutate(exp = c(1,2))
+```
+
+```{r rem_combo}
+# Combine removed for test
+dat_rem_test <- dat_rem_test %>% 
+  left_join(dat_rem_only, by = "exp",
+            suffix = c("_1", "_2")) %>% 
+  mutate(denom_1 = denom_1_1 + denom_1_2,
+         rem_1 = rem_1_1 + rem_1_2,
+         rem_2 = rem_2_1 + rem_2_2) %>%
+  rowwise() %>%
+  mutate(pct_1 = pct_formatting(rem_1/denom_1),
+         denom_2 = denom_1 - rem_1,
+         pct_2 = pct_formatting(rem_2/denom_2))
+```
+
+```{r spk_load}
+# Load speaker info
+spk_info <- read.csv("/Users/hollyzaharchuk/Mirror/dissertation/14_final_diss/sections/code/talkers.csv", check.names = FALSE) %>%
+  dplyr::filter(Talker != 0)
+
+# Load stimulus details
+stim_all <- read.csv("~/Mirror/dissertation/4_stims/output/selections/final_behave.csv")
+
+# Load VOTs
+spk_voice <- read.csv("~/Mirror/dissertation/4_stims/output/stim_info_final.csv") %>% 
+  dplyr::filter(talker != "S0")
+
+# Load stimuli
+fill_test <- read.csv("~/Mirror/dissertation/4_stims/output/1_exp_match/order1_type1.csv") %>%
+  dplyr::filter(cond == "filler") %>%
+  pull(stim)
+
+# Filter
+stim_inc <- stim_all %>%
+  dplyr::filter((group == "exposure" | cond == "target" | stim %in% fill_test) &
+                  stim %in% c(spk_voice$stim))
+```
+
+```{r spk_dat}
+# Get VOT values
+all_voice <- spk_voice %>%
+  left_join(stim_all, by = "stim") %>%
+  replace_na(list(vot = 0)) %>%
+  dplyr::filter(cond %notin% c("control", "filler") & type == "real") %>%
+  mutate(talker = as.numeric(gsub("S", "", talker)) - 2,
+         talker_fac = as.factor(paste("Talker", talker, sep = " ")),
+         poa = case_when(
+           stim_onset %in% c("p", "b") ~ "Bilabial",
+           stim_onset %in% c("t", "d") ~ "Alveolar",
+           stim_onset %in% c("k", "g") ~ "Velar"
+         ),
+         poa = factor(poa, levels = c("Bilabial", "Alveolar", "Velar")),
+         onset_fac = sprintf("/%s/", stim_onset),
+         onset_fac = factor(onset_fac, levels = c("/b/", "/d/", "/g/",
+                                                  "/p/", "/t/", "/k/"))) 
+
+# Average values by talker and POA
+avg_voice <- all_voice %>%
+  group_by(group, cond, poa, stim_onset, talker) %>%
+  summarise(n = n(),
+            m = round(mean(vot), 0),
+            sd = round(sd(vot), 0), 
+            min = round(min(vot), 0),
+            max = round(max(vot), 0),
+            .groups = "keep") %>%
+  mutate(range = paste(min, max, sep = "-")) %>%
+  select(-c(min, max)) %>% 
+  ungroup() %>%
+  pivot_wider(names_from = talker,
+              values_from = c(m, sd, range),
+              names_glue = "{talker} {.value}") %>%
+  arrange(group, cond, poa, stim_onset) %>%
+  mutate(stim_onset = sprintf("/%s/", stim_onset),
+         group = str_to_title(group)) %>%
+  select(group, stim_onset, n, contains("1"), contains("2"), 
+         contains("3"), contains("4"))
+```
+
+```{r spk_comp_mu_1}
+# Make lists for t-tests
+talk_list <- all_voice %>% pull(talker) %>% unique()
+talk_mat <- expand.grid(talk_list, talk_list) %>% 
+  dplyr::filter(Var1 != Var2) %>%
+  rowid_to_column()
+on_list <- c("p", "t", "k")
+on_fac <- c("/p/", "/t/", "/k/")
+
+# Get mean values
+all_vot <- read.csv("~/Mirror/dissertation/0_snl/poster/chodroff_dat.csv") %>%
+  dplyr::filter(vot_type == "voiceless" & 
+                  language == "English" & 
+                  dialect == "American") %>%
+  group_by(phone) %>%
+  summarise(mean_vot = mean(vot)) %>%
+  mutate(stim_onset = str_remove_all(phone, "/"),
+         phone = factor(phone, levels = on_fac))
+
+# Run t-tests
+comp_voice_mu <- lapply(talk_list, function(x)
+  lapply(on_list, function(y)
+    t.test(x = all_voice %>% 
+             dplyr::filter(talker == x & stim_onset == y) %>%
+             pull(vot),
+           mu = all_vot$mean_vot[which(all_vot$stim_onset == y)])))
+
+# Pull values
+tab_voice_mu_temp <- tibble(comp1 = sort(rep(talk_list, length(on_list))),
+                       comp2 = rep(on_fac, length(talk_list)),
+                       t = stat_formatting(
+                         unlist(lapply(comp_voice_mu, function(x) 
+                           lapply(x, function(y) y$statistic)))),
+                       df = df_formatting(
+                         unlist(lapply(comp_voice_mu, function(x) 
+                           lapply(x, function(y) y$parameter)))),
+                       mean1 = unlist(
+                         lapply(comp_voice_mu, function(x) 
+                           lapply(x, function(y) y$estimate))),
+                       mean2 = unlist(
+                         lapply(comp_voice_mu, function(x) 
+                           lapply(x, function(y) y$null.value))),
+                       p_raw = unlist(
+                         lapply(comp_voice_mu, function(x) 
+                           lapply(x, function(y) y$p.value))))
+```
+
+```{r spk_comp_mu_2}
+# Adjust p
+adj_voice_mu <- p.adjust(c(tab_voice_mu_temp$p_raw), method = "hommel")
+
+# Reshape
+tab_voice_mu <- tab_voice_mu_temp %>%
+  mutate(p_adj = adj_voice_mu,
+         p_og = sprintf("%.3f", p_raw),
+         p = sprintf("%.3f", p_adj),
+         p_star = labs_func(p_adj),
+         diff = mean1 - mean2,
+         tog = sprintf("%.0f%s", diff, p_star),
+         comp1 = paste("Talker", comp1, sep = " "),
+         mean2 = sprintf("%.0f", mean2)) %>%
+  select(comp1, comp2, mean2, tog) %>%
+  pivot_wider(names_from = comp1, values_from = tog) %>%
+  rename(Phone = comp2,
+         `L1 US English mean` = mean2)
+```
+
+```{r vot_ptk_plot}
+all_vot_ext <- all_vot %>% 
+  rename(onset_fac = phone)
+
+vot_ptk_plot <- ggplot(all_voice %>% dplyr::filter(stim_onset %in% c("p", "t", "k")), 
+       aes(x = vot, color = talker_fac)) +
+  facet_grid(~ onset_fac) +
+  geom_density(linewidth = 1.5) + 
+  scale_color_manual(values = col_talk) +
+  xlim(-50, 250) +
+  ylim(0, 0.05) +
+  ylab("Density") +
+  xlab("VOT (ms)") +
+  theme_minimal() +
+  theme(text = element_text(family = font_fam, size = text_size),
+        axis.text.x = element_text(size = text_size*0.75),
+        axis.ticks = element_blank(),
+        legend.position = "bottom",
+        legend.title = element_blank()) + 
+  geom_vline(data = all_vot_ext, 
+            mapping = aes(xintercept = mean_vot), 
+            color = "black",
+            linetype = 2)
+```
+
+```{r vot_ptk_plot_save, include = FALSE}
+# Save plot and crop to remove white space
+ggsave("outputs/vot_ptk_plot.png", vot_ptk_plot, width = 4200, height = 2100, 
+       unit = "px", dpi = 300)
+knitr::plot_crop("outputs/vot_ptk_plot.png")
+```
+
+```{r spk_comp_1}
+# Run t-tests
+comp_voice <- lapply(1:nrow(talk_mat), function(x)
+  lapply(on_list, function(y)
+    t.test(all_voice %>% 
+             dplyr::filter(talker == talk_mat$Var1[x] &
+                             stim_onset == y) %>%
+             arrange(stim) %>%
+             pull(vot),
+           all_voice %>% 
+             dplyr::filter(talker == talk_mat$Var2[x] &
+                             stim_onset == y) %>%
+             arrange(stim) %>%
+             pull(vot),
+           paired = TRUE)))
+
+# Pull values
+tab_voice_temp <- tibble(comp1 = sort(rep(talk_mat$rowid, length(on_list))),
+                    comp2 = rep(on_list, nrow(talk_mat)),
+                    p_raw = unlist(lapply(comp_voice, function(x) 
+                      lapply(x, function(y) y$p.value))),
+                    t = stat_formatting(unlist(lapply(comp_voice, function(x) 
+                      lapply(x, function(y) y$statistic)))),
+                    df = df_formatting(unlist(lapply(comp_voice, function(x) 
+                      lapply(x, function(y) y$parameter)))),
+                    diff = unlist(lapply(comp_voice, function(x) 
+                      lapply(x, function(y) y$estimate)))) %>%
+  left_join(talk_mat, by = c("comp1" = "rowid"))
+# mean1 = unlist(lapply(comp_voice, function(x) 
+#                       lapply(x, function(y) y$estimate[1]))),
+#                     mean2 = unlist(lapply(comp_voice, function(x) 
+#                       lapply(x, function(y) y$estimate[2])))
+```
+
+```{r spk_comp_2}
+# Adjust p
+adj_voice_mat <- p.adjust(c(tab_voice_temp$p_raw), method = "hommel")
+
+# Format
+tab_voice <- tab_voice_temp %>%
+  mutate(p_adj = adj_voice_mat,
+         p_og = sprintf("%.3f", p_raw),
+         p = sprintf("%.3f", p_adj),
+         p_star = labs_func(p_adj),
+         Var1 = paste("Talker", Var1, sep = " "),
+         Var2 = paste("Talker", Var2, sep = " "),
+         comp2 = sprintf("/%s/", comp2),
+         tog = sprintf("%.0f%s", diff*(-1), p_star),
+         report = sprintf("*t*(%s) = %s, *p* %s", df, t, p))
+# diff = mean1 - mean2,
+# mean1 = sprintf("%.0f", mean1)
+
+# Reshape
+matrix_voice <- tab_voice %>% 
+  select(comp2, Var1, Var2, tog) %>% 
+  pivot_wider(id_cols = c(Var1, comp2), 
+              names_from = Var2, values_from = tog) %>%
+  arrange(Var1) %>%
+  rename(`Exposure onset` = comp2,
+         `Comparison` = Var1) %>%
+  mutate(across(everything(), ~replace_na(.x, "")))
+```
+
+```{r stim_load}
+# Save column names
+stim_cols <- c("Length", "Ortho_N", "Phono_N", "FreqZipfUS", 
+               "Pknown", "Prevalence", "mean_ldt")
+
+# Load competitors
+comp_test <- read.csv("~/Mirror/dissertation/4_stims/output/selections/final_test_primes.csv") %>%
+  dplyr::filter(stim %in% c(stim_inc %>% 
+                              dplyr::filter(cond == "target") %>% 
+                              pull(stim))) %>%
+  pull(competitor)
+
+# Load test
+normed_test <- read.csv("~/Mirror/dissertation/4_stims/output/words/normed_test.csv") %>%
+  dplyr::filter(stim %in% comp_test) %>%
+  select(stim, all_of(stim_cols)) %>%
+  mutate(group = "test", type = "real", cond = "comp", stress_loc = 1)
+```
+
+```{r stim_reshape}
+# Format real words
+stim_deet_real <- stim_inc %>% 
+  bind_rows(normed_test) %>%
+  dplyr::filter(type == "real") %>%
+  group_by(group, type, cond) %>%
+  summarise(across(.cols = c(all_of(stim_cols), "stress_loc"),
+                   .fns = list(mean, sd)), 
+            n = n(),
+            .groups = "keep") %>%
+  ungroup() %>%
+  rowwise() %>%
+  mutate(len = sprintf("%.2f (%.2f)", Length_1, Length_2),
+         OND = sprintf("%.2f (%.2f)", Ortho_N_1, Ortho_N_2),
+         PND = sprintf("%.2f (%.2f)", Phono_N_1, Phono_N_2),
+         freq = sprintf("%.2f (%.2f)", FreqZipfUS_1, FreqZipfUS_2),
+         known = sprintf("%.2f (%.2f)", Pknown_1, Pknown_2),
+         prev = sprintf("%.2f (%.2f)", Prevalence_1, Prevalence_2),
+         ldt = sprintf("%.2f (%.2f)", mean_ldt_1, mean_ldt_2),
+         stress = case_when(
+           group == "exposure" ~ sprintf("%.2f (%.2f)", stress_loc_1, 
+                                         stress_loc_2),
+           TRUE ~ NA_character_))
+
+# Format nonwords
+stim_deet_non <- stim_inc %>% 
+  dplyr::filter(type == "nonword") %>%
+  group_by(group, type, cond) %>%
+  summarise(across(.cols = c("Length", "mean_ldt", "stress_loc"),
+                   .fns = list(mean, sd)), 
+            .groups = "keep",
+            n = n()) %>%
+  ungroup()  %>%
+  rowwise() %>%
+  mutate(len = sprintf("%.2f (%.2f)", Length_1, Length_2),
+         ldt = sprintf("%.2f (%.2f)", mean_ldt_1, mean_ldt_2),
+         stress = sprintf("%.2f (%.2f)", stress_loc_1, stress_loc_2))
+```
+
+```{r stim_combo}
+# Combine
+stim_deet <- bind_rows(stim_deet_real, stim_deet_non) %>%
+  select(-c(unlist(lapply(c(stim_cols, "stress_loc"), function(x) 
+    lapply(1:2, function(y) paste(x, y, sep = "_")))))) %>%
+  mutate(cond = if_else(group == "test" & cond == "filler", "filler prime", cond),
+         group = factor(group, levels = c("exposure", "test"), 
+                        labels = c("Exposure", "Test")),
+         type = factor(type, levels = c("real", "nonword"), 
+                       labels = c("Real word", "Pseudoword")),
+         cond = factor(cond, levels = c("similar", "dissimilar", "control", 
+                                        "filler", "target", "comp", 
+                                        "filler prime"),
+                       labels = c("Direct", "Indirect", "Control", "Filler", 
+                                  "Critical prime", "Competitor pair", 
+                                  "Filler prime"))) %>%
+  arrange(group, type, cond)
+
+# Rename columns
+colnames(stim_deet) <- c("Phase", "Word type", "Condition", "N", "Length", 
+                         "OND", "PND", "Frequency", "Percent known",
+                         "Prevalence", "LDT", "Lexical stress")
+```
+
+```{r exp_1a_1}
+# Filter and factor
+dat_exp_1a <- dat_exp_filt %>%
+  dplyr::filter(version == "1a") %>%
+  mutate(across(.cols = c("participant", "stim", "type",
+                          "cond_sim", "cond_var"),
+                as.factor),
+         trial_cent = scale(trial)[,1],
+         vot_cent = scale(vot)[,1],
+         freq_cent = scale(FreqZipfUS)[,1])
+
+# Add contrasts
+contrasts(dat_exp_1a$cond_sim) <- contrast_sim_1a
+contrasts(dat_exp_1a$cond_var) <- contrast_var
+contrasts(dat_exp_1a$type) <- contrast_type
+```
+
+```{r exp_1a_2}
+# Run
+exp_acc_1a <- glmer(resp_acc ~ cond_var*cond_sim*type +
+                      trial_cent + freq_cent + vot_cent +
+                      (1|stim) + (1|participant),
+                    data = dat_exp_1a,
+                    family = binomial,
+                    control = glmerControl(optimizer = "bobyqa"))
+
+# Model comparison
+exp_acc_1a_comp <- Anova(exp_acc_1a, test = "Chi", type = "III")
+
+# Format
+exp_acc_1a_comp_3_form <- mod_comp(exp_acc_1a_comp, "cond_var:cond_sim:type")
+exp_acc_1a_comp_2_form <- mod_comp(exp_acc_1a_comp, "cond_var:type")
+```
+
+```{r exp_1a_3a}
+# Get means
+exp_acc_1a_means <- emmeans(exp_acc_1a, ~ cond_var*cond_sim*type)
+
+# Format
+exp_acc_1a_means_form <- exp_acc_1a_means %>% 
+  summary(type = "response") %>%
+  left_join(tab_factor_1a, by = c("cond_sim", "cond_var")) %>%
+  left_join(tab_type, by = "type") %>%
+  mutate(report = sprintf("*M* = %0.2f, 95%% CI [%0.2f, %0.2f]", 
+                          prob, asymp.LCL, asymp.UCL))
+
+# Contrasts by Variability
+exp_acc_1a_cont_var <- pairs(exp_acc_1a_means, 
+                             by = c("type", "cond_var"), 
+                             adj = "hommel") %>%
+  data.frame() %>%
+  dplyr::filter(`p.value` <= .05) %>%
+  left_join(tab_contrast_var, by = c("contrast", "cond_var")) %>% 
+  mutate(cond_var_fac = factor(cond_var, levels = lev_var)) %>%
+  left_join(tab_type, by = "type") %>%
+  rowwise() %>%
+  mutate(labs = labs_func(p.value))
+
+# Contrasts by Similarity
+exp_acc_1a_cont_sim <- pairs(exp_acc_1a_means, 
+                             by = c("type", "cond_sim"), 
+                             adj = "hommel") %>%
+  data.frame() %>%
+  dplyr::filter(`p.value` <= .05) %>%
+  left_join(tab_contrast_sim, by = c("contrast", "cond_sim")) %>%
+  mutate(cond_sim_fac = factor(cond_sim, levels = lev_sim_1a)) %>%
+  left_join(tab_type, by = "type") %>%
+  rowwise() %>%
+  mutate(labs = labs_func(p.value))
+```
+
+```{r exp_1a_3b}
+# Variant - pseudo
+exp_acc_1a_mean_non_control_var <- exp_acc_1a_means_form %>%
+  dplyr::filter(type == "nonword" & cond_exp_fac == "Control-Variant") %>% 
+  pull(report)
+exp_acc_1a_mean_non_ind_var <- exp_acc_1a_means_form %>%
+  dplyr::filter(type == "nonword" & cond_exp_fac == "Indirect-Variant") %>% 
+  pull(report)
+exp_acc_1a_cont_non_var <- exp_acc_1a_cont_var %>% pair_comp("control - indirect")
+
+# Control - real
+exp_acc_1a_mean_real_control_var <- exp_acc_1a_means_form %>%
+  dplyr::filter(type == "real" & cond_exp_fac == "Control-Variant") %>% 
+  pull(report)
+exp_acc_1a_mean_real_control_invar <- exp_acc_1a_means_form %>%
+  dplyr::filter(type == "real" & cond_exp_fac == "Control-Invariant") %>% 
+  pull(report)
+exp_acc_1a_cont_real_control <- exp_acc_1a_cont_sim %>% pair_comp("invariant - variant")
+```
+
+```{r exp_1a_4}
+# Filter and factor
+dat_exp_1a_rt <- dat_exp_rt %>%
+  dplyr::filter(version == "1a" & !is.na(vot)) %>%
+  left_join(tab_factor_1a, by = c("cond_var", "cond_sim")) %>%
+  left_join(tab_type, by = c("type")) %>%
+  mutate(across(.cols = c("participant", "stim", "type",
+                          "cond_sim", "cond_var"),
+                as.factor),
+         trial_cent = scale(trial)[,1],
+         vot_cent = scale(vot)[,1],
+         freq_cent = scale(FreqZipfUS)[,1]) 
+
+# Add contrasts
+contrasts(dat_exp_1a_rt$cond_sim) <- contrast_sim_1a
+contrasts(dat_exp_1a_rt$cond_var) <- contrast_var
+contrasts(dat_exp_1a_rt$type) <- contrast_type
+```
+
+```{r exp_1a_5}
+# Run
+exp_rt_1a <- lmer(inv_rt ~ cond_var*cond_sim*type + 
+                    trial_cent + freq_cent + vot_cent +
+                    (1|stim) + (1|participant),
+                  data = dat_exp_1a_rt)
+
+# Model comparison
+exp_rt_1a_comp <- Anova(exp_rt_1a, test = "Chi", type = "III")
+
+# Format
+exp_rt_1a_comp_3_form <- mod_comp(exp_rt_1a_comp, "cond_var:cond_sim:type")
+exp_rt_1a_comp_1_form <- mod_comp(exp_rt_1a_comp, "cond_sim")
+```
+
+```{r exp_1a_6a, message = FALSE, warning = FALSE}
+# Means
+exp_rt_1a_means <- emmeans(exp_rt_1a, ~ cond_sim*cond_var*type)
+
+# Format
+exp_rt_1a_means_form <- exp_rt_1a_means %>%
+  apa_rt() %>%
+  left_join(tab_factor_1a, by = c("cond_sim", "cond_var")) %>%
+  left_join(tab_type, by = "type") 
+
+# Contrasts by Variability
+exp_rt_1a_cont_var <- pairs(exp_rt_1a_means, 
+                             by = c("type", "cond_var"), 
+                             adj = "hommel") %>%
+  data.frame() %>%
+  dplyr::filter(`p.value` <= .05) %>%
+  left_join(tab_contrast_var, by = c("contrast", "cond_var")) %>% 
+  mutate(cond_var_fac = factor(cond_var, levels = lev_var)) %>%
+  left_join(tab_type, by = "type") %>%
+  rowwise() %>%
+  mutate(labs = labs_func(p.value),
+         y_line = if_else(contrast == "control - direct",
+                          2250, 2050),
+         y_lab = y_line + 50)
+
+# Contrasts by Similarity
+exp_rt_1a_cont_sim <- pairs(exp_rt_1a_means, 
+                             by = c("type", "cond_sim"), 
+                             adj = "hommel") %>%
+  data.frame() %>%
+  dplyr::filter(`p.value` <= .05) %>%
+  left_join(tab_contrast_sim, by = c("contrast", "cond_sim")) %>%
+  mutate(cond_sim_fac = factor(cond_sim, levels = lev_sim_1a)) %>%
+  left_join(tab_type, by = "type") %>%
+  rowwise() %>%
+  mutate(labs = labs_func(p.value),
+         y_line = 2050,
+         y_lab = y_line + 50)
+```
+
+```{r exp_1a_6b}
+# Invariant - non
+exp_rt_1a_mean_non_control_invar <- exp_rt_1a_means_form %>% 
+  dplyr::filter(type == "nonword" & cond_exp_fac == "Control-Invariant") %>%
+  pull(report)
+exp_rt_1a_mean_non_dir_invar <- exp_rt_1a_means_form %>% 
+  dplyr::filter(type == "nonword" & cond_exp_fac == "Direct-Invariant") %>%
+  pull(report)
+exp_rt_1a_mean_non_indir_invar <- exp_rt_1a_means_form %>% 
+  dplyr::filter(type == "nonword" & cond_exp_fac == "Indirect-Invariant") %>%
+  pull(report)
+exp_rt_1a_cont_non_control_dir_invar <- pair_comp(
+  exp_rt_1a_cont_var %>% 
+    dplyr::filter(type == "nonword" & cond_var == "invariant"), 
+  "control - direct")
+exp_rt_1a_cont_non_control_indir_invar <- pair_comp(
+  exp_rt_1a_cont_var %>% 
+    dplyr::filter(type == "nonword" & cond_var == "invariant"), 
+  "control - indirect")
+
+# Variant - non
+exp_rt_1a_mean_non_control_var <- exp_rt_1a_means_form %>% 
+  dplyr::filter(type == "nonword" & cond_exp_fac == "Control-Variant") %>%
+  pull(report)
+exp_rt_1a_mean_non_dir_var <- exp_rt_1a_means_form %>% 
+  dplyr::filter(type == "nonword" & cond_exp_fac == "Direct-Variant") %>%
+  pull(report)
+exp_rt_1a_cont_non_control_dir_var <- pair_comp(
+  exp_rt_1a_cont_var %>% 
+    dplyr::filter(type == "nonword" & cond_var == "variant"), 
+  "control - direct")
+
+# Invariant - real
+exp_rt_1a_mean_real_control_invar <- exp_rt_1a_means_form %>% 
+  dplyr::filter(type == "real" & cond_exp_fac == "Control-Invariant") %>%
+  pull(report)
+exp_rt_1a_mean_real_dir_invar <- exp_rt_1a_means_form %>% 
+  dplyr::filter(type == "real" & cond_exp_fac == "Direct-Invariant") %>%
+  pull(report)
+exp_rt_1a_mean_real_indir_invar <- exp_rt_1a_means_form %>% 
+  dplyr::filter(type == "real" & cond_exp_fac == "Indirect-Invariant") %>%
+  pull(report)
+exp_rt_1a_cont_real_control_dir_invar <- pair_comp(
+  exp_rt_1a_cont_var %>% 
+    dplyr::filter(type == "real" & cond_var == "invariant"), 
+  "control - direct")
+exp_rt_1a_cont_real_control_indir_invar <- pair_comp(
+  exp_rt_1a_cont_var %>% 
+    dplyr::filter(type == "real" & cond_var == "invariant"), 
+  "control - indirect")
+
+# Variant - real
+exp_rt_1a_mean_real_control_var <- exp_rt_1a_means_form %>% 
+  dplyr::filter(type == "real" & cond_exp_fac == "Control-Variant") %>%
+  pull(report)
+exp_rt_1a_mean_real_dir_var <- exp_rt_1a_means_form %>% 
+  dplyr::filter(type == "real" & cond_exp_fac == "Direct-Variant") %>%
+  pull(report)
+exp_rt_1a_mean_real_indir_var <- exp_rt_1a_means_form %>% 
+  dplyr::filter(type == "real" & cond_exp_fac == "Indirect-Variant") %>%
+  pull(report)
+exp_rt_1a_cont_real_control_dir_var <- pair_comp(
+  exp_rt_1a_cont_var %>% 
+    dplyr::filter(type == "real" & cond_var == "variant"), 
+  "control - direct")
+exp_rt_1a_cont_real_control_indir_var <- pair_comp(
+  exp_rt_1a_cont_var %>% 
+    dplyr::filter(type == "real" & cond_var == "variant"), 
+  "control - indirect")
+
+# Control - non
+exp_rt_1a_cont_non_var_invar <- pair_comp(exp_rt_1a_cont_sim, "invariant - variant")
+```
+
+```{r exp_1a_7}
+# Get average accuracy
+dat_exp_1a_acc <- dat_exp_1a %>%
+  group_by(participant, cond_var, cond_sim, cond_exp, type) %>% 
+  summarise(mean_acc = mean(resp_acc), .groups = "keep") %>%
+  left_join(tab_factor_1a, by = c("cond_var", "cond_sim")) %>%
+  left_join(tab_type, by = c("type"))
+
+# Get average RT
+dat_exp_1a_sum <- dat_exp_1a_rt %>%
+  group_by(participant, cond_var, cond_sim, cond_exp, type) %>% 
+  summarise(mean_rt = mean(real_rt), .groups = "keep") %>%
+  left_join(dat_exp_1a_acc,
+            by = join_by(participant, cond_var, cond_sim, cond_exp, type))
+```
+
+```{r exp_1a_8, include = FALSE}
+# Plot
+plot_exp_1a_acc_var <- ggplot() +
+  geom_boxplot(data = dat_exp_1a_acc, 
+               aes(x = cond_var_fac, y = mean_acc, 
+                   color = cond_exp_fac, fill = cond_exp_fac),
+               linewidth = g_line, alpha = alpha_lev) +
+  geom_point(data = exp_acc_1a_means_form,
+             aes(x = cond_var_fac, y = prob, group = cond_sim_fac), 
+             position = position_dodge(width = g_dodge),
+             color = "black", size = g_point*1.25) +
+  geom_errorbar(data = exp_acc_1a_means_form,
+             aes(x = cond_var_fac, group = cond_sim_fac,
+                 ymin = `asymp.LCL`, ymax = `asymp.UCL`), 
+             position = position_dodge(width = g_dodge),
+             color = "black", width = 0.25, linewidth = g_line) +
+  facet_grid(~ type_fac) + 
+  geom_segment(data = exp_acc_1a_cont_var,
+               aes(x = x_1a, xend = xend_1a, y = 1)) +
+  geom_text(data = exp_acc_1a_cont_var,
+            aes(x = lab_pos_1a, y = 1.01, label = labs),
+            fontface = "bold", size = sig_size) +
+  scale_color_manual(values = col_exp_1a, name = "Exposure condition") +
+  scale_fill_manual(values = col_exp_1a, name = "Exposure condition") +
+  xlab("Variability") +
+  ylab("Accuracy") +
+  scale_y_continuous(breaks = acc_seq) +
+  coord_cartesian(ylim = acc_range) +
+  theme_minimal() +
+  theme(text = element_text(family = font_fam, size = text_size)) +
+  guides(color = "none", fill = "none")
+  
+# Plot
+plot_exp_1a_acc_sim <- ggplot() +
+  geom_boxplot(data = dat_exp_1a_acc, 
+               aes(x = cond_sim_fac, y = mean_acc, 
+                   color = cond_exp_fac, fill = cond_exp_fac),
+               linewidth = g_line, alpha = alpha_lev) +
+  geom_point(data = exp_acc_1a_means_form,
+             aes(x = cond_sim_fac, y = prob, group = cond_var_fac), 
+             position = position_dodge(width = g_dodge),
+             color = "black", size = g_point*1.25) +
+  geom_errorbar(data = exp_acc_1a_means_form,
+             aes(x = cond_sim_fac, group = cond_var_fac,
+                 ymin = `asymp.LCL`, ymax = `asymp.UCL`), 
+             position = position_dodge(width = g_dodge),
+             color = "black", width = 0.25, linewidth = g_line) +
+  facet_grid(~ type_fac) + 
+  geom_segment(data = exp_acc_1a_cont_sim,
+               aes(x = x_1a, xend = xend_1a, y = 1)) +
+  geom_text(data = exp_acc_1a_cont_sim,
+            aes(x = lab_pos_1a, y = 1.01, label = labs),
+            fontface = "bold", size = sig_size) +
+  scale_color_manual(values = col_exp_1a, name = "Exposure condition") +
+  scale_fill_manual(values = col_exp_1a, name = "Exposure condition") +
+  xlab("Similarity") +
+  ylab("Accuracy") +
+  scale_y_continuous(breaks = acc_seq) +
+  coord_cartesian(ylim = acc_range) +
+  theme_minimal() +
+  theme(text = element_text(family = font_fam, size = text_size))  +
+  guides(color = "none", fill = "none")
+```
+
+```{r exp_1a_9, include = FALSE}
+# Plot
+plot_exp_1a_rt_var <- ggplot() +
+  geom_half_violin(data = dat_exp_1a_rt, 
+                   aes(x = cond_var_fac, y = real_rt, 
+                       color = cond_exp_fac, fill = cond_exp_fac),
+                   scale = "count", alpha = alpha_lev) + 
+  geom_half_point(data = dat_exp_1a_sum,
+                  aes(x = cond_var_fac, y = mean_rt, color = cond_exp_fac),
+                  alpha = alpha_lev) +
+  geom_point(data = exp_rt_1a_means_form,
+             aes(x = cond_var_fac, y = rt, group = cond_sim_fac),
+             position = position_dodge(width = g_dodge),
+             color = "black", size = g_point*1.25) + 
+  geom_errorbar(data = exp_rt_1a_means_form,
+                aes(x = cond_var_fac, group = cond_sim_fac,
+                    ymin = rt_low, ymax = rt_high), 
+                position = position_dodge(width = g_dodge),
+                color = "black", width = 0.25, linewidth = g_line) +
+  facet_grid(~ type_fac) + 
+  geom_segment(data = exp_rt_1a_cont_var,
+               aes(x = x_1a, xend = xend_1a, y = y_line)) +
+  geom_text(data = exp_rt_1a_cont_var,
+            aes(x = lab_pos_1a, y = y_lab, label = labs),
+            fontface = "bold", size = sig_size) +
+  scale_color_manual(values = col_exp_1a, name = "Exposure condition") +
+  scale_fill_manual(values = col_exp_1a, name = "Exposure condition") +
+  xlab("Variability") +
+  ylab("Reaction time (ms)") +
+  scale_y_continuous(breaks = seq(750, 2550, 300)) +
+  coord_cartesian(ylim = c(740, 2560)) +
+  theme_minimal() +
+  theme(text = element_text(family = font_fam, size = text_size))  +
+  guides(color = "none")
+  
+# Plot
+plot_exp_1a_rt_sim <- ggplot() +
+  geom_half_violin(data = dat_exp_1a_rt, 
+                   aes(x = cond_sim_fac, y = real_rt, 
+                       color = cond_exp_fac, fill = cond_exp_fac),
+                   scale = "count", alpha = alpha_lev) + 
+  geom_half_point(data = dat_exp_1a_sum,
+                  aes(x = cond_sim_fac, y = mean_rt, color = cond_exp_fac),
+                  alpha = alpha_lev) +
+  geom_point(data = exp_rt_1a_means_form,
+             aes(x = cond_sim_fac, y = rt, group = cond_var_fac),
+             position = position_dodge(width = g_dodge),
+             color = "black", size = g_point*1.25) + 
+  geom_errorbar(data = exp_rt_1a_means_form,
+                aes(x = cond_sim_fac, group = cond_var_fac,
+                    ymin = rt_low, ymax = rt_high), 
+                position = position_dodge(width = g_dodge),
+                color = "black", width = 0.25, linewidth = g_line) +
+  facet_grid(~ type_fac) + 
+  geom_segment(data = exp_rt_1a_cont_sim,
+               aes(x = x_1a, xend = xend_1a, y = y_line)) +
+  geom_text(data = exp_rt_1a_cont_sim,
+            aes(x = lab_pos_1a, y = y_lab, label = labs),
+            fontface = "bold", size = sig_size) +
+  scale_color_manual(values = col_exp_1a, name = "Exposure condition") +
+  scale_fill_manual(values = col_exp_1a, name = "Exposure condition") +
+  xlab("Similarity") +
+  ylab("Reaction time (ms)") +
+  scale_y_continuous(breaks = seq(750, 2550, 300)) +
+  coord_cartesian(ylim = c(740, 2560)) +
+  theme_minimal() +
+  theme(text = element_text(family = font_fam, size = text_size)) +
+  guides(color = "none")
+```
+
+```{r exp_1a_9_save_plot, include = FALSE}
+plot_exp_1a <- plot_exp_1a_acc_var + plot_exp_1a_rt_var + 
+  plot_exp_1a_acc_sim + plot_exp_1a_rt_sim +
+  plot_layout(nrow = 2, axes = "collect_y", guides = "collect") &
+  theme(legend.position = "bottom")
+
+# Save plot and crop to remove white space
+ggsave("outputs/plot_exp_1a.png", plot_exp_1a,
+       width = 5600, height = 4200, unit = "px", dpi = 300)
+knitr::plot_crop("outputs/plot_exp_1a.png")
+```
+
+```{r test_1a_1}
+# Filter and factor
+dat_test_1a <- dat_test_filt %>%
+  dplyr::filter(version %in% c("1a", "1c")) %>%
+  mutate(across(.cols = c("participant", "prime", "target", "match_type"),
+                as.factor),
+         trial_cent = scale(trial)[,1],
+         vot_cent = scale(vot)[,1],
+         freq_prime_cent = scale(FreqZipfUS_prime)[,1],
+         freq_target_cent = scale(FreqZipfUS_target)[,1]) %>%
+  left_join(tab_exp_1a, by = "cond_exp")
+
+# Add contrasts
+contrasts(dat_test_1a$cond_exp_fac) <- contrast_train_1a
+contrasts(dat_test_1a$match_type) <- contrast_match_1
+```
+
+```{r test_1a_2}
+# Run
+test_acc_1a_train <- glmer(resp_acc ~ cond_exp_fac*match_type + 
+                             trial_cent + freq_prime_cent:freq_target_cent + 
+                             vot_cent +
+                             (1|prime:target) + (1|participant),
+                           data = dat_test_1a,
+                           family = binomial,
+                           control = glmerControl(optimizer = "bobyqa"))
+
+# Model comparison
+test_acc_1a_train_comp <- Anova(test_acc_1a_train, test = "Chi", type = "III")
+
+# Format
+test_acc_1a_train_exp_form <- mod_comp(test_acc_1a_train_comp, "cond_exp_fac")
+```
+
+```{r test_1a_3, message = FALSE, warning = FALSE}
+# Across levels of Target
+test_acc_1a_train_means_simple <- emmeans(test_acc_1a_train, ~ cond_exp_fac)
+
+# Select contrasts
+test_acc_1a_train_coef_simple <-
+  emmeans:::pairwise.emmc(levels(test_acc_1a_train_means_simple)$cond_exp_fac)
+test_acc_1a_train_coef_simple <- test_acc_1a_train_coef_simple[c(1:6)]
+
+# Run contrasts
+test_acc_1a_train_cont_simple <- contrast(test_acc_1a_train_means_simple,
+                                          test_acc_1a_train_coef_simple, 
+                                          adj = "hommel")
+
+# By levels of Target
+test_acc_1a_train_means <- emmeans(test_acc_1a_train, ~ cond_exp_fac*match_type)
+
+# Format
+test_acc_1a_train_means_form <- test_acc_1a_train_means %>%
+  summary(type = "response") %>%
+  left_join(tab_exp_1a, by = "cond_exp_fac") %>%
+  left_join(tab_match)
+
+# Select contrasts
+test_acc_1a_train_coef <- emmeans:::pairwise.emmc(levels(test_acc_1a_train_means)$cond_exp_fac)
+test_acc_1a_train_coef_1 <- test_acc_1a_train_coef[c(1:6)]
+test_acc_1a_train_coef_2 <- test_acc_1a_train_coef[c(7:21)]
+
+# Run contrasts
+test_acc_1a_train_cont_1 <- contrast(test_acc_1a_train_means, 
+                                   test_acc_1a_train_coef_1, 
+                                   by = "match_type",
+                                   adj = "hommel")
+test_acc_1a_train_cont_2 <- contrast(test_acc_1a_train_means, 
+                                   test_acc_1a_train_coef_2, 
+                                   by = "match_type",
+                                   adj = "hommel")
+```
+
+```{r test_1a_4}
+# Filter and factor
+dat_test_1a_rt <- dat_test_rt %>%
+  dplyr::filter(version %in% c("1a", "1c")) %>%
+  mutate(across(.cols = c("participant", "prime", "target", "match_type"),
+                as.factor),
+         trial_cent = scale(trial)[,1],
+         vot_cent = scale(vot)[,1],
+         freq_prime_cent = scale(FreqZipfUS_prime)[,1],
+         freq_target_cent = scale(FreqZipfUS_target)[,1]) %>%
+  left_join(tab_exp_1a, by = "cond_exp")
+
+# Add contrasts
+contrasts(dat_test_1a_rt$cond_exp_fac) <- contrast_train_1a
+contrasts(dat_test_1a_rt$match_type) <- contrast_match_1
+```
+
+```{r test_1a_5}
+# Run
+test_rt_1a_train <- lmer(inv_rt ~ cond_exp_fac*match_type + 
+                           trial_cent + freq_prime_cent:freq_target_cent + 
+                           vot_cent +
+                           (1|prime:target) + (1|participant),
+                         data = dat_test_1a_rt)
+
+# Model comparison
+test_rt_1a_train_comp <- Anova(test_rt_1a_train, test = "Chi", type = "III")
+
+# Format
+test_rt_1a_train_int_form <- mod_comp(test_rt_1a_train_comp, 
+                                      "cond_exp_fac:match_type")
+```
+
+```{r test_1a_6, message = FALSE, warning = FALSE}
+# Get means
+test_rt_1a_train_means <- emmeans(test_rt_1a_train, ~ cond_exp_fac*match_type)
+
+# Format
+test_rt_1a_train_means_form <- test_rt_1a_train_means %>%
+  apa_rt() %>%
+  left_join(tab_exp_1a, by = "cond_exp_fac") %>%
+  left_join(tab_match)
+
+# Select contrasts
+test_rt_1a_train_coef <- emmeans:::pairwise.emmc(levels(test_rt_1a_train_means)$cond_exp_fac)
+test_rt_1a_train_coef_1 <- test_rt_1a_train_coef[c(1:6)]
+test_rt_1a_train_coef_2 <- test_rt_1a_train_coef[c(7:21)]
+
+# Run contrasts
+test_rt_1a_train_cont_1 <- contrast(test_rt_1a_train_means, 
+                                   test_rt_1a_train_coef_1, 
+                                   by = "match_type",
+                                   adj = "hommel")
+test_rt_1a_train_cont_2 <- contrast(test_rt_1a_train_means, 
+                                   test_rt_1a_train_coef_2, 
+                                   by = "match_type",
+                                   adj = "hommel")
+```
+
+```{r test_1a_7}
+# Get average accuracy
+dat_test_1a_acc <- dat_test_1a %>%
+  group_by(participant, cond_exp, match_type) %>% 
+  summarise(mean_acc = mean(resp_acc), .groups = "keep") %>%
+  left_join(tab_exp_1a, by = "cond_exp") %>%
+  left_join(tab_match, by = "match_type")
+```
+
+```{r test_1a_8, include = FALSE}
+# Plot
+plot_test_1a_acc <- ggplot() +
+  geom_boxplot(data = dat_test_1a_acc, 
+               aes(x = cond_exp_fac, y = mean_acc,
+                   color = cond_exp_fac, 
+                   fill = cond_exp_fac),
+               size = g_line*1.25, alpha = alpha_lev,
+               outlier.size = g_point*1.25) +
+  geom_point(data = test_acc_1a_train_means_form,
+             aes(x = cond_exp_fac, y = prob, 
+                 group = match_type_fac), 
+             position = position_dodge(width = g_dodge),
+             color = "black", size = g_point*1.5) +
+  geom_errorbar(data = test_acc_1a_train_means_form,
+             aes(x = cond_exp_fac, group = match_type_fac,
+                 ymin = `asymp.LCL`, ymax = `asymp.UCL`), 
+             position = position_dodge(width = g_dodge),
+             color = "black", width = 0.25, size = g_line) +
+  facet_grid(~ match_type_fac) +
+  scale_color_manual(values = c("#A8A8A8", col_exp_1a), name = "Exposure condition") +
+  scale_fill_manual(values = c("#A8A8A8", col_exp_1a), name = "Exposure condition") +
+  xlab("Exposure condition") +
+  ylab("Accuracy") +
+  scale_y_continuous(breaks = seq(0, 1, 0.2)) +
+  scale_x_discrete(guide = guide_axis(angle = 45)) +
+  coord_cartesian(ylim = c(0, 1.01)) +
+  theme_minimal() +
+  theme(text = element_text(family = font_fam, size = text_size)) +
+  guides(color = "none", fill = "none")
+```
+
+```{r test_1a_8_save_plot, include = FALSE}
+# Save plot and crop to remove white space
+ggsave("outputs/plot_test_1a.png", plot_test_1a_acc,
+       width = 5600, height = 2800, unit = "px", dpi = 300)
+knitr::plot_crop("outputs/plot_test_1a.png")
+```
+
+```{r d_prime_1, message = FALSE, warning = FALSE}
+# Calculate d-prime: Test
+dat_test_prime <- dat_test_filt %>%
+  dplyr::filter(match_type != "unrelated") %>%
+  group_by(participant, test_task, version, cond_exp, speaker, match_type) %>%
+  summarise(trials = n(),
+            corr = sum(resp_acc),
+              .groups = "keep") %>%
+  ungroup() %>%
+  pivot_wider(id_cols = c(participant, test_task, version, cond_exp, speaker), 
+              names_from = match_type, 
+              values_from = c(trials, corr)) %>%
+  mutate(trials_all = trials_identity + trials_competitor,
+         trials_identity_prop = trials_identity/trials_all,
+         trials_competitor_prop = trials_competitor/trials_all,
+         hits = corr_identity + trials_identity_prop,
+         in_competitor = trials_competitor - corr_competitor,
+         false_alarms = in_competitor + trials_competitor_prop,
+         trials_identity_adj = trials_identity + trials_identity_prop*2,
+         trials_competitor_adj = trials_competitor + trials_competitor_prop*2,
+         hit_rate = hits/trials_identity_adj,
+         false_rate = false_alarms/trials_competitor_adj,
+         train_type = case_when(
+           version == "1a" ~ "A",
+           version %in% c("1b", "2a") ~ "B",
+           TRUE ~ "none")) %>%
+  select(participant, test_task, train_type, cond_exp, speaker, hit_rate, false_rate) %>%
+  group_by(test_task) %>%
+  mutate(hit_z = (hit_rate - mean(hit_rate))/sd(hit_rate),
+         false_z = (false_rate - mean(false_rate))/sd(false_rate),
+         d_prime_test = hit_z - false_z) %>%
+  select(participant, test_task, train_type, cond_exp, speaker, d_prime_test) %>%
+  separate_wider_delim(cond_exp, names = c("cond_var", "cond_sim"), 
+                       delim = " ", cols_remove = FALSE)
+```
+
+```{r d_prime_2}
+# Calculate d-prime
+dat_exp_prime <- dat_exp_filt %>%
+  dplyr::filter(stim_cond != "filler") %>%
+  group_by(participant, type) %>%
+  summarise(trials = n(),
+            corr = sum(resp_acc),
+            .groups = "keep") %>%
+  ungroup() %>%
+  pivot_wider(id_cols = participant, names_from = type, 
+              values_from = c(trials, corr)) %>%
+  mutate(trials_all = trials_real + trials_nonword,
+         trials_real_prop = trials_real/trials_all,
+         trials_nonword_prop = trials_nonword/trials_all,
+         hits = corr_real + trials_real_prop,
+         in_nonword = trials_nonword - corr_nonword,
+         false_alarms = in_nonword + trials_nonword_prop,
+         trials_real_adj = trials_real + trials_real_prop*2,
+         trials_nonword_adj = trials_nonword + trials_nonword_prop*2,
+         hit_rate = hits/trials_real_adj,
+         false_rate = false_alarms/trials_nonword_adj) %>%
+  left_join(dat_test_prime, by = "participant") %>%
+  select(participant, train_type, test_task, cond_exp, speaker,
+         cond_var, cond_sim, d_prime_test, hit_rate, false_rate) %>%
+  group_by(train_type) %>%
+  mutate(hit_z = (hit_rate - mean(hit_rate))/sd(hit_rate),
+         false_z = (false_rate - mean(false_rate))/sd(false_rate),
+         d_prime_exp = hit_z - false_z) %>%
+  select(participant, train_type, test_task, cond_exp, 
+         cond_var, cond_sim, speaker, d_prime_test, d_prime_exp)
+```
+
+```{r d_prime_3}
+# Calculate overall RT
+dat_test_sum <- dat_test_filt %>%
+  dplyr::filter(match_type != "unrelated" & resp_acc == 1) %>%
+  group_by(participant, test_task, match_type) %>%
+  summarise(rt = mean(resp_rt),
+              .groups = "keep") %>%
+  ungroup() %>%
+  pivot_wider(id_cols = c(participant, test_task), 
+              names_from = match_type, 
+              values_from = rt) %>%
+  mutate(rt_diff_raw = competitor - identity) %>%
+  group_by(test_task) %>%
+  mutate(rt_diff_z = (rt_diff_raw - mean(rt_diff_raw))/sd(rt_diff_raw)) %>%
+  ungroup() %>%
+  select(-c(test_task))
+```
+
+```{r d_prime_4, message = FALSE, warning = FALSE}
+# Create by-participant summary
+dat_test_explore <- dat_test_prime %>%
+  left_join(dat_test_sum, by = "participant") %>%
+  ungroup() 
+```

@@ -1,0 +1,123 @@
+---
+output: bookdown::pdf_document2
+---
+
+```{r child = 'code/exp2_code.Rmd', cache = TRUE}
+```
+
+# Experiment 2: Investigating the specificity of generalization from exposure to Spanish-accented stops
+
+## Methods
+
+This experiment was the same as Experiment 1, with the exception of the Similarity factor.
+
+### Design
+
+The Control level was removed, leaving just two levels of Similarity: Direct and Indirect.
+Recall that the pseudowords in the Direct and Indirect conditions had the same onsets as the experimental real words (critical and competitor, respectively).
+It is possible that this design disrupted adaptation to Spanish-accented VOTs by associating them with pseudowords.
+To improve learning, we replaced them with pseudowords with control onsets.
+
+```{r exp2-fig, fig.cap = "Experiment 2 design.", dpi = 300}
+knitr::include_graphics("/Users/hollyzaharchuk/Mirror/dissertation/14_final_diss/figures/diss_2.png")
+```
+
+### Participants {#methods-pars-1b}
+
+We recruited `r par_all[2]` participants through Prolific, none of whom had participated in Experiment 1.
+All aspects of recruitment and criteria for data exclusion were the same as in Experiment 1.
+After removing ineligible participants, `r par_diff$elig_2[2]` remained.
+After removing participants with poor data quality, `r par_qual[2]` remained for analysis (`r par_text$report[2]`).
+Data from the participants who completed the experiment without the exposure phase in Experiment 1 were used for comparison.
+
+### Materials and procedure
+
+The talkers, stimuli, tasks, and procedure were the same as those in Experiment 1.
+Removing the Control level of Similarity from the exposure phase left four between-subjects conditions: Direct-Variant, Direct-Invariant, Indirect-Variant, and Indirect-Invariant.
+The 288 filler items remained the same.
+The 72 experimental real words also remained the same.
+The 72 experimental pseudowords had control onsets regardless of Similarity.
+Talker assignment and counterbalancing was the same.
+This resulted in 16 experimental lists for the exposure phase, one for each combination of exposure condition (4) and talker assignment (4).
+All aspects of the test phase remained the same.
+
+### Analysis and predictions
+
+The data processing, model fitting, and analysis approaches were the same as in Experiment 1; the only change was implementing sum contrasts for the two levels of Similarity.
+Prior to analyzing exposure task performance for real words with experimental onsets, we removed responses with RTs less than 50 ms (*N* = `r dat_rem_exp$rem_1[2]`; `r dat_rem_exp$pct_1[2]`).
+We then detected and removed outliers (*N* = `r dat_rem_exp$rem_2[2]`; `r dat_rem_exp$pct_2[2]`).
+Prior to analyzing test task performance for critical prime-target pairs, we removed responses with RTs less than 50 ms (*N* = `r dat_rem_test$rem_1[2]`; `r dat_rem_test$pct_1[2]`).
+We then detected and removed outliers (*N* = `r dat_rem_test$rem_2[2]`; `r dat_rem_test$pct_2[2]`).
+
+## Results
+
+### Exposure
+
+For accuracy, we observed significant interactions among Variability, Similarity, and Word type (`r exp_acc_1b_comp_3_form`) and between Variability and Word type (`r exp_acc_1b_comp_2_form`).
+To investigate these effects, we conducted pairwise comparisons between levels of Similarity within each combination of Variability and Word type and between levels of Variability within each combination of Similarity and Word type.
+These comparisons are shown in the left column of Figure \@ref(fig:exp2-exp-fig).
+Within Variant exposure, pseudoword accuracy was higher for Direct exposure (`r exp_acc_1b_mean_non_dir_var`) compared to Indirect exposure (`r exp_acc_1b_mean_non_ind_var`; `r exp_acc_1b_cont_non_var`).
+
+For RT, the interaction between Variability and Word type was significant (`r exp_rt_1b_comp_form`).
+Pairwise comparisons between Variant and Invariant exposure within each level of Word type were not significant (*ps* > .05).
+To further explore the effects of Variability and Similarity on RTs, we also conducted the same pairwise comparisons as we did for accuracy; however, there were no differences in this case (*ps* > .05).
+These comparisons are shown in the right column of Figure \@ref(fig:exp2-exp-fig).
+
+```{r exp2-exp-fig, fig.cap = "Experiment 2 exposure task performance. Left column presents boxplots with mean accuracy by participant. Right column presents half violin plots with reaction times for correct responses and dot plots with mean reaction times for correct responses by participant. Plots are overlaid with estimated marginal means and 95\\% confidence intervals. Asterisks indicate significance levels from pairwise comparisons: *** < .001, ** < .01, * < .05.", dpi = 300}
+knitr::include_graphics("sections/code/outputs/plot_exp_1b.png")
+```
+
+### Test: Comparison to the Test-only group
+
+For accuracy, we observed a significant interaction between Exposure and Target (`r test_acc_1b_comp_form`).
+Pairwise comparisons within each level of Target did not reveal significant differences between the Test-only group and any of the exposure groups (*ps* > .05).
+To investigate the source of the Exposure-Target interaction, we conducted pairwise comparisons between each of the exposure groups
+Direct-Invariant exposure yielded significantly higher accuracy on Competitor targets (`r test_acc_1b_comp_dir_invar`) than Direct-Variant exposure (`r test_acc_1b_comp_dir_var; test_acc_1b_comp_invar_dirindir`), Indirect-Invariant exposure (`r test_acc_1b_comp_indir_invar; test_acc_1b_comp_dir_varinvar`), or Indirect-Variant exposure (`r test_acc_1b_comp_indir_var; test_acc_1b_comp_dirinvar_indirinvar`).
+By-participant means and estimated marginal means are shown in Figure \@ref(fig:exp2-test-fig).
+
+For RT, we also observed a significant interaction between Exposure and Target (`r test_rt_1b_comp_form`).
+Pairwise comparisons within each level of Target did not reveal significant differences between the Test-only group and any of the exposure groups (*ps* > .05).
+Pairwise comparisons between the exposure groups revealed significantly slower RTs on Identity targets for Direct-Invariant exposure (`r test_rt_1b_id_dir_invar`) than for Indirect-Variant exposure (`r test_rt_1b_id_indir_var`; `r test_rt_1b_comp_dirinvar_indirvar`).
+
+```{r exp2-test-fig, fig.cap = "Experiment 2 test task accuracy. Boxplots present by-participant means for each Target type. Plots are overlaid with estimated marginal means and 95\\% confidence intervals.", dpi = 300}
+knitr::include_graphics("sections/code/outputs/plot_test_1b.png")
+```
+
+## Discussion {#discuss-1b}
+
+In Experiment 2, two levels of Similarity---Direct and Indirect---were crossed with two levels of Variability---Variant and Invariant---in order to investigate how experience with Spanish-accented stops transfers to a novel talker.
+During the exposure task, participants performed equally well across conditions.
+The only difference we observed was on pseudoword accuracy, where the Indirect-Variant group outperformed the Direct-Variant group.
+Overall, the results of the exposure task suggest that word recognition in Spanish-accented speech was successful regardless of Similarity or Variability.
+
+As in Experiment 1, the exposure task did not benefit performance on the test task.
+Compared to the Test-only group, none of the exposure groups performed differently.
+However, we did observe differences between exposure groups.
+Specifically, the Direct-Invariant group was more accurate on Competitor targets than any of the other three exposure groups.
+This group was also slower on Identity targets than the Indirect-Variant group.
+
+In order to interpret these findings in terms of generalization, we will briefly describe the structure of the exposure conditions again.
+Both Direct conditions exposed participants to Spanish-accented /p/, /t/, and /k/ in such disambiguating lexical contexts as *peanut*, *terminal*, and *kingdom*, respectively.
+However, the Direct-Invariant condition in particular exposed participants to one-to-one mappings between each critical onset and each talker, such that all /p/ onsets were produced by Talker A, all /t/ onsets by Talker B, and all /k/ onsets by Talker C.
+Thus, participants in the Direct-Invariant group were given the opportunity to develop talker-specific generative models for each VOT-stop mapping.
+Recall that a generative model refers to a listener's mental representation of the distribution of a phonetic category (like /p/) over an acoustic cue (like VOT) under the ideal adapter framework.
+Since generative models are specific to pairs of cues and categories under this theory, listeners in the Invariant conditions had to organize their representations of VOT for each onset by talker.
+By contrast, listeners in the Variant conditions had the option to integrate across talkers to organize each VOT-stop mapping at the accent level, since all three talkers produced exemplars of all onsets.
+The high performance of the Direct-Invariant group on Competitor targets suggests that robust talker-specific generative models for voiceless stops may reduce the (erroneous) activation of voiced stops in response to Spanish-accented primes like *park*.
+The slight reduction in performance for this group on Identity targets suggests that such generative models may not increase the activation of voiceless stops in turn.
+Together, these findings suggest that exposure-test similarity is necessary but not sufficient for talker-independent perceptual adaptation.
+
+Finally, we return to the lack of significant differences between the Test-only and Direct-Invariant groups.
+The fact that participants without exposure were able to perform at a similar level to those with exposure weakens the argument we put forward in the previous paragraph.
+If exposure facilitates generalization, but generalization does not facilitate future performance, then what is the benefit of exposure?
+However, there is a wealth of evidence that previous exposure to an L2 accent improves perception of a novel L2-accented talker with the same L1 [@bent2021].
+Previous studies have generally used either sentence transcription [e.g., @bradlow2008] or primed lexical decision [e.g., @xie2017similarity] to test the strength of adaptation.
+Here, we used a matching task, under the assumption that categorization of short lag VOTs as voiceless stops should change as a function of perception of short lag VOTs as voiceless stops.
+For example, consider the auditory prime *park* and the visual target *bark*.
+Participants needed to decide whether the onset of the token they had heard was a /b/ or not.
+If they accurately perceived the onset as a /p/, then they would correctly reject *bark* as a match.
+Thus, accuracy on the matching task was the outcome of the categorization process.
+It is possible that this outcome-based measure was not fine-grained enough to capture subtle changes in perception.
+To return to the Competitor target example, the lack of difference in categorizing Spanish-accented *park* as *bark* may belie differences in perceiving Spanish-accented /p/.
+To better assess changes in perception, we changed the test task for Experiment 3.
+
