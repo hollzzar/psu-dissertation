@@ -1,0 +1,27 @@
+---
+output: bookdown::pdf_document2
+---
+
+Cross-language transfer from L1 Spanish to L2 English during speech production can create ambiguity between the voiceless stops /p/, /t/, and /k/ and their voiced counterparts /b/, /d/, and /g/ during speech perception.
+This perceptual ambiguity between voiced and voiceless stop pairs is a result of their voice onset time (VOT) distributions.
+Specifically, Spanish-accented English talkers tend to produce short lag VOTs for voiceless stops, while L1 English listeners tend to associate short lag VOTs with voiced stops.
+This dissertation features two studies that explore different aspects of adaptation to Spanish-accented English voiceless stops.
+Overall, stop VOT provides a window into the process of adapting to L2-accented speech in behavior (Study 1) and the brain (Study 2).
+
+Study 1 investigated the structure and content of exposure to L2-accented speech in talker-independent adaptation.
+There are two competing explanations for how perceptual learning can transfer from one talker to another.
+The exposure-to-variability hypothesis argues that increasing covariation between acoustic-phonetic cues during exposure increases performance on a new talker.
+The similarity-based hypothesis argues that increasing cue-category overlap between the exposure and test talkers increases performance on the test talker.
+To compare these hypotheses, a series of three experiments was conducted with a novel experimental approach that improved the scope and precision of operationalizing variability and similarity compared to previous studies.
+Performance on a novel Spanish-accented English talker was measured after exposure to three different Spanish-accented English talkers.
+Increasing the similarity between exposure and test facilitated generalization, but only when variability was constrained.
+These results provide the strongest support for the similarity-based hypothesis.
+
+Study 2 investigated the relative contributions of acoustic-phonetic and lexico-semantic levels of processing to talker-specific perceptual adaptation.
+While behavioral paradigms consistently exhibit rapid improvements in performance with exposure to L2-accented talkers, the effects of perceptual adaptation on neural signatures are less clear.
+To clarify previous findings and bring them in line with the behavioral literature, an EEG experiment was conducted that exposed listeners to a Spanish-accented talker’s VOT-voiceless stop mappings.
+Listeners gained experience with ambiguous onsets in the context of multisyllabic real words like *passage*. 
+The status of the adaptation process was probed with monosyllabic real words like *park*.
+Changes in processing the ambiguous monosyllabic words were investigated as a function of systematic exposure to the unambiguous multisyllabic words in a primed cross-modal go/no-go lexical decision task.
+Differences in VOT encoding were observed on the N1 and in phonetic categorization on the P2, which emerged as differences in priming on the N400 disappeared.
+These results suggest that changes in acoustic-phonetic representations drive adaptation.

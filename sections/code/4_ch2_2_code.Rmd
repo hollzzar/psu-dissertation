@@ -1,0 +1,277 @@
+---
+pagetitle: "general"
+---
+
+```{r exp_1b_1}
+# Filter and factor
+dat_exp_1b <- dat_exp_filt %>%
+  dplyr::filter(version == "1b" & !is.na(vot)) %>%
+  mutate(across(.cols = c("participant", "stim",
+                          "cond_sim", "cond_var"),
+                as.factor),
+         trial_cent = trial - mean(trial),
+         vot_cent = vot - mean(vot),
+         freq_cent = FreqZipfUS - mean(FreqZipfUS))
+
+# Add contrasts
+contrasts(dat_exp_1b$cond_sim) <- contrast_sim
+contrasts(dat_exp_1b$cond_var) <- contrast_var
+```
+
+```{r exp_1b_2}
+# Run
+exp_acc_1b <- glmer(resp_acc ~ cond_var*cond_sim + 
+                       trial_cent + freq_cent + vot_cent +
+                       (1|stim) + (cond_var*cond_sim|participant),
+                     data = dat_exp_1b,
+                     nAGQ = 0,
+                     family = "binomial")
+
+# Model comparison
+exp_acc_1b_comp <- Anova(exp_acc_1b, test = "Chi", type = "III")
+```
+
+```{r exp_1b_3, message = FALSE, warning = FALSE}
+# Means
+exp_acc_1b_means <- emmeans(exp_acc_1b, ~ cond_sim*cond_var)
+
+# Contrasts
+exp_acc_1b_cont_sim <- pairs(exp_acc_1b_means, 
+                             by = "cond_sim", adjust = "hommel")
+exp_acc_1b_cont_var <- pairs(exp_acc_1b_means, 
+                             by = "cond_var", adjust = "hommel")
+```
+
+```{r exp_1b_4}
+# Filter and factor
+dat_exp_1b_rt <- dat_exp_rt %>%
+  dplyr::filter(version == "1b" & !is.na(vot)) %>%
+  mutate(across(.cols = c("participant", "stim",
+                          "cond_sim", "cond_var"),
+                as.factor),
+         trial_cent = trial - mean(trial),
+         vot_cent = vot - mean(vot),
+         freq_cent = FreqZipfUS - mean(FreqZipfUS))
+
+# Add contrasts
+contrasts(dat_exp_1b_rt$cond_sim) <- contrast_sim
+contrasts(dat_exp_1b_rt$cond_var) <- contrast_var
+```
+
+```{r exp_1b_5}
+# Run
+exp_rt_1b <- lmer(inv_rt ~ cond_var*cond_sim + 
+                       trial_cent + freq_cent + vot_cent +
+                       (1|stim) + (1|participant),
+                     data = dat_exp_1b_rt)
+
+# Model comparison
+exp_rt_1b_comp <- Anova(exp_rt_1b, test = "Chi", type = "III")
+
+# Format
+exp_rt_1b_comp_form <- mod_comp(exp_rt_1b_comp, "cond_sim")
+```
+
+```{r exp_1b_6, message = FALSE, warning = FALSE}
+# Means
+exp_rt_1b_means_simple <- emmeans(exp_rt_1b, ~ cond_sim)
+
+# Save
+exp_rt_1b_direct <-  apa_rt_pull(apa_rt(exp_rt_1b_means_simple), 
+                                 "cond_sim", "direct")
+exp_rt_1b_indirect <-  apa_rt_pull(apa_rt(exp_rt_1b_means_simple), 
+                                   "cond_sim", "indirect")
+
+# Contrasts
+exp_rt_1b_cont_simple <- pairs(exp_rt_1b_means_simple, adjust = "hommel")
+
+# Save
+exp_rt_1b_dir_indir <- pair_comp(exp_rt_1b_cont_simple, "direct - indirect")
+```
+
+```{r test_1b_1}
+# Filter and factor
+dat_test_1b <- dat_test_filt %>%
+  dplyr::filter(version %in% c("1b", "1c")) %>%
+  mutate(across(.cols = c("participant", "prime", "target", "match_type"),
+                as.factor),
+         trial_cent = trial - mean(trial),
+         vot_cent = vot - mean(vot),
+         freq_prime_cent = FreqZipfUS_prime - mean(FreqZipfUS_prime),
+         freq_target_cent = FreqZipfUS_target - mean(FreqZipfUS_target)) %>%
+  left_join(tab_exp, by = "cond_exp")
+
+# Add contrasts
+contrasts(dat_test_1b$cond_exp_fac) <- contrast_train
+contrasts(dat_test_1b$match_type) <- contrast_match_1
+```
+
+```{r test_1b_2}
+# Run
+test_acc_1b_train <- glmer(resp_acc ~ cond_exp_fac*match_type + 
+                       trial_cent + freq_prime_cent:freq_target_cent + 
+                         vot_cent +
+                       (1|prime:target) + (1|participant),
+                     data = dat_test_1b,
+                     nAGQ = 0,
+                     family = "binomial")
+
+# Model comparison
+test_acc_1b_train_comp <- Anova(test_acc_1b_train, test = "Chi", type = "III")
+
+# Format
+test_acc_1b_comp_form <- mod_comp(test_acc_1b_train_comp, "cond_exp_fac:match_type")
+```
+
+```{r test_1b_3}
+# Get means
+test_acc_1b_train_means <- emmeans(test_acc_1b_train, 
+                                   ~ cond_exp_fac*match_type, by = "match_type")
+
+# Select contrasts
+test_acc_1b_train_coef <- emmeans:::pairwise.emmc(levels(test_acc_1b_train_means)$cond_exp_fac)
+test_acc_1b_train_coef <- test_acc_1b_train_coef[c(1:4)]
+
+# Run contrasts
+test_acc_1b_train_cont_1 <- contrast(test_acc_1b_train_means, 
+                                   test_acc_1b_train_coef, adj = "hommel")
+test_acc_1b_train_cont_2 <- pairs(test_acc_1b_train_means, adj = "hommel")
+```
+
+```{r test_1b_4}
+# Format
+test_acc_1b_train_means_tab <- test_acc_1b_train_means %>%
+  summary(type = "response") %>%
+  select(match_type, cond_exp_fac, prob, asymp.LCL, asymp.UCL) %>%
+  mutate(match_type = str_to_title(match_type),
+         cond_exp_fac = factor(cond_exp_fac, 
+                               levels = c("variant similar", "invariant similar",
+                                          "no training",
+                                          "variant dissimilar", "invariant dissimilar"),
+                               labels = c("Direct\nVariant", "Direct\nInvariant",
+                                          "Test\nonly",
+                                          "Indirect\nVariant", "Indirect\nInvariant")),
+         target_fac = factor(match_type, levels = c("Identity", "Competitor", "Unrelated")))
+```
+
+```{r test_1b_4_plot}
+# Make plot
+train_plot_1b <- ggplot(test_acc_1b_train_means_tab, 
+                     aes(x = cond_exp_fac, y = prob, color = cond_exp_fac)) +
+  facet_grid(~ target_fac) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), size = 1.2) +
+  labs(x = "Exposure condition", y = "Estimated marginal mean accuracy") +
+  scale_y_continuous(breaks = seq(0.65, 1, 0.05)) +
+  coord_cartesian(ylim = c(0.65, 1)) +
+  scale_color_manual(values = c(col_exp[2:3], col_exp[1], col_exp[4:5])) +
+  guides(color = "none") +
+  theme_minimal() +
+  theme(text = element_text(family = font_fam, size = text_size),
+        axis.text.x = element_text(size = text_size*0.75),
+        axis.ticks = element_blank(),
+        legend.position = "bottom")
+```
+
+```{r test_1b_4_save_plot, include = FALSE}
+# Save plot and crop to remove white space
+ggsave("outputs/train_plot_1b.png", train_plot_1b, width = 4200, height = 2100, unit = "px", dpi = 300)
+knitr::plot_crop("outputs/train_plot_1b.png")
+```
+
+```{r test_1b_5}
+# Effect sizes
+test_acc_1b_train_eff <- eff_size(test_acc_1b_train_means, 
+                           by = "match_type",
+                           edf = df.residual(test_acc_1b_train), 
+                           sigma = sigma(test_acc_1b_train)) %>%
+  summary() %>% 
+  select(match_type, contrast, `effect.size`, `asymp.LCL`, `asymp.UCL`) %>%
+  left_join(test_acc_1b_train_cont_2 %>% data.frame()) %>%
+  mutate(contrast = gsub("no training", "Test-only", contrast),
+         contrast = gsub("invariant dissimilar", "Indirect-Invariant", contrast),
+         contrast = gsub("invariant similar", "Direct-Invariant", contrast),
+         contrast = gsub("variant similar", "Direct-Variant", contrast),
+         contrast = gsub("variant dissimilar", "Indirect-Variant", contrast))
+
+# Get differences
+test_acc_1b_train_diff <- test_acc_1b_train_means %>%
+  summary(type = "response") %>%
+  mutate(cond_exp = case_when(
+           cond_exp_fac == "no training" ~ "exp0",
+           cond_exp_fac == "variant similar" ~ "exp1",
+           cond_exp_fac == "variant dissimilar" ~ "exp2",
+           cond_exp_fac == "invariant similar" ~ "exp3",
+           cond_exp_fac == "invariant dissimilar" ~ "exp4"
+         )) %>%
+  pivot_wider(id_cols = match_type, 
+              names_from = cond_exp, 
+              values_from = prob) %>%
+  mutate(`Test-only - Direct-Variant` = num_formatting(exp0 - exp1),
+         `Test-only - Indirect-Variant` = num_formatting(exp0 - exp2),
+         `Test-only - Direct-Invariant` = num_formatting(exp0 - exp3),
+         `Test-only - Indirect-Invariant` = num_formatting(exp0 - exp4),
+         `Direct-Variant - Direct-Invariant` = num_formatting(exp1 - exp3),
+         `Direct-Variant - Indirect-Variant` = num_formatting(exp1 - exp2),
+         `Direct-Variant - Indirect-Invariant` = num_formatting(exp1 - exp4),
+         `Direct-Invariant - Indirect-Variant` = num_formatting(exp3 - exp2),
+         `Direct-Invariant - Indirect-Invariant` = num_formatting(exp3 - exp4),
+         `Indirect-Variant - Indirect-Invariant` = num_formatting(exp3 - exp4)) %>%
+  pivot_longer(cols = c(contains("irect"), contains("ariant")),
+               names_to = "contrast", 
+               values_to = "diff") %>%
+  select(-contains("exp"))
+  
+# Format
+test_acc_1b_train_tab <- test_acc_1b_train_eff %>%
+  mutate(z = stat_formatting(`z.ratio`),
+         p = p_formatting(`p.value`, format_code = 0),
+         d = sprintf("%.2f [%.2f, %.2f]", `effect.size`, `asymp.LCL`, `asymp.UCL`)) %>%
+  left_join(test_acc_1b_train_diff) %>%
+  select(match_type, contrast, diff, d, z, p) %>%
+  mutate(match_type = str_to_title(match_type))
+```
+
+```{r test_1b_6}
+# Filter and factor
+dat_test_1b_rt <- dat_test_rt %>%
+  dplyr::filter(version %in% c("1b", "1c")) %>%
+  mutate(across(.cols = c("participant", "prime", "target", "match_type"),
+                as.factor),
+         trial_cent = trial - mean(trial),
+         vot_cent = vot - mean(vot),
+         freq_prime_cent = FreqZipfUS_prime - mean(FreqZipfUS_prime),
+         freq_target_cent = FreqZipfUS_target - mean(FreqZipfUS_target)) %>%
+  left_join(tab_exp, by = "cond_exp")
+
+# Add contrasts
+contrasts(dat_test_1b_rt$cond_exp_fac) <- contrast_train
+contrasts(dat_test_1b_rt$match_type) <- contrast_match_1
+```
+
+```{r test_1b_7}
+# Run
+test_rt_1b_train <- lmer(inv_rt ~ cond_exp_fac*match_type + 
+                       trial_cent + freq_prime_cent:freq_target_cent + 
+                         vot_cent +
+                       (1|prime:target) + (match_type|participant),
+                     data = dat_test_1b_rt)
+
+# Model comparison
+test_rt_1b_train_comp <- Anova(test_rt_1b_train, test = "Chi", type = "III")
+```
+
+```{r test_1b_8}
+# Get means
+test_rt_1b_train_means <- emmeans(test_rt_1b_train, 
+                                  ~ cond_exp_fac*match_type, by = "match_type")
+
+# Select contrasts
+test_rt_1b_train_coef <- emmeans:::pairwise.emmc(levels(test_rt_1b_train_means)$cond_exp_fac)
+test_rt_1b_train_coef <- test_rt_1b_train_coef[c(1:4)]
+
+# Run contrasts
+test_rt_1b_train_cont <- contrast(test_rt_1b_train_means, 
+                                  test_rt_1b_train_coef, adj = "hommel")
+```
+

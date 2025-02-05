@@ -1,0 +1,135 @@
+---
+output: bookdown::pdf_document2
+---
+
+## Results
+
+### Behavioral results
+
+#### Target type analysis
+
+We observed a significant interaction between Target and Exposure (`r behave_comp_int`), as well as main effects of Target (`r behave_comp_target`) and Exposure (`r behave_comp_exp`).
+The rate of improvement on Test targets (`r omni_behave_means_test`) was greater than that on Filler targets (`r omni_behave_means_filler`; `r omni_behave_cont_report`).
+
+This difference in adaptation between target types is illustrated by comparing the estimated marginal mean accuracy at the beginning of the task (Exposure = -36) to that at the end (Exposure = 36).
+Accuracy on Filler targets started at `r omni_behave_est_filler_1` and ended at `r omni_behave_est_filler_2`, while accuracy on Test targets started at `r omni_behave_est_test_1` and ended at `r omni_behave_est_test_2`.
+Accuracy significantly improved between these two time points for both Filler (`r omni_behave_est_cont_filler`) and Test (`r omni_behave_est_cont_test`) targets.
+However, the enhanced rate of learning for test targets resulted in a significant difference between Filler and Test target accuracy at the end of the task (`r omni_behave_est_cont_2`) that was not present at the beginning (`r omni_behave_est_cont_1`).
+The results are shown in Figure \@ref(fig:behave-fig).
+
+#### Prime type analysis
+
+We observed significant main effects of Prime (`r test_comp_prime`) and Exposure (`r test_comp_exp`).
+The interaction between the two factors was not significant (`r test_comp_int`).
+Overall, accuracy increased with exposure regardless of prime type (`r omni_test_exp_slope_report`).
+Within prime type, accuracy increased linearly from Unrelated (`r omni_test_prime_un`) to Competitor (`r omni_test_prime_compete`) to Identity (`r omni_test_prime_id`) targets.
+Accuracy was significantly different among the different levels of Prime: Identity versus Competitor (`r omni_test_cont_id_compete`), Identity versus Unrelated (`r omni_test_cont_id_un`), and Competitor versus Unrelated (`r omni_test_cont_compete_un`).
+The results are shown in Figure \@ref(fig:test-fig).
+
+#### Summary
+
+The behavioral data provide strong evidence for talker-specific adaptation to Spanish-accented voiceless stops.
+We first compared accuracy on test targets, with voiceless stop onsets that were perceptually confusible with voiced stops (e.g., *park*-*bark*), to accuracy on filler targets (e.g., *rhubarb*).
+Exposure was operationalized as the (mean-centered) number of exposure targets (e.g., *passage*) that the participant had heard before encountering a given target.
+Participants adapted to both the talker and task, exhibiting improved accuracy on both types of targets; however, improvements in word recognition were strongest for the test targets.
+This enhanced performance on test targets suggests that exposure to disambiguating lexical contexts for Spanish-accented /p/, /t/, and /k/ improved perception in ambiguous lexical contexts.
+
+```{r behave-fig, fig.cap = "Test target accuracy by Target type and Exposure.", fig.pos="H", dpi = 300}
+knitr::include_graphics("sections/code/outputs/behave_plot.png")
+```
+
+We then compared accuracy on test targets for each type of prime: Identity, Competitor, and Unrelated.
+While overall accuracy increased with exposure, as demonstrated in the previous analysis, priming effects remained stable.
+These priming effects were in the expected direction, with Identity primes yielding the highest accuracy on Test targets, followed by Competitor primes, then Unrelated primes.
+
+```{r test-fig, fig.cap = "Test target accuracy by Prime type and Exposure.", fig.pos="H", dpi = 300}
+knitr::include_graphics("sections/code/outputs/test_plot.png")
+```
+
+### ERP results
+
+Grand mean waveforms, averaging across participants (40), amount of exposure (72), and channels (17 from the N1 analysis) are shown in Figure \@ref(fig:grand-fig).
+
+```{r grand-fig, fig.cap = "Grand mean waveforms by Prime type.", fig.pos="H", dpi = 300}
+knitr::include_graphics("sections/code/outputs/grand_plot.png")
+```
+
+#### 175-250 ms
+
+We observed a significant interaction between Prime and Exposure (`r n1_comp_int`), as well as main effects of Prime (`r n1_comp_prime`) and Exposure (`r n1_comp_exp`).
+Specifically, we observed an increase in N1 amplitude following Identity primes (`r omni_n1_id`) that contrasted with a decrease in amplitude following Competitor primes (`r omni_n1_compete`) and Unrelated primes (`r omni_n1_un`).
+Pairwise comparisons as a function of Exposure revealed significant differences among all three types of primes: Identity versus Competitor (`r omni_n1_id_compete`), Identity versus Unrelated (`r omni_n1_id_un`), and Competitor versus Unrelated (`r omni_n1_compete_un`).
+
+To contextualize the interaction, we report differences in Prime at the lowest (-36) and highest (36) amounts of Exposure (see Figure \@ref(fig:erp-eff-fig), N1).
+At the beginning of the task, the N1 was largest for Test targets following Unrelated primes (`r omni_n1_un_prime_1`), with successively smaller amplitudes for Competitor primes (`r omni_n1_compete_prime_1`) and Identity primes (`r omni_n1_id_prime_1`).
+Pairwise comparisons showed significant differences in amplitude for Identity versus Unrelated (`r omni_n1_id_un_prime_1`) and Competitor versus Unrelated (`r omni_n1_compete_un_prime_1`); however, the difference in amplitude for Identity versus Competitor (`r omni_n1_id_compete_prime_1`) was not significant.
+By the end of the task, this order had reversed from Identity primes (`r omni_n1_id_prime_2`) to Competitor primes (`r omni_n1_compete_prime_2`) to Unrelated primes (`r omni_n1_un_prime_2`).
+These amplitudes were all significantly different from one another: Identity versus Competitor (`r omni_n1_id_compete_prime_2`), Identity versus Unrelated (`r omni_n1_id_un_prime_2`), and Competitor versus Unrelated (`r omni_n1_compete_un_prime_2`).
+However, within each prime type, the change in amplitude was not significant for the Identity condition (`r omni_n1_means_exp_cont_id`).
+By contrast, Competitor priming (`r omni_n1_means_exp_cont_compete`) and Unrelated priming (`r omni_n1_means_exp_cont_un`) increased significantly from the beginning to the end of the task.
+
+#### 250-375 ms
+
+As in the previous time window, we observed a significant interaction between Prime and Exposure (`r p2_comp_int`).
+We also observed a main effect of Prime (`r p2_comp_prime`).
+The interaction was driven by an increase in P2 amplitude following Unrelated primes (`r omni_p2_un`) in contrast with a decrease following Identity primes (`r omni_p2_id`) and Competitor primes (`r omni_p2_compete`).
+Pairwise comparisons as a function of Exposure revealed significant differences among all three types of primes: Identity versus Competitor (`r omni_n4_id_compete`), Identity versus Unrelated (`r omni_n4_id_un`), and Competitor versus Unrelated (`r omni_n4_compete_un`).
+
+To investigate the differences in priming across the task, we conducted pairwise comparisons of the effects at the beginning and end of the task (see Figure \@ref(fig:erp-eff-fig), P2).
+During the initial stages of adaptation, Identity primes elicited larger P2 effects on Test targets (`r omni_p2_id_prime_1`) than Competitor primes (`r omni_p2_compete_prime_1`; `r omni_p2_id_compete_prime_1`) or Unrelated primes (`r omni_p2_un_prime_1`; `r omni_p2_id_un_prime_1`).
+Competitor and Unrelated primes did not differ from one another (`r omni_p2_compete_un_prime_1`).
+In the later stages of adaptation, Identity primes (`r omni_p2_id_prime_2`) elicited similar effects to Competitor primes (`r omni_p2_compete_prime_2`; `r omni_p2_id_compete_prime_2`).
+At the same time, Unrelated primes (`r omni_p2_un_prime_2`) diverged from competitor primes (`r omni_p2_compete_un_prime_2`).
+Identity and Unrelated primes remained different from one another (`r omni_p2_id_un_prime_2`), though in the opposite direction.
+Overall, the effects of Competitor primes remained stable in this time window (`r omni_p2_means_exp_cont_compete`), while those of Identity primes (`r omni_p2_means_exp_cont_id`) and Unrelated primes (`r omni_p2_means_exp_cont_un`) reversed.
+
+#### 450-650 ms
+
+We observed a significant interaction between Prime and Exposure (`r n4_comp_int`), a main effect of Prime (`r n4_comp_prime`), and a main effect of Exposure (`r n4_comp_exp`).
+As in the N1 time window, the interaction was driven by an increase in amplitude following Identity primes (`r omni_n4_id`) coupled with a decrease in amplitude following Competitor primes (`r omni_n4_compete`) and Unrelated primes (`r omni_n4_un`).
+These slopes were significantly different from one another: Identity versus Competitor (`r omni_n4_id_compete`), Identity versus Unrelated (`r omni_n4_id_un`), and Competitor versus Unrelated (`r omni_n4_compete_un`).
+
+We observed a typical N400 effect at the beginning of the experiment, with amplitudes increasing from Identity (`r omni_n4_id_prime_1`) to Competitor (`r omni_n4_compete_prime_1`) to Unrelated (`r omni_n4_un_prime_1`) primes (see Figure \@ref(fig:erp-eff-fig), N400).
+These effects were all significantly different from one another: Identity versus Competitor (`r omni_n4_id_compete_prime_1`), Identity versus Unrelated (`r omni_n4_id_un_prime_1`), and Competitor versus Unrelated (`r omni_n4_compete_un_prime_1`).
+By the end of the experiment, these effects had converged, with Identity (`r omni_n4_id_prime_2`), Competitor (`r omni_n4_compete_prime_2`), and Unrelated (`r omni_n4_un_prime_2`) primes eliciting similar N400 effects: Identity versus Competitor (`r omni_n4_id_compete_prime_2`), Identity versus Unrelated (`r omni_n4_id_un_prime_2`), and Competitor versus Unrelated (`r omni_n4_compete_un_prime_2`).
+This convergence in priming effects was driven by significant changes in Identity priming (`r omni_n4_means_exp_cont_id`) and Unrelated priming (`r omni_n4_means_exp_cont_un`), while Competitor priming remained the same (`r omni_n4_means_exp_cont_compete`).
+
+#### Summary
+
+The results of the ERP analyses revealed a shift from lexico-semantic to acoustic processing over time.
+These changes are illustrated in Figure \@ref(fig:erp-eff-fig).
+
+```{r erp-eff-fig, fig.cap = "Estimated marginal mean amplitudes by Prime and Exposure on the N1, P2, and N400.", fig.pos="H", dpi = 300}
+knitr::include_graphics("sections/code/outputs/erp_eff.png")
+```
+
+Between 175 and 250 ms, the amplitude of the neurocognitive responses to Competitor and Unrelated primes decreased in negativity with increasing exposure.
+The N1 component in this time window is sensitive to the perception of voicing contrasts, with voiced stops eliciting larger (more negative) amplitudes than voiceless stops [@getz2021].
+At the beginning of the experiment, Identity and Competitor priming effects patterned together (Unrelated > Competitor = Identity).
+By the end of the experiment, N1 amplitude exhibited graded sensitivity to prime type (Identity > Competitor > Unrelated).
+The decrease in negativity for the two mismatched prime types reflects improvements in perception of the ambiguous test targets.
+
+In the 250-375 ms time window, Unrelated priming effects became more positive, while Identity priming effects became less positive with exposure.
+The P2 component elicited in this time window indexes phonetic categorization, with less effortful processing associated with larger (more positive) amplitudes [@crowley2004].
+P2 amplitude exhibited a reversal in priming effects from the beginning (Identity > Competitor = Unrelated) to the end (Unrelated > Competitor = Identity) of the task.
+The increase in positivity for Unrelated prime trials reflects facilitation of categorizing the ambiguous Test targets with increased exposure.
+
+The same differential effects of prime type were observed in the 450-650 ms time window, with Unrelated priming effects becoming less negative and Identity priming effects becoming more negative with exposure.
+The N400 component in this time window indexes lexico-semantic access, with more effortful processing associated with larger (more negative) amplitudes [@federmeier2021].
+Overall, the N400 started with graded sensitivity to prime type (Unrelated > Competitor > Identity) and ended with a lack of sensitivity (Unrelated = Competitor = Identity).
+The reduction in the difference between Identity and Unrelated primes suggests that lexico-semantic processing became less sensitive to prime type over time.
+
+### Correlation results
+
+Pairwise correlations are shown in Figure \@ref(fig:erp-corr-fig).
+Only items with significant correlations are displayed.
+
+```{r erp-corr-fig, fig.cap = "Correlation matrix between task performance and post-experiment questionnaire items.", fig.pos="H", dpi = 300}
+knitr::include_graphics("sections/code/outputs/corr_plot_2.png")
+```
+
+Of particular interest is the negative correlation between proactive IC and the magnitude of the N1 priming effect (`r corr_pro_n1`), with smaller differences between matching and mismatching primes associated with better response inhibition.
+This relation suggests that the AX-CPT and LDT share a common inhibitory control mechanism.
+We also observed a positive correlation between receptive vocabulary and comprehensibility ratings (`r corr_lex_comp`), with higher LexTALE scores associated with more confidence in task performance.
+Overall, the results of the correlation analysis highlight the influence of more general cognitive/linguistic abilities on task performance.
+

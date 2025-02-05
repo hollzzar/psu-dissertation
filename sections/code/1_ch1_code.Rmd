@@ -1,0 +1,72 @@
+---
+pagetitle: "general"
+---
+
+```{r setup_1}
+# Source
+source("0_global.R")
+```
+
+```{r vot_load}
+# Load VOT visualization data
+vot_lab <- read.csv("~/Mirror/dissertation/0_snl/poster/chodroff_dat.csv") %>%
+  dplyr::filter(poa.broad == "labial")
+
+# Set options
+vot_range <- -210:210
+vot_sd <- 30
+```
+
+```{r vot_reshape}
+# Summarise
+vot_sum <- vot_lab %>%
+  group_by(language, phone) %>%
+  summarise(mean_vot = mean(vot), .groups = "keep") %>%
+  ungroup() %>%
+  mutate(LN = "L1")
+
+# Make distribution for plotting
+vot_dist <- lapply(1:nrow(vot_sum), function(x)
+  tibble(x_vals = vot_range,
+         y_vals = dnorm(vot_range, 
+                        vot_sum$mean_vot[x],
+                        vot_sd),
+         language = vot_sum$language[x],
+         phone = vot_sum$phone[x],
+         LN = vot_sum$LN[x])) %>%
+  bind_rows() %>%
+  mutate(cond = paste(language, phone, sep = " "),
+         cond_lab = factor(cond, levels = c("Spanish /b/", "Spanish /p/",
+                                            "English /b/", "English /p/")))
+```
+
+```{r vot_plot}
+l1_plot <- ggplot(vot_dist, 
+                  aes(x = x_vals, y = y_vals, color = cond_lab)) +
+  stat_function(fun = dnorm, 
+                args = c(mean = vot_sum$mean_vot[which(vot_sum$language == "Spanish" & vot_sum$phone == "/p/")], 
+                         sd = vot_sd),
+                geom = "area", color = NA, fill = col_vot[2], alpha = 0.5) +
+  stat_function(fun = dnorm, 
+                args = c(mean = vot_sum$mean_vot[which(vot_sum$language == "English" & vot_sum$phone == "/b/")], 
+                         sd = vot_sd),
+                geom = "area", color = NA, fill = col_vot[3], alpha = 0.5) +
+  labs(x = "VOT (ms)", y = "Probability density") +
+  scale_x_continuous(breaks = seq(min(vot_range), max(vot_range), 30)) +
+  scale_y_continuous(breaks = seq(0, 0.015, 0.0075)) +
+  coord_fixed(ratio = 10000/1, ylim = c(0, 0.015)) +
+  scale_color_manual(values = col_vot) +
+  guides(color = guide_legend(nrow = 2)) +
+  theme_classic() +
+  theme(text = element_text(family = font_fam, size = 20),
+        axis.ticks = element_blank(),
+        legend.title = element_blank(),
+        legend.position = "bottom") +
+  geom_line(linewidth = 1.75)
+```
+
+```{r vot_plot_save, include = FALSE}
+# Save plot and crop to remove white space
+ggsave("outputs/l1_plot.png", l1_plot, width = 4200, height = 3000, unit = "px", dpi = 300)
+knitr::plot_crop("outputs/l1_plot.png")
+```

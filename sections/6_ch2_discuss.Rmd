@@ -1,0 +1,178 @@
+---
+output: bookdown::pdf_document2
+---
+
+## General discussion {#discuss-study1}
+
+The current study investigated generalization of exposure to L2-accented speech.
+We compared two hypotheses with different explanations for how exposure supports talker-independent adaptation.
+The exposure-to-variability hypothesis argues that increasing covariation between acoustic-phonetic cues during exposure increases performance on a new talker [@baese2013; @bradlow2008].
+The similarity-based hypothesis argues that increasing cue-category overlap between the exposure and test talkers increases performance on the test talker [@xie2017similarity].
+We expressed these hypotheses in terms of the ideal adapter framework to investigate their explanatory power within the same theoretical model [@kleinschmidt2015].
+Under this theory, listeners develop mental models of the mappings between acoustic cues (like VOT) and phonetic categories (like /p/, /t/, and /k/) according to informative and useful social (here, L2 accent) and indexical (talker) groupings [@kleinschmidt2019].
+To restate the two competing hypotheses using this framework, exposure to variability enhances the formation of talker-independent generative models, while exposure-test similarity facilitates the selection of talker-specific generative models.
+Using a novel experimental approach that improved the scope and precision of how variability and similarity are operationalized, a series of three experiments was conducted.
+The results provide strongest support for the similarity-based hypothesis and have interesting implications for the ideal adapter framework.
+
+The key findings come from Experiment 3.
+After exposure to three Spanish-accented talkers, we measured performance on a novel Spanish-accented talker with a primed cross-modal lexical decision task.
+The critical items in this task were monosyllabic auditory primes with voiceless stop onsets: for example, *park*, *tune*, and *coal*.
+Importantly, these items had onset competitors with the same place and manner of articulation: *bark*, *dune*, and *goal*, respectively.
+Participants made lexical decisions on the visual targets that followed these critical primes.
+Performance on the different target types indexed different aspects of perceptual adaptation.
+Specifically, priming of Identity targets indexed lexical activation of the intended word, while priming of Competitor targets indexed lexical activation of perceptually similar words.
+For example, consider the auditory prime *park*.
+The Identity target for this prime is *park*, while the Competitor target for this prime is *bark*.
+If perceptual adaptation to Spanish-accented speech increased activation of the lexical item "park" upon hearing *park*, then responses to the visual target *park* would also increase.
+If perceptual adaptation to Spanish-accented speech decreased activation of the lexical item "bark" upon hearing *park*, then responses to the visual target *bark* would also decrease.
+Ideally, exposure would both increase activation of the intended word and decrease activation of competing words.
+However, we observed differential benefits of exposure on these two processes: Direct-Invariant exposure decreased lexical competition, while Indirect-Invariant exposure increased lexical activation.
+Specifically, the Direct-Invariant group displayed significantly slower RTs on Competitor targets than both the Test-only group and Direct-Variant group.
+In addition, the Direct-Invariant group displayed marginally slower RTs on Identity targets than the Indirect-Invariant group.
+Thus, the decrease in lexical competition we observed was not related to an increase in lexical activation for the intended word.
+In the next section, we compare our findings to the predictions of the exposure-to-variability and similarity-based hypotheses.
+
+### Exposure to variability versus similar exposure
+
+The exposure-to-variability hypothesis is based on the findings of @baese2013.
+In that study, exposure to multiple talkers, each with a different L2 accent, generalized to a novel talker with an unfamiliar L2 accent.
+Exposure to multiple talkers with the same L2 accent did not generalize to an unfamiliar L2 accent [@bradlow2008].
+However, both types of exposure generalized to a novel talker with a familiar L2 accent.
+The multi-accent condition included one Mandarin-accented talker out of five talkers with different L1s, while the single-accent condition included five Mandarin-accented talkers.
+In both cases, performance on a novel Mandarin-accented talker was higher than in the control condition. 
+Together, these results suggest that listeners benefit from exposure to systematic covariation across L2 accents.
+In other words, the ways in which L2 varieties differ from L1 varieties at a high level generalizes across L2 talkers.
+This hypothesis is also supported by recent work on cross-accent generalization [@bradlow2023], as well as by the large body of work on high-variability phonetic training for L2 acquisition [for a review, see @zhang2021hvpt].
+
+By contrast, the similarity-based hypothesis comes from @xie2017similarity.
+In this study, two groups of participants trained on multiple Mandarin-accented talkers.
+The experimental group was exposed to disambiguating lexical contexts for word-final /d/ (e.g., *overload*), while the other was not.
+During test on a novel Mandarin-accented talker, lexical activation for /d/-final primes was higher in the experimental group.
+Among the Mandarin-accented talkers in the training set, one talker's productions of /d/ were similar to those of the test talker on multiple acoustic measures.
+There was also one talker out of the five whose productions of /d/ differed from the test talker's on these metrics.
+After single-talker exposure to the similar talker, lexical activation for /t/-final competitors was lower in the experimental group.
+By contrast, single-talker exposure to the dissimilar talker did not reduce lexical competition.
+Overall, single-talker exposure to the similar talker and multi-talker exposure including the similar talker both facilitated generalization to a novel talker.
+This suggests that the specific way in which an L2-accented talker instantiates an L2 variety determines the level of generalization to other talkers.
+This hypothesis is supported by work on lexically-guided perceptual retuning showing different patterns of generalization for different phonetic contrasts [@kraljic2006; @kraljic2007; @reinisch2014].
+
+Having revisited the two competing hypotheses that motivated our work, we return to the specific predictions and results.
+The exposure-to-variability hypothesis predicted a main effect of Variability, with better test performance after Variant versus Invariant exposure.
+Participants in either condition were also expected to outperform the Test-only group.
+This hypothesis does not make predictions regarding activation of intended words (Identity targets) versus activation of competing words (Competitor targets).
+However, given that the hypothesis is based on research where transcription accuracy is the measure of generalization, Variant exposure was likely to emerge on Identity target performance.
+The similarity-based hypothesis predicted a main effect of Similarity, with better test performance after Direct versus Indirect (or Control) exposure.
+Participants in the Direct condition were also expected to outperform the Test-only group.
+Specifically, Direct exposure was expected to reduce lexical competition by increasing activation for intended words and decreasing activation for competitors.
+Our finding that Direct-Invariant exposure reduced activation of competitors relative to the Test-only group in Experiment 3 supports the similarity-based hypothesis.
+We observed this same reduction in lexical competition relative to the Indirect-Invariant group in Experiment 2.
+We did not, however, observe a concomitant increase in the activation of intended words after Direct-Invariant exposure in either experiment; in fact, the Indirect-Invariant outperformed the Direct-Invariant group on Identity targets in Experiment 3.
+The most striking finding was that the Direct-Variant group outperformed the Direct-Invariant group on Competitor targets in Experiment 3 (and marginally so in Experiment 2).
+Together, the differential benefits of Invariant exposure on lexical activation provide direct evidence against the exposure-to-variability hypothesis.
+To better understand these findings, we return to how we operationalized Variability and Similarity relative to previous research.
+
+### Implementing similarity
+
+Across three experiments, we manipulated two key aspects of exposure that are thought to facilitate generalization: variability and similarity.
+We took a novel approach to implementing these manipulations compared to previous work [@bradlow2008; @bradlow2023; @xie2017similarity; @xie2021; @baese2013].
+Regarding similarity, we exposed different groups of participants to different sets of items in an auditory lexical decision task.
+In Direct conditions, participants gained experience with the voiceless stops /p/, /t/, and /k/ in the context of real words like *pencil*, *tablet*, and *kingdom*, respectively.
+In Indirect conditions, participants gained experience with the voiced stops /b/, /d/, and /g/ in the context of real words like *beehive*, *desert*, and *gallop*, respectively.
+These items provided the context for perceptual adaptation to three Spanish-accented talkers.
+Through Direct and Indirect exposure, we operationalized Similarity as the type of information listeners received about the relation between VOT and voiceless stops in Spanish-accented English.
+
+Spanish-accented English was chosen because it differs from L1-accented English in its distributions of contrastive stop voicing over VOT.
+Differences in these distributions can disrupt speech perception, because L1 English listeners use VOT as the primary cue to distinguish voiced from voiceless stops in word-initial position.
+In L1-accented English, the voiced stops /b/, /d/, and /g/ are produced with short lag VOTs, while the voiceless stops /p/, /t/, and /k/ are produced with long lag VOTs.
+For example, consider the bilabial stops /b/ and /p/, which have the same place (bilabial) and manner (stop) of articulation.
+L1 English listeners tend to categorize bilabial stops produced with short lag VOTs as /b/.
+However, in Spanish-accented English, cross-language transfer shifts the relations between VOTs and stops; as a result, the voiced stops /b/, /d/, and /g/ are produced with lead VOTs, while the voiceless stops /p/, /t/, and /k/ are produced with short lag VOTs.
+The tendency for L1 English listeners to categorize short lag VOTs as voiced, while optimal for L1-accented speech, is sub-optimal for Spanish-accented speech. 
+In order to correctly categorize Spanish-accented voiceless stops, L1 listeners must learn to associate short lag VOTs with /p/, /t/, and /k/ rather than with /b/, /d/, and /g/.
+There are two ways that listeners could achieve this outcome.
+First, exposure to short lag VOTs in disambiguating lexical contexts like *pencil* would train listeners to shift the VOT distribution for voiceless stops from long lag to short lag for Spanish-accented talkers.
+This is the logic behind the Direct exposure conditions.
+Second, exposure to lead VOTs in supporting lexical contexts like *beehive* would train listeners to shift the VOT distribution for voiced stops from short lag to lead.
+Shifting the VOT distribution for voiced stops leftward on the cue continuum could trigger a more general leftward shift, moving the VOT distribution for voiceless stops from long lag to short lag.
+This is the logic behind the Indirect exposure conditions.
+
+This way of investigating similarity differs from that of @xie2017similarity.
+Their key manipulation related to the /t/-/d/ voicing contrast in Mandarin-accented English.
+In word-final position, voiceless stops are distinguished from voiced stops by the duration of the preceding vowel.
+For L1 listeners of English, longer vowel durations are associated with voiced stops.
+However, in Mandarin-accented English, vowels are shortened before voiced stops, making voiced stops perceptually confusible with voiceless stops.
+This is illustrated by the minimal pair *seed*-*seat*, where shortening the vowel before /d/ makes *seed* sound like *seat*.
+There are also two secondary cues to voicing in this position: burst duration and closure duration.
+@xie2017similarity compared each talker's mean values for vowel, burst, and closure duration on word-final /d/ with t-tests.
+The dissimilar talker differed significantly on all three measures, while the similar talker did not.
+Thus, similarity was operationalized as a between-talker comparison.
+While our approach did not take this kind of fine-grained acoustic-phonetic similarity into account, it did allow us to use the same exact talkers between conditions.
+In this way, we were able to control between-talker sources of acoustic-phonetic variability across levels of Similarity.
+This was important for manipulating variability independent of similarity.
+A by-product of this choice, however, was that we did not control the exact VOT-stop distributions that listeners heard during exposure.
+If these distributions were not as close of a match as they were between @xie2017similarity's exposure and test talkers, this would explain why lexical activation of the primes was not enhanced by Direct training even though it reduced competition.
+
+### Implementing variability {#discuss-var}
+
+Regarding variability, we exposed different groups of participants to different combinations of talker and onset.
+In Variant conditions, participants gained experience with the VOT distributions for each onset across talkers.
+Since there were 24 real word stimuli per onset, this means that each of the three talkers produced eight experimental items with each onset.
+In Invariant conditions, participants gained experience with the VOT distributions for each onset within talkers.
+This means that each talker produced 24 experimental items with a single onset.
+The variability manipulation was also extended to the filler items, with two filler onsets assigned to each talker.
+Overall, listeners heard 72 real words from each talker during exposure.
+By contrast, in @bradlow2008 and @baese2013, participants in the multi-talker exposure groups heard 16 sentences with 50 total key words per talker.
+While each set of sentences was different for each exposure talker, participants completed five repetitions per talker, increasing the total amount of exposure to each talker to 250 key words.
+This is nearly three times the amount of word-level exposure to each talker compared to our study.
+Previous research has shown that listeners need significantly more exposure to adapt to multiple talkers compared to a single talker [@luthra2021].
+Even in a talker-specific paradigm, test performance increases with increasing evidence for adaptation [@cummings2023].
+Thus, the relatively limited amount of exposure our participants had to variability may have limited the strength of its benefits.
+However, the amount of exposure did not differ between our levels of Variability.
+Moreover, we observed a clear benefit for Invariant versus Variant exposure.
+We interpret this finding in terms of the specificity of generative models.
+
+According to @kleinschmidt2019, generative models can be constructed according to an individual person (talker-specific) or a higher-level social category (talker-independent).
+The level of organization is determined by two factors.
+First, the model needs to be a good representation of the actual distribution.
+That is, the cue-category mappings that the listener has heard so far need to be captured by the mental representation.
+Second, the model needs to be a good predictor of future exemplars.
+In other words, the mental representation needs to help listeners categorize a given instance of a cue as a particular category.
+In our experiment, we gave listeners different samples of each talker's VOT distributions.
+We can illustrate this idea with Talker A and her VOT-/p/ mapping.
+Variant exposure gave listeners a small sample of Talker A's VOT-/p/ mapping relative to Invariant exposure, where all VOT-/p/ mappings were from Talker A.
+Direct exposure allowed listeners to sample Talker A's VOT distribution for /p/, while Indirect exposure only allowed listeners to sample her VOT distribution for the voiced counterpart /b/.
+These different samples influenced how listeners constructed their representations.
+
+As explained in Section \@ref(discuss-1b), talker-specific generative models were the only possible representations of Invariant exposure.
+This is because Invariant exposure only provided one talker's cue distributions for a given category.
+With Variant exposure, both talker-specific and talker-independent models were possible; however, talker-independent models were optimal.
+This is because there were only 24 exemplars of each phonetic category divided among three talkers.
+Thus, talker-specific models would have been developed from a relatively sparse sample.
+If we assume that the talkers had similar VOT-stop distributions, the talker-specific generative models developed during Invariant exposure should have been as useful as the talker-independent generative models developed during Variant exposure.
+However, the reduction in lexical competition following Direct-Invariant exposure compared to Direct-Variant exposure in Experiments 2 and 3 suggests that this was not the case.
+There are two possible explanations: first, the talker-independent models from Variant exposure were not as useful as the talker-specific models from Invariant exposure; second, listeners developed talker-specific models during Variant exposure, which were not as useful as a talker-independent model would have been.
+Both of these explanations could be the result of different VOT distributions for each talker.
+This would also explain why Direct-Invariant exposure did not increase Identity priming as discussed in the previous section.
+
+Socio-indexical organization cannot, however, explain why Indirect-Invariant exposure increased Identity priming relative to Direct-Invariant exposure in Experiment 3.
+Increased lexical activation of primes like *park* after exposure to words like *beehive* is evidence for both talker-independent and category-independent adaptation.
+Indirect-Invariant training exposed listeners to Talker A's VOT-/b/ distribution, Talker B's VOT-/d/ distribution, and Talker C's VOT-/g/ distribution.
+By comparison, Direct-Invariant training exposed listeners to Talker A's VOT-/p/ distribution, Talker B's VOT-/t/ distribution, and Talker C's VOT-/k/ distribution.
+When tested on Talker D, listeners in the Indirect-Invariant group showed stronger lexical activation for primes with /p/, /t/, and /k/ onsets.
+In other words, exposure to voiced stops improved perception of voiceless stops, but only when each stop was produced by a different talker.
+This finding was not expected under the ideal adapter framework, where adaptation is specific to a given phonetic category, nor by the exposure-to-variability or similarity-based hypotheses.
+It is also counter to the findings of @clarke2005, where training on modified VOT continua for /t/ and /d/ did not generalize to /k/ and /g/ [see also @eisner2005].
+However, our results do align with those of @kraljic2006, who demonstrated generalization from a /t/-/d/ continuum to a /p/-/b/ continuum [see also @kraljic2007].
+Overall, the conditions under which perceptual adaptation generalizes to other phonetic categories requires further research.
+
+### Conclusion
+
+Overall, our results show that talker-independent adaptation to L2-accented speech is facilitated by exposure-test similarity.
+We also found evidence that generalization is enhanced when variability is limited, at least for the rapid adaptation effects we investigated here.
+This study is the first to compare variability and similarity while maintaining the same talkers across conditions.
+This level of control is key to understanding how exposure to between-talker variability interacts with exposure to specific acoustic-phonetic properties.
+We suggest that the contradictory findings in the literature are at least partially a result of comparing different talkers, who have idiosyncratic patterns of within-talker covariation [@clayards2017; @whalen2018; @xie2020].
+Listeners are highly sensitive to variation in speech, particularly during perception.
+In future work, we hope to better understand how this sensitivity is deployed during talker- and category-independent adaptation to L2-accented speech.
+
+

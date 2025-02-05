@@ -1,0 +1,39 @@
+---
+output: bookdown::pdf_document2
+---
+
+\begin{flushleft}
+\begin{singlespacing}
+
+The dissertation of Holly A. Zaharchuk was reviewed and approved by the following:\\
+
+\vspace{12pt}
+
+Janet G. van Hell\\
+Professor of Psychology and Linguistics\\
+Dissertation Advisor\\
+Chair of Committee\\
+
+\vspace{12pt}
+
+Michele T. Diaz\\
+Professor of Psychology and Linguistics\\
+
+\vspace{12pt}
+
+Navin Viswanathan\\
+Associate Professor of Communication Sciences and Disorders and Linguistics\\
+
+\vspace{12pt}
+
+Matthew Carlson\\
+Associate Professor of Spanish and Linguistics\\
+
+\vspace{12pt}
+
+Kristin A. Buss\\
+Professor of Psychology and Human Development and Family Studies\\
+Head of the Department of Psychology\\
+
+\end{singlespacing}
+\end{flushleft}

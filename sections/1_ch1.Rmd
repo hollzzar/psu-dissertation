@@ -1,0 +1,104 @@
+---
+output: bookdown::pdf_document2
+---
+
+```{r child = 'code/1_ch1_code.Rmd', cache = TRUE}
+```
+
+# General introduction
+
+Of all the world's languages, English has both the largest number of speakers and the broadest geographic reach [@ethnologue2024_2].
+Approximately 1.1 billion English speakers, comprising 75% of the English-speaking population, learned English as a second language (L2).
+To the extent that L1 phonetic features transfer to an L2, L2-accented varieties of English are ubiquitous.
+From a listener’s perspective, L2-accented varieties differ from L1-accented varieties in ways that complicate speech perception. 
+Nevertheless, listeners show remarkable speed and plasticity in adjusting to L2-accented speech [e.g., @clarke2004; @xie2018]. 
+It remains unclear, however, what underlying mechanisms drive these rapid adaptation effects.
+Understanding flexibility in spoken language processing is critical for informing linguistic theories of speech perception [e.g., @kleinschmidt2019].
+To that end, the present dissertation features two studies, reported in Chapters 2 and 3, exploring the interface between L2 speech production and L1 speech perception.
+
+## Cross-language influence in L2 speech production
+
+During L2 acquisition, a speaker's L1 phonetic inventory shapes the production of L2 speech sounds [@flege2021; for a recent review, see @nagle2022].
+This cross-language influence in bilingual speech production is a product of the relations between L1 and L2 phonetic categories [@flege2007; @flege2003].
+These relations determine how an L2 phone is categorized within the L1 phonological system [@best2001; @best2007].
+In this thesis, I focus on two-category assimilation [@best1994; @tyler2014], where two contrasting L2 phonemes map onto two contrasting L1 phonemes.
+Specifically, I focus on the three pairs of phonemes found in English, Spanish, and many other languages, which contrast in terms of voicing: /p/-/b/ (*park* vs. *bark*), /t/-/d/ (*tune* vs. *dune*), and /k/-/g/ (*coal* vs. *goal*).
+These voicing contrasts form the basis of the experimental manipulations in this dissertation.
+
+### English stop consonant production
+
+Voicing refers to the status of the glottis, which comprises two folds of tissue and is located in the larynx at the top of the neck.
+Constricting the vocal folds causes them to vibrate, resulting in voiced speech sounds.
+By contrast, opening the vocal folds prevents vocal fold vibration, resulting in voiceless speech sounds.
+The consonants /p/, /t/, and /k/ are voiceless, while the consonants /b/, /d/, and /g/ are voiced.
+
+We can further describe these six speech sounds by where and how they are produced in the vocal tract (i.e., the structures in the upper neck and head that are used for speech).
+First, each pair of consonants is grouped according to where in the vocal tract it is produced, referred to as the place of articulation: bilabial consonants are produced with the lips (/p/-/b/), alveolar consonants are produced with the tongue at the roof of the mouth just behind the teeth (i.e., the alveolar ridge; /t/-/d/), and velar consonants are produced with the tongue at the soft palate in the back of the mouth (i.e., the velum; /k/-/g/).
+The lips, tongue, alveolar ridge, and velum are all instances of articulators.
+Second, all six of these consonants are grouped together according to the manner of articulation, which is how a sound is produced in the vocal tract.
+A stop consonant, also referred to as a plosive, is characterized by a complete closure of the vocal tract at the relevant place of articulation.
+This is distinguished from a fricative, which is characterized by a partial closure of the vocal tract, creating vibration at the relevant place of articulation (e.g., /f/, /s/, and /\textipa{S}/).
+
+To summarize, the consonant pairs /p/-/b/, /t/-/d/, and /k/-/g/ all have the same manner of articulation (stop) but have different places of articulation (bilabial, alveolar, and velar, respectively).
+Within each pair, one member differs from the other in terms of voicing (voiceless-voiced, respectively).
+While this small articulatory distinction plays a big role in the phonological systems of many languages, including English and Spanish, it can be difficult to detect in continuous speech where the acoustic-phonetic dynamics are complex.
+Throughout language acquisition, listeners (and speakers themselves) learn which acoustic-phonetic features are most strongly associated with these fine-grained phonological voicing distinctions.
+There are several interrelated cues that listeners use to distinguish voiced from voiceless stops in word-initial position, including onset fundamental frequency [@whalen1993], formant transitions [@cooper1974; @benki2001], and vowel duration [@port1982; @viswanathan2020].
+However, the primary cue to word-initial stop consonant voicing is voice onset time (VOT), which is the interval between the release of the closure of the articulators, called the burst, and the beginning of voicing [@lisker1964; @cho1999; @chodroff2019].
+Listeners are highly sensitive to the probabilistic distributions of VOT across voiced and voiceless English stops [@clayards2008].
+
+### Spanish-to-English transfer in VOT production
+
+The associations between VOT and stop consonants vary cross-linguistically [@chodroff2019; @lisker1970].
+There are three general types of VOT: lead, where voicing begins before the release, resulting in negative values; short lag, where voicing begins immediately or relatively quickly after the release; and long lag, where voicing begins relatively slowly after the release [@abramson2017].
+In Spanish, lead VOTs correspond to voiced stops and short lag VOTs correspond to voiceless stops [@vicente1986; @williams1977].
+For example, the /b/ in Spanish *barco* (boat) would be approximately -98 ms on average, while the /p/ in Spanish *parque* (park) would be approximately 16 ms on average [values calculated from @chodroff2019].
+By contrast, in English, short lag VOTs correspond to voiced stops and long lag VOTs correspond to voiceless stops [@chodroff2017].
+For example, the /b/ in English *bark* would be approximately 9 ms on average, while the /p/ in English *park* would be approximately 60 ms on average [values calculated from @chodroff2019].
+In other words, the VOT for Spanish /p/ is a better fit for the contrasting English /b/ phoneme category than for the corresponding English /p/ phoneme category.
+The overlap in VOT between Spanish /p/ and English /b/ is illustrated in Figure \@ref(fig:intro-fig), with probability densities constructed from the data presented in @chodroff2019.
+
+```{r intro-fig, fig.cap = "Overlapping VOT distributions for Spanish voiceless stops and English voiced stops.", fig.pos="H", dpi = 300}
+knitr::include_graphics("sections/code/outputs/l1_plot.png")
+```
+
+To return to the notion of two-category assimilation, consider an L1 Spanish speaker who is learning English as an L2.
+She already has an established /p/-/b/ contrast in her L1 Spanish that is associated with VOT.
+The /p/-/b/ contrast in her L2 English is associated with the same cue in the same direction, such that VOTs for /p/ are longer than those for /b/.
+As a result, the English /p/-/b/ contrast will be relatively easy to integrate into her existing phonological system compared to, for example, certain vowel contrasts in English [@baigorri2019].
+The same will be true for both the /t/-/d/ and /k/-/g/ contrasts.
+However, assimilating the L2 English /p/ to the L1 Spanish /p/ means that the English phoneme will be produced like the Spanish phoneme.
+That is, English /p/ will be produced with a short lag VOT (similar to Spanish /p/).
+This will create a perceptual problem from a listener's perspective, since short lag VOTs are associated with English /b/, not /p/; without supporting contextual information, listeners may confuse Spanish-accented English /p/ with /b/ (e.g., *park* perceived as *bark*).
+To summarize, cross-language transfer in Spanish-accented English can create ambiguity between voiced and voiceless stops [@flege1987].
+Thankfully, listeners are adept at solving this problem through perceptual adaptation.
+
+## Adaptation in L1 speech perception
+
+Perceptual adaptation is the process of learning the patterns of variation in a speech signal.
+Calibrating the perceptual system to novel input allows listeners to map unfamiliar, variable, or secondary acoustic cues onto stable phonetic categories.
+Previous research has shown that listeners can use word-level information to guide this learning process.
+In a seminal study, @norris2003 biased listeners toward categorizing ambiguous fricative sounds as /f/ or /s/ by embedding them in different lexical contexts.
+For example, the token *proo?* would bias listeners toward categorizing [?] as /f/ to form the real word *proof* rather than the pseudoword \**proos*.
+Listeners who had been exposed to /f/-biased lexical contexts during training were more likely to categorize ambiguous fricative sounds as /f/ rather than as /s/ during test.
+This same re-tuning of the perceptual system for specific phonetic contrasts has also been demonstrated in the context of L2-accented speech [@reinisch2014; @xie2017similarity; @xie2017structure].
+@clarke2005 exhibited a similar pattern of results with voiceless stops, such that listeners learned to categorize short lag VOTs as /t/ and lead VOTs as /d/ through exposure to supporting lexical contexts.
+Importantly, this is the exact shift in VOT that is characteristic of Spanish-accented English stops.
+Subsequent studies have also shown that listeners take advantage of VOT and other cues to voicing to adapt to accented speech [@wu2022; @schertz2016; @idemaru2011].
+Taken together, these findings suggest that listeners adapt to the shifted VOT-stop mappings in Spanish-accented English through exposure to supporting lexical contexts.
+
+The present dissertation explores two aspects of adaptation to L2-accented speech.
+The first aspect of adaptation, investigated in Chapter 2, is how perceptual learning generalizes across talkers.
+Previous research has shown that perceptual adaptation to particular cue-category mappings can transfer from one talker to another [@kraljic2006; @kraljic2007; @xie2017similarity; @reinisch2014].
+More broadly, the benefits of exposure to an L2 accent can transfer to a new talker with the same accent [e.g., @alexander2019; @sidaras2009; @tzeng2016; @xie2018].
+However, there is disagreement in the literature about the conditions under which adaptation generalizes across talkers [@baese2013; @bradlow2008; @xie2021; @bradlow2023; @xie2017similarity].
+Study 1, presented in Chapter 2, takes a novel approach to this question using Spanish-accented English VOT-stop mappings as a test case in a series of three behavioral experiments.
+
+The second aspect of adaptation, under investigation in Chapter 3, relates to the neurocognitive correlates underlying perceptual learning.
+While there are several theoretical [e.g., @sumner2014; @goldinger1998; @pierrehumbert2016] and computational [@kleinschmidt2015; @kleinschmidt2019] models of how and why adaptation occurs, the mechanism(s) that support this process are not well-understood [@choi2019; @xie2023].
+One way of investigating these mechanisms is by using time-sensitive neurocognitive methods that can be associated with fine-grained changes in perception.
+Study 2, presented in Chapter 3, uses EEG/ERPs to investigate the online linguistic processes associated with adaptation to a Spanish-accented English talker.
+Together, these two studies use VOT as a window into perceptual adaptation in brain and behavior.
+
+
+

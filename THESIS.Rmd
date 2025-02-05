@@ -1,0 +1,164 @@
+---
+citeproc: no
+output:
+  bookdown::pdf_document2:
+    fig_caption: yes
+    number_sections: yes
+    keep_tex: true
+    toc: false
+    pandoc_args: !expr rmdfiltr::add_replace_ampersands_filter(rmdfiltr::add_citeproc_filter(args = NULL))
+csl: apa7_auth.csl
+bibliography: dissertation.bib
+urlcolor: black
+linkcolor: black
+documentclass: article
+fontsize: 12pt
+geometry: margin = 1in
+classoption: twoside
+header-includes:
+- \usepackage{placeins}
+- \usepackage{setspace}
+- \usepackage{microtype}
+- \usepackage{indentfirst}
+- \usepackage{tipa}
+- \usepackage{float}
+- \usepackage{hyperref}
+- \doublespacing
+- \counterwithin{figure}{section}
+- \counterwithin{table}{section}
+- \setlength{\headheight}{14.5pt}
+- \setlength{\parskip}{0cm}
+- \setlength\parindent{24pt}
+- \raggedbottom
+---
+
+<!-- R set-up -->
+
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+# knitr settings
+options(kableExtra.auto_format = TRUE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE,
+                      fig.align = 'center', out.width = '\\textwidth')
+knitr::knit_hooks$set(document = function(x) {sub('\\usepackage[]{color}', '\\usepackage{xcolor}', x, fixed = TRUE)})
+
+# load global variables
+source("sections/code/0_global.R")
+```
+
+<!-- Title page -->
+
+\pagenumbering{roman}
+\thispagestyle{empty}
+
+```{r child = 'sections/titlepage.Rmd'}
+```
+
+<!-- Declaration page -->
+
+\newpage
+
+```{r child = 'sections/declaration.Rmd'}
+```
+
+<!-- Abstract -->
+
+\newpage
+\section*{Abstract}
+  
+```{r child = 'sections/abstract.Rmd'}
+```
+
+<!-- Table of contents -->
+
+\renewcommand{\contentsname}{Table of contents}
+
+\newpage
+\setcounter{tocdepth}{3}
+\tableofcontents
+
+<!-- Figures -->
+  
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{List of figures}
+\listoffigures
+
+<!-- Tables -->
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{List of tables}
+\listoftables
+
+<!-- Acknowledgements -->
+  
+\clearpage
+\section*{Acknowledgements}
+\addcontentsline{toc}{section}{Acknowledgements}
+
+```{r child = 'sections/acknowledgements.Rmd'}
+```
+
+<!-- Page set-up -->
+  
+\newpage
+\pagenumbering{arabic}
+
+<!-- Chapter 1 -->
+  
+```{r child = 'sections/1_ch1.Rmd'}
+```
+
+<!-- Chapter 2 -->
+
+\newpage
+  
+```{r child = 'sections/2_ch2_intro.Rmd'}
+```
+
+```{r child = 'sections/3_ch2_1.Rmd'}
+```
+
+```{r child = 'sections/4_ch2_2.Rmd'}
+```
+
+```{r child = 'sections/5_ch2_3.Rmd'}
+```
+
+```{r child = 'sections/6_ch2_discuss.Rmd'}
+```
+
+<!-- Chapter 3 -->
+
+\newpage
+
+```{r child = 'sections/7_ch3_intro.Rmd'}
+```
+
+```{r child = 'sections/8_ch3_method.Rmd'}
+```
+
+```{r child = 'sections/9_ch3_result.Rmd'}
+```
+
+```{r child = 'sections/10_ch3_discuss.Rmd'}
+```
+
+<!-- Chapter 4 -->
+
+\newpage
+
+```{r child = 'sections/11_ch4.Rmd'}
+```
+
+\FloatBarrier
+\newpage
+
+\section*{References}
+
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\noindent
+
+::: {#refs}
+:::

@@ -1,0 +1,149 @@
+---
+output: bookdown::pdf_document2
+---
+
+# Study 2: The neurocognitive correlates of talker-specific adaptation to Spanish-accented English
+
+## Introduction
+
+Models of speech recognition ground high-level accent adaptation in low-level acoustic-phonetic processes.
+The ideal adapter framework in particular posits that listeners use statistical learning to develop mental representations of the probabilistic mappings between acoustic cues and phonetic categories [@kleinschmidt2015].
+This model accounts for the wealth of behavioral data on talker-specific adaptation [e.g., @bradlow2008; @clarke2004; @xie2021; @xie2017structure; @xie2018].
+A typical experimental design features two phases: the first phase exposes the participant to the talker, while the second phase tests what the participant has learned about the talker.
+Across studies, exposure to a talker's cue-category mappings during the first phase leads to faster and more accurate responses on the same talker in the second phase compared to a different talker.
+The effects of perceptual adaptation on neural signatures are less clear.
+Neurocognitive studies of L2-accented speech processing have not typically been designed to induce adaptation through the systematic manipulation of stimulus materials.
+Rather, adaptation effects have mainly been investigated by comparing mean responses in each experiment half [@gosselin2021; @hanulikova2012; @romerorivas2015].
+For example, @romerorivas2015 demonstrated a reduction in the neural correlates of lexico-semantic processing with exposure to L2-accented speech.
+Such analyses have yielded little evidence for adaptation, despite the large body of evidence for adaptation to L2-accented speech in studies using behavioral measures.
+The present study takes a different approach to investigating the neurocognitive correlates of adaptation with a novel experimental design.
+This approach takes the exposure-test design common in the behavioral literature and integrates the two phases to measure real-time changes in adaptation to an L2-accented talker.
+
+Our study leverages the predictions of the ideal adapter framework to explore the neurocognitive mechanisms that support perceptual adaptation to L2-accented talkers.
+We focus on one acoustic cue---VOT---and its association with the phonetic categories /p/, /t/, and /k/ in Spanish-accented speech.
+Voiceless stop consonant VOT in Spanish-accented English was chosen as the focus of the present study for several reasons.
+Firstly, VOT is relatively easy to measure and manipulate from a researcher’s perspective [@winn2020].
+Secondly, variation in VOT affects both L1 word recognition [@andruski1994; @utman2000] and L2 accent categorization [@mccullough2016]. 
+Thirdly, and most importantly for our investigation of L2-accented speech, the mappings between VOT as an acoustic cue and voiceless stops as phonetic categories vary cross-linguistically between English and Spanish [@campos2012; @lisker1964].
+We take advantage of L1-L2 transfer in the production of voiceless stop VOTs to investigate adaptation to a Spanish-accented English talker.
+
+### ERP correlates of acoustic-phonetic processing
+
+Electroencephalography (EEG) captures voltage changes associated with neural activity with millisecond-by-millisecond precision [@luck2014].
+The event-related potential (ERP) analysis technique, which timelocks the EEG signal to the onset of a stimulus, takes advantage of this excellent temporal resolution to isolate the neurocognitive mechanisms that support specific linguistic processes.
+ERPs are relative measures, meaning that two or more conditions need to be compared in order to interpret the effects.
+The amount of time between the onsets of two conditions and the emergence of amplitude differences is thought to be directly related to the time-course of language processing.
+
+During comprehension, acoustic-phonetic processing precedes lexico-semantic access, both conceptually in psycholinguistic theories [@marslen1984; @mcclelland1986; @norris1994] and physically in the EEG signal [@hagoort2017].
+The earliest cortical response to auditory stimuli is the negative-going N1 component, which peaks at approximately 100 ms post stimulus onset in frontal channels and indexes acoustic processing.
+Phonetic processing is associated with the positive-going P2/P200 component, which typically peaks between 150 and 250 ms post stimulus onset in central and fronto-central channels.
+Together, these two components form the N1-P2 complex, which indexes the engagement of selective attention during perception [@hillyard1973; @sanders2008; @joos2014].
+Lexico-semantic processing is indexed by the N400 component, a negative-going waveform peaking at approximately 400 ms post stimulus onset across centro-parietal channels [@federmeier2021; @kutas1984].
+The negative-going N200/PMN (phonological mapping negativity), which overlaps in time with the P2/P200, has been linked to phonetic category access [@connolly1994; @newman2009] and acoustic-phonetic normalization [@goslin2012], but is difficult to distinguish from the mismatch negativity component or the N400 [@lewendon2020; @lewendon2023].
+
+The interpretation of waveform differences varies by component.
+The amplitude of the N1 varies linearly with VOT, such that lower values elicit higher-amplitude waveforms [@toscano2010].
+N1 amplitude is also sensitive to higher-order perceptual categories for stop consonants such as voicing (voiced > voiceless) and place of articulation (bilabial > velar > alveolar) [@pereira2018; see @getz2021 for a review].
+The P2/P200 is negatively correlated with effort, such that more positive-going waveforms mean easier extraction of phonetic category information from the signal [@crowley2004].
+By contrast, the PMN and N400 are positively correlated with effort.
+For the N400, a higher amplitude reflects more difficult lexico-semantic access [@federmeier2021; @kutas1984].
+For example, consider the sentence "The soccer player kicked the ___ down the field." 
+The word *ball* is expected in context of a soccer player kicking something, while the word *chair* is unexpected.
+As a result, *chair* will be more difficult to access than *ball*. 
+This difference in accessibility will be reflected in the size of the N400 effect. 
+For L1 listeners of L1-accented speech, the average amplitude of the ERP waveforms for unexpected words like *chair* will be more negative around 400 ms than for expected words like *ball*.
+In other words, unexpected words elicit more negative-going N400 waveforms than expected words. 
+Put another way, semantic access is more difficult for unexpected words than for expected words.
+Such comparisons reveal the specific processes that support language comprehension.
+
+### Online processing of L2-accented speech
+
+While many EEG/ERP studies have observed differences in lexico-semantic processing between L1- and L2-accented speech, only one (to our knowledge) was specifically designed to examine adaptation effects.
+@romerorivas2015 compared processing of semantically expected words in L2- and L1-accented Spanish sentences between experiment halves.
+In the first half of the experiment, L2-accented speech elicited stronger N400 effects than L1-accented speech; however, in the second half, L2- and L1-accented speech elicited similar N400s.
+The difference was driven by a reduction in the N400 amplitudes for L2-accented speech, which was interpreted as an adaptation effect at the lexico-semantic level.
+@gosselin2021 also analyzed adaptation effects between experiment halves, but did not observe significant interactions with accent.
+Rather, throughout the experiment, unexpected words elicited stronger late negativities than expected words in Mandarin-accented English sentences, but not in L1-accented ones.
+Two additional studies observed differences between L1- and L2-accented talkers on the N400, but did not specifically investigate adaptation to the L2 accent.
+@grey2017 also observed a late negativity for unexpected versus expected words in Mandarin-accented English sentences, but not in L1-accented ones.
+Finally, @song2018 observed larger N400 amplitudes and greater target-talker entrainment for Korean- versus L1-accented English among L1 listeners, reflecting increased cognitive effort for processing L2-accented speech.
+Overall, these results suggest that listeners rely on lexico-semantic information to guide comprehension of L2-accented speech.
+However, it is not clear whether changes in lexico-semantic processes are the mechanism or the product of adaptation.
+In fact, adaptation may actually be driven by changes in processing at the acoustic-phonetic level.
+Improving the efficiency of extracting acoustic-phonetic information from the speech signal through low-level perceptual adjustments would have subsequent benefits for lexico-semantic access.
+This line of reasoning aligns with the predictions of the ideal adapter framework, which argues that listeners adapt to novel accents by updating their mental representations of the relations between acoustic cues and phonetic categories [@kleinschmidt2015; @kleinschmidt2019]. 
+While previous ERP studies have not investigated this rapid belief-updating process with L2-accented speech, some studies have investigated the effects of long-term exposure.
+
+Familiarity with a particular variety of accented speech has been shown to modulate the N200/PMN [@goslin2012; @stringer2019; @porretta2017].
+Single-word priming experiments, like the one conducted in the present study, have also observed similar modulations of the N200/PMN with phonetic/phonological mismatches between primes and targets [@desroches2009; @huang2020; @malins2012].
+Some studies have observed unexpected reductions in PMN amplitude for an L2 accent versus an L1 listener's own regional (D1) accent [@goslin2012; @stringer2019]; however, these results are less counter-intuitive in the context of other research on the PMN.
+For example, @porretta2017 showed that the PMN is influenced by the particular combination of listeners---who have different levels of experience with an L2 accent---and talkers---who vary in intelligibility and comprehensibility.
+Specifically, this study found that listeners with less experience with Mandarin-accented speech exhibited weak PMN effects for the least-accented talkers.
+By contrast, listeners with daily interactions with Mandarin-accented talkers exhibited robust PMN effects for the least-accented talkers.
+This is in line with the findings of @goslin2012 for regional variation, with unfamiliar regional (D2) accents eliciting larger PMN effects than D1 accents [see also @brunelliere2013].
+While larger PMN effects index greater processing difficulty, they also suggest that listeners with exposure to a particular variety are able to normalize the signal [see @goslin2012].
+Behavioral work has also shown that long-term experience with an accent variety improves perception [e.g., @witteman2013].
+However, it is important to note that these studies did not systematically manipulate familiarity; rather, a participant's life-long language experience was taken as a measure of exposure to a particular variety.
+As a result, it remains unclear whether the effects of short-term exposure, as in rapid adaptation to accented speech, will be reflected in modulations of the same neural signatures, and if so, how.
+
+Beyond the N200/PMN, increases in the amplitude of the P2/P200 have been linked to improvements in perceptual learning.
+In @dediego2007, increases in P2 amplitude were associated with successful learning of the statistical relations between non-adjacent syllables in an artificial language.
+Modulation of the P2 emerged within three minutes of exposure, in line with the rapid behavioral effects observed in the perceptual adaptation literature for L2-accented speech [e.g., @clarke2004; @xie2018].
+Long-term changes in the amplitude of the P2 have also been associated with successful learning.
+For instance, @rossi2013 investigated phonotactic rule-learning in an L2.
+Over three days, the amplitude of the P2 increased in tandem with exposure to pseudo-words with consonant clusters that were unattested in participants’ L1 but attested in the L2.
+Similarly, both @atienza2002 and @tong2009 observed increases in sensitivity on the P2 with increasing pure tone discrimination performance.
+In @tong2009, training-induced sensitivity was evident even nine weeks later.
+Across studies, exposure to specific perceptual features enhanced P2/P200 responses.
+With regard to the N1-P2 complex, @tremblay2001 observed increases in peak-to-peak amplitude as listeners learned to discriminate between /mba/ and /ba/ syllables based on VOT.
+This finding is in line with other neurocognitive investigations of VOT, where phonetic category discrimination has been linked to the N1 [@kapnoula2021; @getz2019; @sarrett2020] or N1-P2 complex [@horev2007; @elangovan2011; @dorman1974].
+Similarly, perceptual adaptation to an artificial accent has been associated with modulation of the P3b component [@scharenborg2019].
+Taken together, these result suggest that adaptation to L2-accented speech may be indexed by changes in neurocognitive correlates of acoustic-phonetic processing (N1, P2, N200/PMN, P3b).
+
+### Present study
+
+The present study investigates the relative contributions of acoustic-phonetic and lexico-semantic levels of processing to perceptual adaptation.
+On the one hand, previous behavioral work has demonstrated fine-grained enhancements to perception with exposure to accented speech.
+On the other hand, previous neurocognitive work has demonstrated high-level difficulties in processing accented speech.
+To the extent that the effects of exposure have been investigated, they have emerged on different ERP components indexing different cognitive-linguistic processes.
+To clarify these findings and bring them in line with the behavioral literature, we conducted an EEG experiment exposing listeners to a Spanish-accented talker's VOT-voiceless stop mappings.
+We investigated changes in processing as a function of systematic exposure to these mappings.
+This experiment was specifically designed to elicit and measure perceptual adaptation, unlike previous EEG/ERP studies.
+
+We adapted the primed cross-modal lexical decision task from @xie2017structure to EEG.
+In the design of @xie2017structure, participants first heard a real word (auditory prime) and then saw a real word or pseudoword written on the screen (visual target)
+Their task was to indicate whether the visual target was a real English word or not.
+Trials were evenly divided between real word and pseudoword targets.
+In our design, participants first saw a real word (visual prime) and then heard a real word or pseudoword (auditory target).
+Their task was to respond only if the auditory target was not a real English word.
+One quarter of the trials were pseudoword (go) targets, while the other three quarters were real word (no-go) targets.
+This ratio was chosen to maximize false-alarm rates [@young2018], with the goal of focusing listeners' attention to the onsets of the auditory stimuli.
+We changed the task from the typical lexical decision design to a go/no-go design to avoid eliciting components associated with response inhibition [@ramautar2004].
+We also changed the priming modality from auditory-visual to visual-auditory in order to measure ERPs on the L2-accented signal (as opposed to RTs on the visual stimulus).
+
+The final notable change is the integration of the exposure and test phases.
+In @xie2017structure and Study 1 of this dissertation, there were two discrete phases: an exposure phase to encourage lexically-guided perceptual re-tuning, followed by a test phase to investigate the extent of adaptation.
+Here, we included the multisyllabic exposure items in the same task as the monosyllabic test items.
+This allowed us to investigate real-time changes in the perception of ambiguous onsets as a function of exposure to disambiguating lexical contexts.
+Overall, this experimental design captured changes in processing L2-accented speech over time.
+Neurocognitive responses to test targets like *park* were measured in relation to three prime types: Identity (*park*), Competitor (*bark*), and Unrelated (*wand*).
+We were interested in the extent to which the effects of Prime changed as participants accumulated experience with the exposure targets (Exposure) over the course of the experiment.
+
+The ideal adapter framework predicts an interaction between Prime and Exposure on ERP components related to acoustic-phonetic processing: N1, P2, or PMN.
+As the experiment progresses, participants will learn to associate the Spanish-accented talker’s VOT distributions to the appropriate phonetic categories.
+To the extent that the process of forming new generative models is similar to the process of rule-learning, differences between Identity and Competitor primes should emerge on the P2 component.
+Given the tight link between the P2 and N1, particularly in previous research manipulating VOT, the N1-P2 complex may also exhibit changes in Competitor priming.
+If Competitor primes diverge from Identity primes on the PMN rather than the P2, this would suggest that adaptation is driven by more general familiarity with the talker and their accent.
+On the N400 component, participants should show consistently graded effects from Identity to Competitor to Unrelated targets.
+If an interaction is observed between Prime and Exposure on the N400, but not on earlier acoustic-phonetic components, this would suggest a lexico-semantic mechanism for adaptation to L2-accented speech.
+Behaviorally, accuracy on test targets should increase with Exposure.
+Previous research on perceptual adaptation has also observed positive correlations with inhibitory control and vocabulary [@banks2015; @kim2020].
+We included these measures in the present study to investigate higher-order cognitive factors.
+
+This study is among the first to investigate perceptual adaptation to L2-accented speech in real time using EEG.
+Using this fine-grained, time-sensitive measure will clarify the neurocognitive mechanisms underlying behavioral outcomes in perceptual adaptation research.
+Specifically, EEG/ERPs will reveal the relative contributions of phonetic, phonological, and semantic information in resolving perceptual ambiguity in L2-accented speech.
+Overall, this work draws on the ideal adapter framework to unite behavioral measures of perceptual adaptation and neurocognitive measures of online processing to gain a deeper understanding of speech recognition.
+
+
+

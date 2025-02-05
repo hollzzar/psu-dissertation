@@ -1,0 +1,418 @@
+---
+output: bookdown::pdf_document2
+---
+
+```{r child = 'code/3_ch2_1_code.Rmd', cache = TRUE}
+```
+
+## Norming study
+
+### Participants {#methods-pars-norm}
+
+Prior to conducting the main experiments, we recruited a separate group of participants (*N* = `r norm_pars_all`) from the Penn State subject pool to norm the auditory stimuli.
+Participants provided implied consent in line with Penn State IRB policies and were compensated 0.5 class credits after completing the experiment, which took 15-30 minutes.
+Eligible participants were between the ages of 18 and 40 years, spoke English as their first and only fluent language, had normal hearing, had normal or corrected-to-normal vision, and did not have a history of language-related disorders.
+We removed ineligible participants (*N* = `r norm_pars_inelig`) and those with poor data quality (*N* = `r norm_pars_bad`; see Section \@ref(methods-analysis-norm)) from further analysis.
+This left `r norm_pars_qual` participants.
+
+### Stimuli {#methods-stims}
+
+Stimuli were grouped by onset phoneme (e.g., *park* has the onset phoneme /p/).
+There were three **experimental onset** groups: critical, competitor, and control.
+Critical onsets were voiceless stops (/p/, /t/, and /k/), competitor onsets were voiced stops (/b/, /d/, and /g/), and control onsets were voiceless fricatives (/f/, /s/, and /\textipa{S}/).
+Across the experimental onset groups, phonemes were also grouped (roughly) according to their place of articulation: labial (/p/, /b/, and /f/), alveolar (/t/, /d/, and /s/), and postalveolar/velar (/k/, /g/, and /\textipa{S}/).
+These will be referred to as the **cross-experimental onset** groups.
+There was one **filler onset** group: /m/, /n/, /l/, /\textipa{\*r}/, /h/, and /w/.
+Filler onsets were also grouped by their place of articulation: nasal (/m/ or /n/), alveolar (/l/ or /\textipa{\*r}/), and other back consonants (/h/ or /w/).
+These will be referred to as the **within-filler onset** groups.
+Finally, each cross-experimental onset group was paired with one of the within-filler onset groups according to frontness/backness: front (/p/, /b/, /f/, /m/, and /n/), mid (/t/, /d/, /s/, /l/, and /\textipa{\*r}/), and back (/k/, /g/, /\textipa{S}/, /h/, and /w/).
+These will be referred to as the **cross-condition onset** groups.
+
+Stimulus selection began by downloading real words with one to four syllables, three to eight letters, and one to two morphemes from the English Lexicon Project (ELP) restricted lexicon [@balota2007].
+Within this set of items, we limited our search to words with experimental or filler onsets followed directly by a vowel (e.g., *peach* was considered but *preach* was not).
+We removed duplicate word stems with different suffixes (e.g., *paints* and *painting* were removed but *paint* was kept).
+We also removed any inappropriate, harmful, or distracting words and word stems.
+The remaining set of items will be referred to as the ELP pool.
+
+Multisyllabic stimulus selection began by drawing real words with two to four syllables, five to eight letters, and one to two morphemes from the ELP pool.
+We removed words with minimal pairs between the critical and competitor groups (e.g., *pocket* and *docket* were removed but *socket* and *locket* were kept).
+Once the set of options was established, real words were selected and pseudowords were created.
+Pseudowords were created by changing the onsets of real words with filler onsets that had not been selected as potential real words for the study.
+For experimental pseudowords, onsets were assigned according to the cross-condition onset groups (e.g., *machine* became \**pachine*, \**bachine*, and \**fachine*).
+For filler pseudowords, one of the other five filler onsets was substituted for the existing filler onset (e.g., *medicine* became \**hedicine*).
+In total, 544 multisyllabic real words and 555 multisyllabic pseudowords were normed.
+
+Monosyllabic stimulus selection began by drawing real words with one syllable, three to six letters, and one morpheme from the ELP pool.
+From this set of options, we pulled all words with critical onsets that had cross-experimental minimal pairs with competitor onsets (e.g., *park*-*bark*).
+Both members of each critical-competitor minimal pair were normed.
+We also selected words with filler onsets that had a minimal pair with a different filler onset (e.g., *mall*-*hall*).
+In total, 319 monosyllabic real words were normed.
+
+Norming took place in three waves of testing.
+Overall, there were nine experimental lists of 180 to 540 items: three in the first wave, two in the second, and four in the third.
+Lists always contained an equal number of real words and pseudowords, and items from each experimental onset groups were always presented in separate lists.
+
+### Recording {#methods-rec}
+
+One female L1-accented English talker from the US (Talker 0; the first author) recorded all of the items.
+Audio was captured with a head-worn condenser microphone (Shure SM35-XLR) connected to an audio interface (Sound Devices USBPre2) and recorded with Praat [@broersma2021] in mono at 44.1 kHz in a sound-attenuated booth.
+After annotating the recordings and extracting the individual sound files, stimuli were normalized to 70 dB and had 50 ms of silence added to the beginning and end.
+
+### Task and procedure
+
+The study was conducted online using Pavlovia.
+At the beginning of the study, participants responded to a yes/no question for each eligibility criterion.
+Ineligible participants were not able to complete the study.
+
+The study featured an auditory lexical decision task.
+Participants were randomly assigned to an experimental list.
+On each trial, participants indicated whether an auditory stimulus was a real English word or not by pressing the *d* or *k* key on their keyboard.
+One of the two response-key relations---real-*d* or real-*k*---was assigned randomly to each participant.
+The total number of trials varied by list.
+
+### Analysis {#methods-analysis-norm}
+
+Analyses were conducted with `r gsub("[[:space:]]\\(.*\\)", "", R.Version()$version.string)` using the *stats* package [@rcore2022].
+Each wave of testing was analyzed separately.
+The experimental lists within each wave were combined for analysis.
+We first conducted t-tests comparing each participant's accuracy to chance (50%) to check for data quality.
+Data from participants whose performance was indistinguishable from chance were removed from further analysis (see Section \@ref(methods-pars-norm)).
+Next, we conducted t-tests comparing the accuracy on each item to chance (50%).
+Items that did not yield above-chance accuracy were removed from further consideration.
+All three variants of each experimental pseudoword and both members of each cross-experimental minimal pair needed to have above-chance accuracy in order to be considered for final selection.
+The set of items that passed the norming phase will be referred to as the selection pool.
+For details on the stimuli that were selected for Experiment 1, see Section \@ref(methods-lists-1a).
+
+## Experiment 1: Investigating differences in generalization from exposure to Spanish-accented stops versus fricatives
+
+### Methods
+
+We used an exposure-test design to understand how different kinds of experience with Spanish-accented speech change listeners' VOT-stop mappings.
+The exposure phase established the comparison between the similarity-based and exposure-to-variability hypotheses of talker-independent adaptation.
+The test phase assessed the effects of each type of exposure on perception.
+
+#### Design {#methods-design-1a}
+
+Participants were exposed to multisyllabic real words and pseudowords before being tested on monosyllabic real words.
+Participants heard these items produced by four Spanish-accented talkers: three during exposure and one during test.
+During exposure, multisyllabic items without onset competitors provided disambiguating lexical contexts for categorizing Spanish-accented onsets.
+For example, consider the real word *pencil* and the pseudoword \**pachine*.
+In both cases, the onset may be interpreted as /p/ or /b/.
+This ambiguity does not affect whether \**pachine* is perceived as a real word or not, since both \**pachine* and \**bachine* are pseudowords.
+However, resolving this ambiguity is necessary for distinguishing between the real word *pencil* and pseudoword \**bencil*.
+Critically, participants hearing ambiguous real words like *pencil* would never hear unambiguous real words like *beehive*.
+Thus, in the context of the exposure task, participants should learn to perceive the ambiguous short lag VOTs as /p/ rather than as /b/.
+During test, monosyllabic items with onset competitors created ambiguous lexical contexts in which to assess learning from exposure.
+
+**Exposure similarity** was operationalized as the relation between the experimental onsets encountered during exposure and the critical onsets encountered during test.
+There were three levels of Similarity: Direct, Indirect, and Control.
+Each level refers to the type of information participants received about Spanish-accented voiceless stops.
+In Direct conditions, participants were exposed directly to critical onsets (e.g., *pencil* and \**pachine*).
+In Indirect conditions, participants were exposed to competitor onsets (e.g., *beehive* and \**bachine*), thereby gaining experience with the shifted VOT continuum that they would encounter during test.
+In Control conditions, participants were exposed to control onsets (e.g., *football* and \**fachine*), thereby gaining general experience with Spanish-accented speech but not with stop VOTs.
+This design allowed the talkers to remain the same across the three levels of Similarity.
+
+**Exposure variability** was operationalized as the relation between onset phonemes and exposure talkers. 
+There were two levels of Variability: Invariant and Variant.
+Each level refers to the type of experience with each talker. 
+This is illustrated in Figure \@ref(fig:exp1-fig).
+In Invariant conditions, listeners heard each of the three exposure talkers produce one onset out of the three in an experimental group (e.g., Direct-Invariant: Talker A produced *pencil*, Talker B produced *tablet*, and Talker C produced *kingdom*).
+This means that all of the words with a given onset were produced by one talker.
+In Variant conditions, listeners heard each of the three exposure talkers produce all three onsets in an experimental group (e.g., Direct-Variant: Talker A produced *pencil*, *tablet*, and *kingdom*).
+This means that one third of the words with a given onset were produced by each talker.
+This design allowed the items and talkers to remain the same between levels of Variability.
+
+The two exposure factors of Similarity (Direct, Indirect, Unrelated) and Variability (Variant, Invariant) were manipulated between participants, so each participant was assigned to one of the six combinations of Similarity and Variability. 
+Target type was manipulated within participants.
+There were three levels of Target: Identity, Competitor, and Unrelated (See Figure \@ref(fig:exp1-fig)). 
+Each level refers to the type of visual target that followed each auditory prime.
+Identity targets exactly matched the auditory primes (e.g., *park*-*park*).
+Competitor targets were the minimal pairs of the auditory primes (e.g., *park*-*bark*).
+Unrelated targets only shared vowels with the auditory primes (e.g., *park*-*wand*).
+Differential performance on these three conditions indexed learning from exposure.
+
+```{r exp1-fig, fig.cap = "Experiment 1 design.", fig.pos="H", dpi = 300}
+knitr::include_graphics("figures/diss_1.png")
+```
+
+#### Participants {#methods-pars-1a}
+
+We recruited `r par_all[1]` participants through the online platform Prolific.
+Participants provided implied consent in line with Penn State IRB policies and were compensated $6 after completing the experiment, which took approximately 30 minutes.
+The experiment was available to individuals whose Prolific user profiles aligned with the following eligibility criteria: between 18 and 40 years of age, located in the US at the time of the study, English as their first and only fluent language, normal hearing, normal or corrected-to-normal vision, and without a history of language-related disorders.
+The Prolific user profiles for each participant also included sex (two options, select one) and race/ethnicity information (four options, select all that apply).
+
+The eligibility criteria were cross-checked with the responses to a post-experiment questionnaire (see Section \@ref(methods-tasks-1a)), and any ineligible participants was removed from further analysis (*N* = `r par_diff$diff_1[1]`).
+We also removed participants with any knowledge of Spanish, with self-rated proficiency greater than or equal to 3/5 in any languages other than English, with self-rated proficiency less than 5/5 in English, or whose place of origin was not the US (*N* = `r par_diff$diff_2[1]`).
+This left `r par_diff$elig_1[1]` eligible participants.
+
+Finally, we removed participants with poor data quality from further analysis (*N* = `r par_diff$diff_3[1]`).
+Poor data quality was defined as: accuracy statistically indistinguishable from or significantly below chance on experimental real words in the exposure task, zero correct experimental trials in any of the three conditions in the test task, or fewer than 50% of experimental trials with correct responses and reaction times between 50 and 2500 ms in either task (see Section \@ref(methods-tasks-1a) for details).
+These criteria were chosen to balance the level of performance with the amount of data available for analysis.
+This left `r par_qual[1]` participants for analysis (`r par_text$report[1]`).
+
+We recruited `r par_all[3]` additional participants through Prolific to complete the experiment without the exposure phase.
+Removing ineligible participants left `r par_diff$elig_2[3]` participants.
+Removing participants with low data quality left `r par_qual[3]` participants for analysis (`r par_text$report[3]`).
+All aspects of recruitment were the same for this group as for the main group of participants.
+
+#### Talkers {#methods-talk-1a}
+
+Seven female Spanish-accented English talkers from Latin America and Spain were recruited to be talkers for the experiment.
+Talkers were compensated with one $20 Amazon giftcard per recording session (30-60 minutes each; 1-2 total).
+Recording followed the procedure described in Section \@ref(methods-rec).
+
+Out of the seven talkers, we selected four from Mexico (Talkers 1-4) to control for country-level dialectal variation in the L1.
+Each talker was from a different region of Mexico and reported living in this region for the majority of their lives before moving to the US for college or graduate school.
+All four talkers reported that they grew up speaking Spanish with their caregivers and began acquiring English in traditional classroom settings.
+Language background information for each talker is provided in Table \@ref(tab:spk-tab).
+
+```{r spk-tab, fig.pos="H"}
+spk_info %>%
+  select(-c(speaker, `Mode of initial English acquisition`, `Language of communication with caregivers`)) %>%
+  rename(Region = Birthplace) %>%
+  kable(caption = "Talker background information.") %>%
+  kable_styling(bootstrap_options = "bordered", latex_options = "scale_down")
+```
+
+#### Stimuli {#methods-stims-1a}
+
+In total, there were 936 auditory items and 648 visual items across tasks.
+The exposure task featured multisyllabic real words and pseudowords with experimental and filler onsets from the selection pool.
+The final set of exposure items included 360 real words (24 per onset) and 360 pseudowords (24 per onset).
+The test task featured two types of stimuli: auditory primes and visual targets.
+Auditory primes were monosyllabic real words with critical or filler onsets from the selection pool.
+The final set of auditory primes included 216 real words (24 per onset).
+The final set of visual targets included 648 real words (3 per prime; see below for details).
+
+During auditory stimulus selection, we considered a number of parameters.
+From the ELP, we included word length, orthographic neighborhood density (OND), phonological neighborhood density (PND), and US Zipf frequency.
+From @brysbaert2019, we included percent known and prevalence.
+We also included the position of lexical stress, calculated from the pronunciation information provided by the ELP, and mean lexical decision accuracy from norming (LDT).
+The final set of exposure real words was chosen such that the four groups of stimuli---Direct, Indirect, Control, and Filler---were equivalent on each of these parameters.
+We conducted t-tests comparing each group on each parameter to ensure that they were not significantly different (*ps* > .05).
+The final set of auditory primes for the test task was selected in a similar way.
+We conducted t-tests comparing the Critical and Filler primes on every parameter except for lexical stress, which was not relevant for monosyllabic words (*ps* > .05).
+We also conducted pairwise t-tests between Critical primes and their Competitor pairs (*ps* > .05).
+The final set of exposure pseudowords was chosen such that the four groups of stimuli were equivalent in length, position of lexical stress, and mean lexical decision accuracy.
+The other parameters were either not available (OND and PND) or not relevant (US Zipf frequency, percent known, prevalence) for the pseudowords.
+The relevant parameters for each group of stimuli are shown in Table \@ref(tab:stim-tab)
+Descriptive statistics for each talker's real word VOTs by onset are provided in Table \@ref(tab:spk-vot-tab).
+
+```{r stim-tab, fig.pos="H"}
+stim_deet %>%
+  select(Phase:Length, LDT, `Lexical stress`, OND:Prevalence) %>%
+  replace(is.na(.), "") %>%
+  kable(caption = "Mean and standard deviation of stimulus parameters by condition and task.") %>%
+  kable_styling(bootstrap_options = "bordered", latex_options = "scale_down") %>%
+  collapse_rows(columns = 1:2) %>%
+  footnote(general = "Competitor pairs were presented as visual targets only", general_title = "")
+```
+
+```{r spk-vot-tab, fig.pos="H"}
+avg_voice %>%
+  kable(col.names = c("Phase", "Onset", "\\textit{N}", rep(c("\\textit{M}", "\\textit{SD}", "Range"), 4)),
+        caption = "Mean, standard deviation, and range of VOTs by onset by talker.", 
+        escape = FALSE) %>%
+  kable_styling(bootstrap_options = "bordered", latex_options = "scale_down") %>%
+  add_header_above(header = c(" " = 3, "Talker 1" = 3, "Talker 2" = 3, "Talker 3" = 3, "Talker 4" = 3)) %>%
+  collapse_rows(columns = 1)
+```
+
+An additional set of six real words and six pseudowords with filler onsets (one per onset per word type) was selected for practice.
+Six additional primes with filler onsets (one per onset) were also selected for practice.
+
+Visual targets in the test task were monosyllabic real words with critical, competitor, or filler onsets.
+Each auditory prime had three visual targets: one was the prime itself, one was its minimal pair, and one was unrelated.
+The first two were determined by the prime, but the third needed to be selected separately.
+Each unrelated target had a filler onset and was chosen to have the same vowel as the prime but a different onset and offset.
+These items were primarily from the selection pool, but some were from the larger ELP pool.
+Two additional unrelated targets were also selected for practice.
+
+#### Experimental lists {#methods-lists-1a}
+
+Combining Similarity and Variability created six between-subjects conditions: Direct-Variant, Direct-Invariant, Indirect-Variant, Indirect-Invariant, Control-Variant, and Control-Invariant.
+In addition, one group of participants did not receive any exposure prior to test; this will be referred to as the Test-only condition.
+The 288 filler items were the same across conditions and evenly divided by word type---real word and pseudoword---as well as by onset---/m/, /n/, /l/, /\textipa{\*r}/, /h/, and /w/.
+The 144 experimental items were evenly divided by onset and word type, with onset differing by level of Similarity: Direct (critical: /p/, /t/, and /k/), Indirect (competitor: /b/, d/, and /g/), and Control (control: /f/, /s/, and /\textipa{S}/).
+As a result, there were 24 items per onset per word type.
+
+The assignment of talkers to items differed by level of Variability.
+In Invariant conditions, talkers were assigned by cross-condition onset group: front (/p/, /b/, /f/, /m/, and /n/), mid (/t/, /d/, /s/, /l/, and /\textipa{\*r}/), and back/other (/k/, /g/, /\textipa{S}/, /h/, and /w/).
+In other words, one talker was assigned to front onsets, one to mid, and one to back/other.
+Within a given level of Similarity, this means that each talker produced items with one out of the three experimental onsets and two out of the six filler onsets.
+For Variant conditions, one third of each of the items of a given onset and word type (8) was randomly assigned to one of three sets: set 1, set 2, or set 3.
+Each set was assigned to one talker.
+
+To counterbalance which talkers were assigned to which items across participants, each Variant item set was paired with one Invariant onset group to create three assignment groups: group 1 (front with set 1), group 2 (mid with set 2), and group 3 (back/other with set 3).
+In addition, we also counterbalanced the talkers between the exposure and test phases.
+To do this, we added group 4 (test) and rotated the four talkers across these four assignment groups in a Latin square design.
+Overall, this resulted in 24 experimental lists for the exposure phase, one for each combination of exposure condition (6) and talker assignment (4).
+
+Regardless of exposure condition, all participants heard the same 216 auditory primes during test.
+One third (72) were critical items divided evenly by onset---/p/, /t/, and /k/---and two thirds (144) were filler items divided evenly by onset---/m/, /n/, /l/, /\textipa{\*r}/, /h/, and /w/.
+Each onset was divided evenly by target type---Identity, Competitor, and Unrelated.
+This resulted in eight items per onset per target type
+Three experimental lists were created to counterbalance the combinations of auditory prime and visual target across participants.
+Since the test talker was also counterbalanced across participants, this resulted in 12 experimental lists for the test phase, one for each combination of prime-target pair (3) and talker assignment (4).
+
+Exposure practice was presented in Talker 0's voice for all participants.
+Test practice was presented according to the participant's talker assignment and Variability condition.
+Participants in the Test-only condition completed the test practice in Talker 0's voice.
+
+#### Tasks {#methods-tasks-1a}
+
+The experiment included a headphone check, exposure task, test task, and post-experiment questionnaire.
+All aspects of the experiment were conducted online using Pavlovia.
+The headphone check, exposure task, and test task were created in PsychoPy Builder [@peirce2019].
+The post-experiment questionnaire was built using Pavlovia's survey platform.
+
+The headphone check followed the anti-phase tone test procedure from @woods2017.
+On each trial, participants listened to three pure tones, one of which was out of phase with the other two.
+Participants indicated which of the three tones was the quietest by selecting the appropriate button on the screen: tone 1, tone 2, or tone 3.
+There were two trials per response for a total of six trials, which were presented in random order.
+Participants using well-functioning headphones should have easily perceived the anti-phase tone as the quietest, while those using loudspeakers should not.
+Participants completed the task at most two times.
+
+The exposure phase featured the auditory lexical decision task from @xie2017similarity.
+On each trial, participants indicated whether an auditory stimulus was a real English word or not by pressing the *d* or *k* key on their keyboard.
+One of the two response-key relations---real-*d* or real-*k*---was assigned randomly to each participant.
+Participants completed 12 practice trials followed by 432 main trials presented in random order.
+Half of the practice trials (6) and half of the main trials (216) required real word responses.
+
+The test phase featured a cross-modal matching task adapted from the primed cross-modal lexical decision task in @xie2017similarity.
+On each trial, participants first heard a real word (auditory prime) and then saw a real word written on the screen (visual target).
+They indicated whether the visual target matched the auditory prime or not by pressing the *d* or *k* key on their keyboard.
+The assignment of responses to keys was carried over from the exposure task, with *match* responses mapped to the same key as *real* responses.
+Participants completed six practice trials followed by 216 main trials presented in random order.
+Half of the practice trials (3) and one third of the main trials (72) required match responses.
+
+The post-experiment questionnaire included two sets of items.
+The first set of items related to the talker from the test task.
+These items are described in detail in Section \@ref(corr-mat).
+The second set of items included questions about the participant's own language background and demographics.
+This set of items was used to confirm the participant's eligibility as described in Section \@ref(methods-pars-1a).
+Ratings were collected on five-point scales anchored at the endpoints with labels containing the modifier "very" and a relevant adjective (e.g., "very weak" and "very strong" for accent strength).
+Items requiring categorical responses were collected by presenting a relevant set of options to choose from (see Section \@ref(corr-mat)).
+
+#### Procedure {#methods-proc}
+
+Eligible participants accessed the experiment through Prolific.
+Once a participant began the experiment, they were randomly assigned to one of the experimental lists.
+First, they performed the headphone check.
+If the participant achieved fewer than five correct trials out of six, they completed the task again.
+Participants who failed the headphone check a second time were not allowed to continue; instead, they were redirected to Prolific and asked to return their submission.
+After passing the headphone check, participants continued to the exposure task and completed the practice (participants in the Test-only condition continued straight to the test task).
+If a participant scored 50% or lower on the exposure practice, they were not allowed to continue; instead, they were redirected to Prolific and asked to return their submission.
+After successfully completing the practice session, the participant performed the exposure task.
+Next, the participant continued to the test task and completed the practice.
+Regardless of their performance on the practice, the participant performed the test task.
+Immediately following the test task, participants continued to the post-experiment questionnaire.
+Once the questionnaire was complete, the participant was redirected to Prolific and received compensation.
+
+#### Analysis approach {#methods-analysis-1a} 
+
+Data processing and analysis were conducted with `r gsub("[[:space:]]\\(.*\\)", "", R.Version()$version.string)` [@rcore2022].
+Filler items were not included in any of the analyses.
+
+Since the categorization of VOT was key to performance on real words, we restricted our analyses of the exposure task data to real words only.
+Prior to analyzing the exposure task data, we removed responses with RTs less than 50 ms (*N* = `r dat_rem_exp$rem_1[1]`; `r dat_rem_exp$pct_1[1]`).
+RT was calculated from the onset of the word.
+For the RT analyses, we filtered for correct responses.
+We used the *robustbase* package to calculate adjusted boxplot statistics for skewed distributions (such as reaction time), which were used to detect responses with reaction times outside the upper and lower fences [@hubert2008].
+These outlier responses were removed from further analysis (*N* = `r dat_rem_exp$rem_2[1]`; `r dat_rem_exp$pct_2[1]`).
+RTs were then inverse-transformed (-1000/RT) for analysis.
+
+Prior to analyzing the test task data, we removed responses with RTs less than 50 ms (*N* = `r dat_rem_test$rem_1[1]`; `r dat_rem_test$pct_1[1]`).
+RT was calculated from the presentation of the visual target.
+RT analyses were restricted to correct responses.
+We detected and removed outliers by target type according to the adjusted boxplot statistics (*N* = `r dat_rem_test$rem_2[1]`; `r dat_rem_test$pct_2[1]`).
+Inverse RTs were used for modeling as in the exposure task analyses.
+
+Mixed-effects models were fitted to trial-level data with the *lme4* package [@bates2015].
+Generalized linear mixed-effects models with a binomial family function were used to analyze binary accuracy (1,0).
+Linear mixed-effects models were used to analyze inverse RT.
+Model fitting began with the full random effects structure that was relevant to the task (see below).
+In the case of non-convergence, singularity, or correlations above 0.95, random slopes were successively removed, such that the final model for each analysis reflected the maximally-supported structure [@barr2013].
+Type-III analysis-of-variance tables were then calculated and Wald chi-square tests were conducted with the *car* package [@fox2019].
+Estimated marginal means were calculated and pairwise comparisons were conducted with the *emmeans* package [@lenth2022].
+Pairwise *p*-values were adjusted with the Hommel method to control the family-wise error rate [@blakesley2009].
+
+Exposure task analyses modeled the effects of Variability, Similarity, and their interaction on accuracy and RT.
+The two levels of Variability were sum contrast-coded.
+The three levels of Similarity were Helmert contrast-coded.
+Mean-centered VOT, trial, and word frequency were included as continuous predictors.
+Item and participant were included as random intercepts.
+By-participant random slopes were included for Variability, Similarity, and their interaction.
+
+For the test task, we conducted two separate sets of analyses.
+The first set of analyses modeled the effects of Exposure, Target, and their interaction on accuracy and RT.
+Exposure had seven levels: one for each of the six exposure conditions and one for the Test-only condition.
+This factor was simple contrast-coded such that the Test-only condition was the reference level.
+The three levels of Target were Helmert contrast-coded.
+Mean-centered VOT and trial were included as continuous predictors.
+In addition, we included mean-centered prime frequency and mean-centered target frequency as an interaction (since these variables were highly correlated).
+Participant was included as a random intercept, as well as the interaction term for auditory prime and visual target (since targets were nested within primes).
+By-participant random slopes were included for Target.
+
+If the first set of analyses did not reveal differences between the exposure and Test-only conditions, the second set of analyses was not conducted.
+The second set of analyses modeled the effects of Variability, Similarity, Target, and their interactions on accuracy and RT.
+The coding schemes for each variable followed those in the previous analyses.
+The continuous predictors and random effects were specified in the same manner as in the first set of test task analyses.
+
+Only significant effects involving the exposure conditions will be discussed.
+
+#### Predictions
+
+The exposure-to-variability and similarity-based hypotheses make different predictions about the effects of each type of exposure on test.
+The similarity-based hypothesis predicts a main effect of Similarity, with test performance increasing from Control to Indirect to Direct exposure.
+This prediction follows directly from the ideal adapter framework, such that both talker-specific and talker-independent generative models of VOT-stop distributions can generalize to a test talker; what matters is how similar the exposure model is to the test distribution.
+
+By contrast, the exposure-to-variability hypothesis predicts a main effect of Variability, with better test performance after Variant exposure than after Invariant exposure.
+Under this hypothesis, exposure to covariation between cues and categories encourages the formation of talker-independent generative models. 
+This implies that such models have more utility for categorizing critical onsets than any talker-specific models [@kleinschmidt2019].
+The exposure-to-variability hypothesis does not predict effects of Similarity on test performance.
+
+### Results
+
+#### Exposure
+
+There was a marginal interaction between Variability and Similarity on accuracy (`r exp_acc_1a_comp_form`) that was driven by higher accuracy in the Control-Invariant group (`r exp_acc_1a_control_invar`) than in the Control-Variant group (`r exp_acc_1a_control_var`; `r exp_acc_1a_cont_varinvar`).
+The Indirect-Invariant group had marginally lower accuracy (`r exp_acc_1a_ind_invar`) than the Control-Invariant group (`r exp_acc_1a_cont_indcont`).
+No other pairwise comparison within Variability or Similarity was significant (*ps* > .05).
+
+There was a main effect of Similarity on RTs (`r exp_rt_1a_comp_form`), with slower responses in Control conditions (`r exp_rt_1a_control`) than in Direct conditions (`r exp_rt_1a_direct`; `r exp_rt_1a_cont_dir`) or in Indirect conditions (`r exp_rt_1a_indirect`; `r exp_rt_1a_cont_indir`).
+
+#### Test
+
+We observed a main effect of Exposure on accuracy (`r test_acc_1a_train_exp_form`) and a marginal interaction between Target and Exposure on accuracy (`r test_acc_1a_train_int_form`); however, pairwise comparisons between the Test-only condition and each of the exposure conditions did not reveal any significant differences (*ps* > .05).
+When we conducted pairwise comparisons between exposure conditions, there were also no differences (*ps* > .05).
+There were no effects of Exposure on RTs (*ps* > .05).
+
+### Discussion
+
+Experiment 1 compared the effects of exposure to voiceless stops (Direct), voiced stops (Indirect), or voiceless fricatives (Unrelated) on adaptation to Spanish-accented speech.
+These three levels of Similarity were crossed with two levels of Variability, such that each talker either produced exemplars of all onsets (Variant) or exemplars of one particular set of onsets (Invariant).
+Across the six groups of participants, accuracy on real words with experimental onsets was well above chance.
+The Control-Invariant group displayed the highest accuracy, outperforming both the Control-Variant and Indirect-Invariant groups.
+This suggests that maintaining constancy between onsets and talkers benefited accent adaptation, particularly when these onsets were not perceptually ambiguous for L1 listeners.
+In other words, constraining the sources of covariation between acoustic-phonetic features made the learning process easier.
+The increase in RTs in the Control groups likely reflects acoustic differences between the articulation of fricatives versus stops rather than meaningful differences in processing.
+Overall, the high level of performance in the exposure task suggests that participants were able to use the relevant acoustic-phonetic features for word recognition.
+
+However, learning during the exposure task did not benefit performance on the test task.
+We did not observe differences between the Test-only group, which did not receive any exposure to Spanish-accented speech prior to the test phase, and any of the exposure conditions.
+Under the similarity-based hypothesis, we expected Direct exposure to increase accuracy on the matching task, particularly for Competitor targets (*park*-*bark*).
+Having direct experience with the mappings between VOT and /p/, /t/, and /k/ in supporting lexical contexts during exposure was expected to decrease lexical competition between competitors as in @xie2017similarity Experiment 3.
+Here, we did not observe any changes in lexical competition, nor did we observe any changes in lexical activation for Identity targets as in @xie2017similarity Experiment 1.
+
+A potential difference between our design and that of @xie2017similarity was in the construction of the pseudowords.
+Specifically, we included pseudowords with the experimental onsets that participants were adapting to during exposure.
+For example, Direct exposure included both the real word *pencil* and the pseudoword \**pachine*.
+While we reasoned in Section \@ref(methods-design-1a) that pseudowords like \**pachine* should not disrupt perceptual learning of the relevant VOT-/p/ mapping, it is possible that exposure to these mappings in non-lexical contexts canceled out the benefit of exposure in disambiguating lexical contexts.
+To address this issue, in Experiment 2 we removed these pseudowords.
+Instead, participants in the Direct and Indirect groups were both exposed to pseudowords with control onsets like \**fachine*.
+Including control onsets within the Direct and Indirect groups lessened the need for separate Control groups.
+To reduce the complexity of the design and home in on the effects of Direct versus Indirect exposure, the Control level of Similarity was dropped in Experiment 2.
+
+

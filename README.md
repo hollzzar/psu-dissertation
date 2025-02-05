@@ -1,2 +1,0 @@
-# psu-dissertation
- 

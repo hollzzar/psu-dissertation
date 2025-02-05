@@ -1,0 +1,254 @@
+---
+output: bookdown::pdf_document2
+---
+
+```{r child = 'code/8_ch3_code.Rmd', cache = TRUE}
+```
+
+## Methods
+
+### Participants
+
+We recruited `r eeg_par_all` participants through advertisements and the Penn State subject pool.
+Prior to the testing session, participants confirmed their eligibility according to the following criteria: between 18 and 40 years of age, right-handed, normal hearing, normal or corrected-to-normal vision, English as their first and only fluent language, without a history of traumatic head injuries, and without a history of learning, attention, or language disorders.
+The eligibility criteria were cross-checked with responses to a post-experiment questionnaire (see Section \@ref(methods-quest)).
+Four participants reported knowledge of an L2, but fluency was rated less than three out of five in all cases, so they were not removed.
+One participant described a history of severe head trauma and was removed from the ERP analyses.
+This meant that `r eeg_par_elig` were included in the ERP analyses (`r eeg_par_age`; `r eeg_par_sex`).
+Race and ethnicity information, as well as dialect background information (see Section \@ref(methods-quest)), is provided in Table \@ref(tab:eeg-par-tab).
+
+```{r eeg-par-tab, fig.pos="H"}
+eeg_par_info %>%
+  kable(caption = "Participant demographic information") %>%
+  kable_styling(bootstrap_options = "bordered", latex_options = "scale_down") %>%
+  add_header_above(header = c(" " = 1, "Dialect background" = 5))
+```
+
+Participants provided written informed consent in line with Penn State IRB policies.
+Participants recruited through advertisements were compensated $7.50 per half hour of testing.
+Participants recruited through the subject pool were compensated 0.75 class credits per half hour of testing.
+Testing sessions lasted approximately two and a half hours.
+
+### Materials
+
+#### EEG task and stimuli
+
+Participants performed a primed cross-modal go/no-go lexical decision task (LDT) while EEG was recorded.
+EEG acquisition and pre-processing are described in Section \@ref(methods-eeg).
+The task was programmed with E-Prime 3.0 software (Psychology Software Tools, Pittsburgh, PA).
+In this task, visual primes were followed by auditory targets.
+If the auditory target was a pseudoword, participants were instructed to press the spacebar (*go* trials).
+If the auditory target was a real word, participants were instructed not to respond (*no-go* trials).
+There were nine practice trials to familiarize the participant with the task and 576 main trials divided into six blocks.
+One quarter of the main trials (144) were *go* trials.
+Within each block, trials were presented in random order.
+
+There were four types of auditory targets, all of which were drawn from the stimuli in Study 1.
+Test targets were the 72 monosyllabic real words with critical onsets from the test phase (e.g., *park*; 24 per onset).
+Every test target was repeated three times, once with each of the three prime types (see below).
+Importantly, test targets were members of minimal pairs with competitor onsets.
+Exposure targets were the 72 multisyllabic real words with critical onsets from the Direct exposure conditions (e.g., *passage*; 24 per onset).
+Filler targets were the 144 multisyllabic real words with filler onsets from the exposure phase (e.g., *rhubarb*; 24 per onset).
+Together, the test, exposure, and filler targets comprised the *no-go* trials.
+*Go* trials comprised 144 multisyllabic pseudoword targets with filler onsets from the exposure phase (e.g., \**wookout*; 24 per onset).
+Targets were evenly dispersed across the six blocks by trial type (go, no-go), target type (test, exposure, filler, pseudoword), and onset.
+Six additional filler targets and three additional pseudoword targets were selected for practice.
+
+Auditory targets in the main part of the task were presented in Talker 4's voice from Study 1.
+Talker 4 is from Mexico City, Mexico, and was age 31 at the time of recording (Age of English acquisition = 5; Age of arrival in US = 28).
+We used Praat to shorten the VOT of each test and exposure target by 25% to maximize perceptual adaptation [@babel2019; @broersma2021].
+Descriptive statistics for Talker 4's voiceless stop VOTs are provided in Table \@ref(tab:eeg-vot-tab).
+The auditory targets in the practice trials were presented in Talker 0's voice from Study 1.
+Talker 0 is from New Hampshire, US, and was age 29 at the time of recording (L1-accented).
+
+```{r eeg-vot-tab, fig.pos="H"}
+on_vot %>%
+  kable(col.names = c("Target type", "Onset", "\\textit{N}", "\\textit{M}", "\\textit{SD}", "Range"),
+        escape = FALSE, 
+        caption = "Mean, standard deviation, and range of VOTs by onset.") %>%
+  kable_styling(bootstrap_options = "bordered") %>%
+  collapse_rows(columns = 1)
+```
+
+Visual primes were all monosyllabic real words.
+Each test target had three possible visual primes: Identity, Competitor, or Unrelated.
+Prime-target pairs were the same as Study 1.
+Each exposure target had one prime with a critical onset that matched the first syllable as closely as possible (e.g., *pass*-*passage*).
+Filler targets each had one prime with a filler onset that matched first syllable as closely as possible (e.g., *rue*-*rhubarb*).
+Each pseudoword target had one prime with a filler onset that matched the first syllable of its real word base as closely as possible (e.g., *look*-*lookout*-\**wookout*).
+
+As described above, each test target was presented three times, once with each prime type.
+The three instances of each target were divided across the six experimental blocks, such that there was one block in between each presentation.
+As a result, a given target was presented in blocks 1, 3, and 5 or in blocks 2, 4, and 6.
+Each presentation was paired with a different prime.
+The presentation of each prime-target pair was counterbalanced across participants with three experimental lists.
+For instance, the Competitor pair *bark*-*park* would appear in block 1 for Participant A but in block 3 for Participant B.
+Overall, there were 216 test trials: 72 test targets by three test prime types.
+
+```{r study2-fig, fig.cap = "Experimental design.", fig.pos="H"}
+knitr::include_graphics("figures/diss_eeg.png")
+```
+
+Analysis of the neurocognitive responses to test targets with respect to prime type (ERP analysis) is described in Section \@ref(methods-erp).
+Analysis of the behavioral responses is described in Section \@ref(methods-off).
+
+#### Behavioral tasks
+
+To measure receptive vocabulary, we administered the English LexTALE [@lemhofer2012].
+We used an online implementation of the task, the source code for which can be found at [this GitHub link](https://github.com/gasparl/lextale) [@lukacs2023].
+On each trial, participants indicated whether a visual stimulus is a real English word or not by pressing the *yes* or *no* button on the screen.
+There were three practice trials and 60 main trials.
+One third (20) of the trials were real words.
+Receptive vocabulary was calculated as the weighted average of real word and pseudoword accuracy.
+
+To measure inhibitory control, we administered the AX Continuous Performance Task (AX-CPT) [@morales2015].
+The task was programmed with E-Prime 3.0 software (Psychology Software Tools, Pittsburgh, PA).
+Each trial had five items in the following order: one cue, three distractors, and one probe.
+Participants pressed one of two keys on the keyboard as each item appeared on the screen: one key was the "no" key and the other was the "yes" key.
+Cues and distractors always required a "no" response, while the response to the probe depended on the cue.
+There were two cue types (A or any other letter) and two probe types (X or any other letter), which together yield four conditions: AX (A cue with X probe; 70%), AY (A cue with non-X probe; 10%), BX (non-A cue with X probe; 10%), and BY (non-A cue with non-X probe; 10%).
+On AX trials, the probe required a "yes" response; otherwise, it required a "no" response.
+AY trials required participants to engage proactive inhibitory control (IC) to inhibit a "yes" response following an A cue, while BX trials required participants to engage reactive IC to inhibit a "yes" response to an X probe.
+There were ten practice trials and 100 main trials in the task.
+The mapping of the "yes" response to the *d* or *k* key on the keyboard was counterbalanced across participants.
+Proactive IC was calculated as the ratio of AY to AX mean probe RTs, and reactive IC was calculated as the ratio of BX to BY mean probe RTs.
+In both cases, only trials with correct responses to both the cue and probe were included.
+In addition, only probe RTs greater than 200 ms, less than 3000 ms, or within 2.5 standard deviations of each participant's overall mean were included.
+
+#### Questionnaires {#methods-quest}
+
+The background questionnaire included the following sets of items: handedness, health history, language history, and demographic information.
+The questionnaire was created and administered online via Qualtrics.
+The 10-point version of the Edinburgh Handedness Inventory was used to confirm that participants were right-handed [@oldfield1971].
+Participants also indicated whether they had any blood relatives who were left-handed.
+For health history, participants confirmed again that they had normal or corrected-to-normal vision, normal hearing, no history traumatic head injuries, and no history of learning, attention, or language disorders.
+Affirmative responses to the latter two items prompted participants to provide additional information about the incident or disorder.
+For language history, participants were asked whether they grew up speaking English at home, and if so, whether there were other languages spoken at home.
+Participants also selected the label that best described the variety of English they grew up speaking from the following options: American, Australian, British, Canadian, Caribbean, Indian, Irish, Singaporean, or Other (with space to provide a label).
+These labels are a subset of "inner" and "outer" circle World English varieties that were likely to appear in our participant sample [@kang2024].
+Next, participants selected their two main caregivers from a list of family relations.
+They also indicated whether both, one, or neither of their two caregivers grew up speaking English at home.
+Caregiver variety was coded for the correlation analyses as -1/2, 0, and 1/2, respectively (see Section \@ref(methods-corr-erp)).
+At the end of the questionnaire, participants provided their age, gender identity, and racial and ethnic background.
+
+The post-experiment questionnaire included two sets of items: the first related to the talker and the second included questions about the participant's own language background.
+The questionnaire was created and administered online via Pavlovia's survey platform.
+The following items and coding schemes from Study 1 were included: Accent strength, Accent: L2, Comprehensibility, Ease, L1 fluency, L1: Spanish, L2 fluency, L2: English, and Country: Mexico.
+Participants were also asked about their own accent and accent strength, L1 and L2, and place of origin as in Study 1.
+Ratings were collected on five-point Likert scales anchored at the endpoints with labels containing the modifier "very" and a relevant adjective (e.g., "very weak" and "very strong" for accent strength).
+Items requiring categorical responses were collected by presenting a relevant set of options to choose from.
+
+The debriefing questionnaire included 36 items related to language attitudes.
+The questionnaire was created and administered online via Pavlovia's survey platform.
+There were four main categories: multilingualism, accented speech, grammatical "correctness," and language use in the US/"America."
+Each category had four sub-categories.
+For example, the accented speech category had a sub-category probing the relation between fluency and accentedness.
+Each sub-category had a negative and a positive item associated with it.
+For example, the fluency and accentedness sub-category had the negative item "Being fluent in English means sounding like a native speaker" and the positive item "It's possible to speak English fluently and have a foreign accent at the same time."
+This resulted in 32 items.
+There were four additional miscellaneous items that did not have obvious pairings.
+Responses were provided on a five-point scale anchored at the endpoints with the labels "strongly disagree" (1) and "strongly agree" (5).
+The 16 negative items were reverse-coded before all 36 items were averaged into a mean language attitude score.
+After the language attitudes questions, participants were asked to provide feedback about their experience in the study.
+In addition, they were able to provide their email address if they wanted to know the results of the study.
+
+### Procedure
+
+When a participant arrived for their testing session, the researcher confirmed their eligibility, showed the participant the EEG equipment and materials, and explained the testing procedure.
+The participant then provided written informed consent and completed the background questionnaire, followed by the LexTALE.
+Next, the participant completed the LDT while EEG was recorded.
+The EEG task lasted between 30 and 40 minutes, including breaks between each of the six blocks, and was immediately followed by the post-experiment questionnaire.
+Participants then completed the AX-CPT, followed by the debriefing questionnaire.
+At the end of the session, the participant received compensation.
+
+#### EEG acquisition and pre-processing {#methods-eeg}
+
+Scalp EEG was recorded at a continuous sampling rate of 500 Hz from 32 active Ag/AgCl electrodes (Brain Products ActiCap, Germany).
+Electrodes were mounted in an elastic cap according to the extended 10-20 system [@chatrian1985], with the exception of CP5 and CP6.
+Instead, these were placed at the outer canthus of the left eye (HEOG) and above the left eyebrow (VEOG), respectively, to monitor for ocular artifacts.
+The left mastoid was used as the online reference.
+The EEG signal was amplified with a mobile BrainVision ActiCHamp system and filtered with a 0.05–100 Hz bandpass filter.
+Impedances were kept below 15 k$\Omega$.
+
+Offline data pre-processing was conducted with the EEGLAB MATLAB toolbox [@delorme2004].
+EEG data were filtered with a 30 Hz low-pass filter (24 dB/octave roll-off) and re-referenced to the average of the two mastoids.
+To prepare the data for Independent Component Analysis (ICA), we first removed recordings taken between each block and before/after the experiment.
+We then conducted manual artifact rejection to remove atypical eye/muscle activity and periods of line/channel noise.
+Next, we identified and removed bad head channels (not eye electrodes), which either exceeded a maximum flatline duration of five seconds, exhibited a channel correlation of lower than 0.6, or exceeded the line noise threshold of four standard deviations.
+The data were then submitted to ICA.
+We took a data-driven approach to identifying artifactual ICA components.
+Across participants, we first determined the 0.9 quantile for the component probabilities within each category of non-brain activity: muscle, eye, heart, line noise, channel noise, and other.
+Components that exceeded these thresholds were then removed.
+After removing artifactual ICA components, any head channels that had previously been removed were interpolated.
+
+The EEG signal was time-locked to the onset of the auditory target and epochs were baseline-corrected relative to a 200 ms pre-stimulus interval.
+Finally, epochs with peak-to-peak activity exceeding a 60 $\mu$V threshold in eye channels or with activity above/below a 100 $\mu$V threshold in head channels were rejected.
+Across all participants, `r erp_trials_diff` of test trials were removed due to excessive artifacts, leaving an average of `r erp_trials_par` test trials per participant out of 216.
+The data for each channel of interest (19) and test trial (216) was then extracted in 2 ms increments from -200 to 800 ms relative to the onset of the auditory target for analysis and visualization.
+The channels of interest were in frontal (F7, F3, Fz, F4, F8), fronto-central (FC5, FC1, FC2, FC6), central/centro-parietal (C3, Cz, C4, CP1, CP2), and parietal (P7, P3, Pz, P4, P8) regions based on previous research [@kapnoula2021; @toscano2010; @sarrett2020].
+
+#### ERP data analyses {#methods-erp}
+
+Data analysis and visualization were conducted in `r gsub("[[:space:]]\\(.*\\)", "", R.Version()$version.string)` [@rcore2022].
+Only accurate test trials were included in the ERP analyses.
+Across all participants, we removed `r erp_trials_acc_diff_pct` of the test trials that remained after EEG pre-processing, leaving an average of `r erp_trials_acc_par` test trials per participant out of 216 for analysis.
+By condition, there were an average of `r avg_id` Identity test trials, `r avg_comp` Competitor test trials, and `r avg_un` Unrelated test trials per participant included in the analyses.
+
+We analyzed the data in three time windows: 175-250 ms (N1), 250-375 (P2), and 450-650 (N400).
+These specific time ranges were chosen based on @sarrett2020 and visual inspection of the average waveforms across all channels, trials, and conditions (i.e., independent of the critical manipulations).
+Of the 19 channels of interest, we followed the procedure outlined in @kapnoula2021 to select the channels for each time window (again, independent of the critical manipulations).
+Channels with an average amplitude across conditions of less than -1 $\mu$V in the N1 and N400 time windows were included in each analysis.
+Channels with an average amplitude across conditions of greater than +1 $\mu$V in the P2 time window were included.
+The N400 analysis ultimately included all 19 channels.
+For the N1 analysis, all but two channels (F7 and F8) were included.
+For the P2 analysis, 10 frontal (F7, F3, Fz, F4, F8) and fronto-central (FC5, FC1, FC2, FC6, Cz) channels were included.
+Finally, within each time window, we averaged the ERPs for each participant and trial by channel.
+
+Three mixed-effects models were fitted to the trial-level ERP data in each time window with the *lme4* package [@bates2015].
+Type-II analysis-of-variance tables were calculated and Wald chi-square tests were conducted with the *car* package [@fox2019].
+Estimated marginal means were calculated and pairwise comparisons were conducted with the *emmeans* package [@lenth2022].
+Pairwise *p*-values were adjusted with the Hommel method to control the family-wise error rate [@blakesley2009].
+
+Analyses modeled the effects of prime type (Prime), amount of exposure (Exposure), and their interaction on the ERPs in each time window.
+The three levels of Prime (Identity, Competitor, Unrelated) were Helmert contrast-coded.
+Exposure was defined as the mean-centered number of Exposure targets encountered before the given Test target.
+Mean-centered VOT and target frequency were included as covariates.
+Random intercepts were included for item, participant, and channel.
+Random by-participant slopes for Prime were included during initial model fitting; however, these slopes were removed from all three analyses due to non-convergence.
+
+#### Offline data analyses {#methods-off}
+
+Analyses were conducted with the same R packages as the ERP analyses.
+To establish evidence of perceptual adaptation in behavior, we compared test and filler targets in terms of accuracy (Target type analysis).
+Within test targets, we also investigated the effect of prime type on accuracy (Prime type analysis).
+We could not analyze RT in either analysis, because only inaccurate trials had responses for these items.
+
+The data were cleaned prior to analysis.
+All accurate trials were included.
+Inaccurate trials with RTs less than 250 ms were removed (*N* = `r behave_trials_diff`; `r behave_trials_diff_pct`).
+RT was calculated from the onset of the target.
+Generalized linear mixed-effects models with a binomial family function were fit to the trial-level data.
+
+The Target type analysis modeled the effects of target type (Target), amount of exposure (Exposure), and their interaction on accuracy (1,0).
+The two levels of Target (Test, Filler) were sum contrast-coded.
+As in the ERP analyses, Exposure was defined as the mean-centered number of Exposure targets encountered before the given target.
+Mean-centered VOT and target frequency were included as covariates.
+Random intercepts were included for participant and the interaction between prime and target (to distinguish the three presentations of each test target with a different prime).
+Random by-participant slopes were also included for Target.
+
+The Prime type analysis modeled the effects of prime type (Prime), amount of exposure (Exposure), and their interaction on test target accuracy (1,0).
+Prime and Exposure were specified the same way as in the ERP analyses.
+Random intercepts were included for participant and target, with by-participant random slopes for Prime.
+
+#### Correlation analysis {#methods-corr-erp}
+
+Pairwise correlations were calculated with the *psych* R package [@revelle2023].
+From the AX-CPT, we included both Proactive and Reactive IC.
+We also included LexTALE scores (Vocabulary) and language attitude scores (Attitudes).
+From the background questionnaire, we included "Caregiver variety" as a measure of previous exposure to L2-accented speech (see Section \@ref(methods-quest)).
+We also included the measures from the post-experiment questionnaire: Accent strength, Accent: L2, Comprehensibility, Ease, L1 fluency, L1: Spanish, L2 fluency, L2: English, and Country: Mexico.
+
+To capture performance on the EEG task, we calculated the magnitude of the priming effects on four measures: Test target accuracy, N1 amplitude, P2 amplitude, and N400 amplitude.
+The responses to Identity, Competitor, and Unrelated primes were averaged, and then the mean of the averaged Competitor and Unrelated responses was subtracted from the averaged Identity responses.
+For the ERP calculations, we took the absolute value of these differences.
+

@@ -1,0 +1,106 @@
+\contentsline {section}{List of figures}{viii}{section*.3}%
+\contentsline {section}{List of tables}{ix}{section*.5}%
+\contentsline {section}{Acknowledgements}{x}{section*.7}%
+\contentsline {section}{\numberline {1}General introduction}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Cross-language influence in L2 speech production}{1}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}English stop consonant production}{2}{subsubsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.2}Spanish-to-English transfer in VOT production}{3}{subsubsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.2}Adaptation in L1 speech perception}{5}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Study 1: The effects of variability and similarity on generalization across Spanish-accented English talkers}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Introduction}{7}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Adaptation to L2-accented speech}{7}{subsubsection.2.1.1}%
+\contentsline {paragraph}{\numberline {2.1.1.1}Talker-independent adaptation to L2-accented speech}{8}{paragraph.2.1.1.1}%
+\contentsline {paragraph}{\numberline {2.1.1.2}Competing hypotheses for generalization}{11}{paragraph.2.1.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.2}Comparing variability and similarity}{13}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Present study}{14}{subsubsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.2}Norming study}{16}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Participants}{16}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Stimuli}{16}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Recording}{18}{subsubsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.4}Task and procedure}{18}{subsubsection.2.2.4}%
+\contentsline {subsubsection}{\numberline {2.2.5}Analysis}{18}{subsubsection.2.2.5}%
+\contentsline {subsection}{\numberline {2.3}Experiment 1: Investigating differences in generalization from exposure to Spanish-accented stops versus fricatives}{19}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Methods}{19}{subsubsection.2.3.1}%
+\contentsline {paragraph}{\numberline {2.3.1.1}Design}{19}{paragraph.2.3.1.1}%
+\contentsline {paragraph}{\numberline {2.3.1.2}Participants}{21}{paragraph.2.3.1.2}%
+\contentsline {paragraph}{\numberline {2.3.1.3}Talkers}{23}{paragraph.2.3.1.3}%
+\contentsline {paragraph}{\numberline {2.3.1.4}Stimuli}{23}{paragraph.2.3.1.4}%
+\contentsline {paragraph}{\numberline {2.3.1.5}Experimental lists}{25}{paragraph.2.3.1.5}%
+\contentsline {paragraph}{\numberline {2.3.1.6}Tasks}{26}{paragraph.2.3.1.6}%
+\contentsline {paragraph}{\numberline {2.3.1.7}Procedure}{28}{paragraph.2.3.1.7}%
+\contentsline {paragraph}{\numberline {2.3.1.8}Analysis approach}{28}{paragraph.2.3.1.8}%
+\contentsline {paragraph}{\numberline {2.3.1.9}Predictions}{30}{paragraph.2.3.1.9}%
+\contentsline {subsubsection}{\numberline {2.3.2}Results}{31}{subsubsection.2.3.2}%
+\contentsline {paragraph}{\numberline {2.3.2.1}Exposure}{31}{paragraph.2.3.2.1}%
+\contentsline {paragraph}{\numberline {2.3.2.2}Test}{31}{paragraph.2.3.2.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}Discussion}{31}{subsubsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.4}Experiment 2: Investigating the specificity of generalization from exposure to Spanish-accented stops}{33}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Methods}{33}{subsubsection.2.4.1}%
+\contentsline {paragraph}{\numberline {2.4.1.1}Design}{33}{paragraph.2.4.1.1}%
+\contentsline {paragraph}{\numberline {2.4.1.2}Participants}{34}{paragraph.2.4.1.2}%
+\contentsline {paragraph}{\numberline {2.4.1.3}Materials and procedure}{34}{paragraph.2.4.1.3}%
+\contentsline {paragraph}{\numberline {2.4.1.4}Analysis and predictions}{35}{paragraph.2.4.1.4}%
+\contentsline {subsubsection}{\numberline {2.4.2}Results}{35}{subsubsection.2.4.2}%
+\contentsline {paragraph}{\numberline {2.4.2.1}Exposure}{35}{paragraph.2.4.2.1}%
+\contentsline {paragraph}{\numberline {2.4.2.2}Test}{35}{paragraph.2.4.2.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}Discussion}{37}{subsubsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.5}Experiment 3: Investigating fine-grained perceptual changes from exposure to Spanish-accented stops}{39}{subsection.2.5}%
+\contentsline {subsubsection}{\numberline {2.5.1}Methods}{39}{subsubsection.2.5.1}%
+\contentsline {paragraph}{\numberline {2.5.1.1}Design}{39}{paragraph.2.5.1.1}%
+\contentsline {paragraph}{\numberline {2.5.1.2}Participants}{40}{paragraph.2.5.1.2}%
+\contentsline {paragraph}{\numberline {2.5.1.3}Stimuli}{41}{paragraph.2.5.1.3}%
+\contentsline {paragraph}{\numberline {2.5.1.4}Experimental lists}{41}{paragraph.2.5.1.4}%
+\contentsline {paragraph}{\numberline {2.5.1.5}Tasks and procedure}{41}{paragraph.2.5.1.5}%
+\contentsline {paragraph}{\numberline {2.5.1.6}Analysis}{42}{paragraph.2.5.1.6}%
+\contentsline {subsubsection}{\numberline {2.5.2}Results}{42}{subsubsection.2.5.2}%
+\contentsline {paragraph}{\numberline {2.5.2.1}Exposure}{42}{paragraph.2.5.2.1}%
+\contentsline {paragraph}{\numberline {2.5.2.2}First test analysis: Comparing the exposure groups to the Test-only group}{42}{paragraph.2.5.2.2}%
+\contentsline {paragraph}{\numberline {2.5.2.3}Second test analysis: Comparing the effects of Variability and Similarity}{43}{paragraph.2.5.2.3}%
+\contentsline {subsubsection}{\numberline {2.5.3}Discussion}{45}{subsubsection.2.5.3}%
+\contentsline {subsection}{\numberline {2.6}Correlation analysis}{47}{subsection.2.6}%
+\contentsline {subsubsection}{\numberline {2.6.1}Materials and analysis}{47}{subsubsection.2.6.1}%
+\contentsline {subsubsection}{\numberline {2.6.2}Results}{48}{subsubsection.2.6.2}%
+\contentsline {subsubsection}{\numberline {2.6.3}Discussion}{49}{subsubsection.2.6.3}%
+\contentsline {subsection}{\numberline {2.7}General discussion}{50}{subsection.2.7}%
+\contentsline {subsubsection}{\numberline {2.7.1}Exposure to variability versus similar exposure}{51}{subsubsection.2.7.1}%
+\contentsline {subsubsection}{\numberline {2.7.2}Implementing similarity}{53}{subsubsection.2.7.2}%
+\contentsline {subsubsection}{\numberline {2.7.3}Implementing variability}{56}{subsubsection.2.7.3}%
+\contentsline {subsubsection}{\numberline {2.7.4}Conclusion}{58}{subsubsection.2.7.4}%
+\contentsline {section}{\numberline {3}Study 2: The neurocognitive correlates of talker-specific adaptation to Spanish-accented English}{60}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Introduction}{60}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}ERP correlates of acoustic-phonetic processing}{61}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Online processing of L2-accented speech}{63}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Present study}{66}{subsubsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.2}Methods}{68}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Participants}{68}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Materials}{69}{subsubsection.3.2.2}%
+\contentsline {paragraph}{\numberline {3.2.2.1}EEG task and stimuli}{69}{paragraph.3.2.2.1}%
+\contentsline {paragraph}{\numberline {3.2.2.2}Behavioral tasks}{71}{paragraph.3.2.2.2}%
+\contentsline {paragraph}{\numberline {3.2.2.3}Questionnaires}{72}{paragraph.3.2.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.3}Procedure}{74}{subsubsection.3.2.3}%
+\contentsline {paragraph}{\numberline {3.2.3.1}EEG acquisition and pre-processing}{75}{paragraph.3.2.3.1}%
+\contentsline {paragraph}{\numberline {3.2.3.2}ERP data analyses}{76}{paragraph.3.2.3.2}%
+\contentsline {paragraph}{\numberline {3.2.3.3}Offline data analyses}{77}{paragraph.3.2.3.3}%
+\contentsline {paragraph}{\numberline {3.2.3.4}Correlation analysis}{78}{paragraph.3.2.3.4}%
+\contentsline {subsection}{\numberline {3.3}Results}{78}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Behavioral results}{78}{subsubsection.3.3.1}%
+\contentsline {paragraph}{\numberline {3.3.1.1}Target type analysis}{78}{paragraph.3.3.1.1}%
+\contentsline {paragraph}{\numberline {3.3.1.2}Prime type analysis}{79}{paragraph.3.3.1.2}%
+\contentsline {paragraph}{\numberline {3.3.1.3}Summary}{79}{paragraph.3.3.1.3}%
+\contentsline {subsubsection}{\numberline {3.3.2}ERP results}{81}{subsubsection.3.3.2}%
+\contentsline {paragraph}{\numberline {3.3.2.1}175-250 ms}{82}{paragraph.3.3.2.1}%
+\contentsline {paragraph}{\numberline {3.3.2.2}250-375 ms}{83}{paragraph.3.3.2.2}%
+\contentsline {paragraph}{\numberline {3.3.2.3}450-650 ms}{84}{paragraph.3.3.2.3}%
+\contentsline {paragraph}{\numberline {3.3.2.4}Summary}{85}{paragraph.3.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.3.3}Correlation results}{86}{subsubsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.4}Discussion}{88}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Behavioral adaptation}{88}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Neurocognitive adaptation}{90}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}Conclusion}{92}{subsubsection.3.4.3}%
+\contentsline {section}{\numberline {4}General conclusion}{93}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Summary}{93}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Does increased covariation during exposure enhance talker-independent adaptation beyond exposure-test similarity?}{93}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Does covariation along one cue-category mapping facilitate generalization to related mappings?}{95}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}What are the relative contributions of phonetic and semantic levels of processing to perceptual adaptation?}{96}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Limitations and future directions}{97}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Conclusion}{98}{subsection.4.6}%

@@ -1,0 +1,20 @@
+---
+output: bookdown::pdf_document2
+---
+
+This project would not have been possible without the support of many.
+First, my advisor and committee chair, Janet, has my enduring gratitude for her mentorship.
+Through countless discussions, late-night emails, and rounds of editing, she worked tirelessly to guide me through the process of developing, implementing, and writing this dissertation.
+Her infectious enthusiasm for language science continues to nurture the intellectual curiosity that brought me to Penn State six years ago.
+Second, I am grateful for the encouragement and patience of my committee.
+I am indebted not only to Michele for her invaluable feedback and guidance throughout my PhD, but also to Navin and Matt for stepping in to provide their expertise in the new (to me) research areas that I explored in this project.
+Finally, this work was supported by a National Science Foundation Linguistics Program Doctoral Dissertation Research Improvement Grant (NSF Ling-DDRI: BCS-2234907), Pennsylvania State University Graduate Fellowship (UGF), and Center for Language Science Adele Miccio Memorial Travel Award to visit Dr. Emily Myers at the University of Connecticut.
+The findings and conclusions do not necessarily reflect the views of the funding agencies.
+
+I would also be remiss not to thank my friends and family.
+To start, I am so grateful for my lab- and cohort-mates Abby, Adri, Cristal, Eric, and Daisy.
+From trips to the grocery store to trips across the ocean, your friendship has been a constant source of comfort and support throughout the last six years.
+To my DC girlies Arshia, Mariama, Mary Kate, Sarah Jane, Tor, and Worthy: I feel so lucky to have such an intelligent, caring, and elusive/exclusive group of women in my corner.
+I am forever grateful for your love and encouragement.
+Finally, to my family, thank you for believing in me always.
+A mi querido, te agradezco por apoyarme, cuidarme, y, por supuesto, alimentarme.

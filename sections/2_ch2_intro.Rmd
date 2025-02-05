@@ -1,0 +1,161 @@
+---
+output: bookdown::pdf_document2
+---
+
+# Study 1: The effects of variability and similarity on generalization across Spanish-accented English talkers
+
+## Introduction
+
+Adaptation to variation in speech is a core aspect of language comprehension.
+Without this flexibility, listeners would be unable to make sense of a single talker's vowel space [@whalen2018], let alone keep track of the innumerable acoustic-phonetic features that vary between talkers [@wade2007].
+This chapter focuses on one facet of adaptation that deals with variation between talkers: generalization.
+Here, generalization refers to the ability to apply perceptual learning from one talker or group of talkers to another.
+Two aspects of perceptual learning have been shown to facilitate future speech perception: variability during exposure [e.g., @baese2013] and similarity between the exposure and test talkers [e.g., @xie2017similarity].
+The present study includes three experiments that directly compare these two factors during exposure to Spanish-accented speech.
+The goal is to understand how listeners use acoustic-phonetic information to accommodate variation.
+
+### Adaptation to L2-accented speech
+
+Perceptual adaptation research shows that listeners quickly orient to the linguistic features of L2-accented speech [@bent2021].
+A typical experimental design features an exposure phase, in which participants gain experience with a speech pattern, followed by a test phase.
+Talker-specific adaptation is the result of hearing the same talker during exposure and test.
+For example, participants who train on Talker A during exposure tend to perform better on Talker A during test than participants who train on Talker B [@bradlow2008; @clarke2004; @xie2021; @xie2017structure; @xie2018; cf. @bradlow2023].
+Talker-independent adaptation, or generalization, is the result of exposure to a type of talker.
+For example, participants who train on Accent X during exposure tend to perform better on Accent X during test than participants who train on Accent Y [@alexander2019; @bradlow2008; @sidaras2009; @tzeng2016; @xie2021; @xie2018].
+Overall, experience with L2-accented talkers improves perception of novel L2-accented talkers [@witteman2013; @tzeng2024; @reinisch2014; @bieber2022; @baese2013].
+
+#### Talker-independent adaptation to L2-accented speech
+
+The pattern of results for talker-independent adaptation becomes more complicated when considering different types of exposure to an accent.
+Studies often compare single-talker exposure, in which one talker produces all of the stimuli for a condition, to multi-talker exposure, in which several different talkers produce the stimuli for a condition.
+For example, participants in a single-talker exposure condition listen to Talker A with Accent X and participants in a multi-talker exposure condition listen to Talkers B, C, and D with Accent X.
+During test, both groups listen to Talker E with Accent X.
+Differences in task performance with Talker E index generalization from exposure [@baese2013; @bradlow2008; @xie2017similarity; @xie2021].
+
+Experiment 2 of @bradlow2008 illustrates how exposure generalizes across L2-accented talkers with the same L1.
+In this experiment, participants completed a sentence transcription task during both exposure and test, and performance was measured in terms of sentence recognition accuracy.
+There were four key exposure conditions: multi-talker, single-talker, and control.
+Participants in the multi-talker condition were exposed to five different Mandarin-accented English talkers, while those in the single-talker condition were exposed to just one Mandarin-accented English talker.
+Control training featured five L1-accented English talkers.
+Training was followed by two post-tests: one featured a novel talker with a familiar L2 accent (Mandarin) and the other featured a novel talker with an unfamiliar L2 accent (Slovakian).
+Performance on the Mandarin-accented English test talker was higher in the multi-talker condition than in the single-talker or control conditions.
+By contrast, performance on the Slovakian-accented English test talker did not differ between conditions.
+These results suggest that exposure to multiple talkers highlights the characteristic features of an L2 accent.
+This experience in turn helps listeners adapt to novel talkers with the same accent.
+
+@baese2013 provided evidence that exposure to multiple L2-accented talkers with *different* L1s also facilitates generalization.
+They used the same stimulus materials and procedures as Experiment 2 in @bradlow2008 in order to compare a multi-accent exposure group directly to the multi-talker exposure and control groups from the previous study.
+During multi-accent training, participants were exposed to five L2-accented English talkers, each of whom had a different L1: Thai, Korean, Hindi, Romanian, and Mandarin.
+Multi-accent and multi-talker exposure were equally effective at facilitating talker-independent adaptation to the Mandarin-accented test talker relative to control exposure.
+Critically, multi-accent exposure also generalized to the Slovakian-accented test talker, while multi-talker and control exposure did not.
+Together, these results suggest that exposure to multiple accents highlights the overall features shared by L2 speakers of English.
+This experience in turn helps listeners adapt to novel talkers not only with familiar accents, but also with unfamiliar accents.
+
+@xie2021 investigated the conditions under which single-talker exposure can facilitate generalization.
+Specifically, they sought to replicate @bradlow2008 with one key change: counterbalancing the test and exposure talkers.
+In the original study, different (partially overlapping) sets of Mandarin-accented English talkers were used in the multi-talker and single-talker exposure conditions.
+Thus, the lack of generalization from single-talker training may have been the result of the specific talkers, rather than the superiority of multi-talker exposure per se.
+The specific combination of exposure and test talkers is likely to have affected performance under both exemplar-based [e.g., @goldinger1998; @johnson2006], and hybrid [e.g., @pierrehumbert2016; @kleinschmidt2015] models of speech perception [see Introduction to @xie2021].
+To address this potential confound, @xie2021 used a single set of Mandarin-accented talkers for both multi-talker and single-talker exposure; in addition, these talkers were rotated through the exposure talker and test talker roles.
+The results replicated @bradlow2008's finding that multi-talker exposure facilitates generalization more than control exposure.
+However, contrary to @bradlow2008, they found that single-talker exposure also facilitated generalization more than control exposure.
+When comparing multi- and single-talker exposure, the difference in performance depended on the particular combination of exposure and test talkers.
+Overall, these results suggest that generalization is strongly influenced by talker-specific features.
+
+@xie2017similarity investigated the acoustic-phonetic features of the exposure talkers that facilitate generalization.
+In this study, participants were exposed to Mandarin-accented English through an auditory lexical decision task.
+Experimental exposure included multisyllabic real words that biased listeners toward perceiving ambiguous word-final stops as /d/ rather than as /t/ (e.g., *overload*).
+Control exposure did not include these critical items.
+Both types of exposure featured five Mandarin-accented talkers; the only difference was in the presence of disambiguating lexical contexts for learning ambiguous word-final /d/.
+During test, participants performed a primed cross-modal lexical decision task with a novel Mandarin-accented talker.
+Previous exposure to Mandarin-accented word-final English /d/ in disambiguating lexical contexts generalized to the novel talker.
+Specifically, lexical activation for the /d/-final member of minimal pairs like *seed* versus *seat* was increased in the experimental versus the control group.
+The results suggest that listeners did not simply expand their phonetic category boundaries with exposure; instead, they used the lexical contexts from training to re-tune their categories for particular accented features.
+
+Two follow-up experiments with single-talker exposure revealed the importance of exposure-test similarity.
+Of the five talkers included in the multi-talker exposure, two were selected.
+The first talker was the dissimilar talker, who differed from the test talker on the three key acoustic measures associated with the word-final /t/-/d/ contrast.
+The second talker was the similar talker, who did not differ from the test talker in the means of these measures.
+Exposure to the similar talker generalized to the test talker, with experimental exposure decreasing lexical competition between *seed*-*seat* minimal pairs compared to control exposure.
+By contrast, exposure to the dissimilar talker did not increase performance relative to control exposure.
+Moreover, generalization from the similar talker was as strong as generalization from multi-talker exposure (which included this talker).
+Together, the results of @xie2017similarity show that the correspondence between exposure and test talkers at the acoustic-phonetic level is critical for understanding the observed patterns of generalization across studies.
+
+#### Competing hypotheses for generalization
+
+There are two competing explanations for why multi-talker exposure may or may not provide additional benefits for generalization over single-talker exposure: the exposure-to-variability hypothesis and the similarity-based hypothesis.
+
+On the one hand, the exposure-to-variability hypothesis posits that L2-accented talkers exhibit similarities in production that differ from L1-accented norms [@baese2013].
+The exposure-to-variability hypothesis also posits that among L2-accented talkers with the *same L1*, cross-language influence shifts the relations between acoustic cues and phonetic categories similarly across talkers.
+Among L2-accented talkers with *different L1s*, typological features that are unique to the L2 lead to similarly accented realizations regardless of the L1.
+Multi-talker exposure thus allows listeners to abstract away from the peculiarities of any given talker and home in on these commonalities.
+For example, a listener encountering one unfamiliar Spanish-accented talker may not know whether their short lag VOTs are specific to that talker or characteristic of the L2 accent.
+By contrast, a listener encountering multiple unfamiliar Spanish-accented talkers at once would not only see that short lag VOTs are common across the talkers, but also that other accent features (e.g., vowel height) exhibit covariation with voicing [@clayards2017].
+In @bradlow2008, multi-talker exposure outperformed single-talker exposure, suggesting that training on multiple L2-accented talkers (with the same L1) allowed listeners to separate the characteristic features of an accent from the idiosyncratic features of a talker.
+The results of @bradlow2008 support the exposure-to-variability hypothesis, but do not align with the effects observed by @xie2017similarity and @xie2021.
+
+On the other hand, the similarity-based hypothesis posits that acoustic-phonetic overlap between the exposure and test talkers, rather than variability during exposure, facilitates generalization [@xie2021]. 
+In @xie2017similarity, listeners exhibited comparable talker-independent adaptation effects after both single- and multi-talker exposure to Mandarin-accented realizations of word-final /d/, which is perceptually confusable with /t/ (e.g., *seed* vs. *seat*).
+Critically, both exposure conditions contained a Mandarin-accented talker with similar word-final /d/ acoustics to the test talker. 
+@xie2021 also demonstrated equivalent generalization effects from single- and multi-talker exposure to Mandarin-accented speech.
+They argue that exposure to multiple talkers merely increases the likelihood that listeners will encounter a cue distribution that is relevant for adapting to the test talker.
+For example, multi-talker training on Spanish-accented speech is more likely to include at least one talker with short lag VOTs than single-talker training. 
+@bradlow2008's multi-talker exposure condition may have included talkers who were more similar to the test talker than their single-talker exposure condition, which would confound talker similarity and exposure to variability. 
+@xie2021 addressed this confound by counterbalancing the combinations of exposure and test talkers across participants. 
+Thus, the similarity-based hypothesis may account for the differential effects of single- and multi-talker exposure in perceptual adaptation studies, but further research is needed to distinguish the roles of variability and similarity in talker-independent adaptation.
+To summarize, the similarity-based hypothesis focuses on specific cue-category mappings, while the exposure-to-variability hypothesis focuses on the covariation between cues.
+
+### Comparing variability and similarity
+
+As discussed above, the results of @bradlow2008 support the exposure-to-variability hypothesis, while those of @xie2017similarity and @xie2021 support the similarity-based hypothesis.
+We argue that the socio-indexical structure of cue-category mappings in the ideal adapter framework provides a link between these two hypotheses and can account for these conflicting findings.
+According to this theory, listeners represent each cue-category mapping according to informative and useful groupings [@kleinschmidt2019].
+For L2-accented speech, these groupings may be structured according to each talker (talker-specific) or to the L2 accent shared by the talkers (talker-independent).
+
+The exposure-to-variability hypothesis argues that increasing variability during exposure increases systematic covariation among relevant cues, enabling listeners to separate the idiosyncratic features of a talker from the common features of an accent.
+To restate this hypothesis in terms of the ideal adapter framework, covariation among individual exposure talkers promotes the development of a robust talker-independent model (or refinement of an existing one).
+In turn, this talker-independent model guides adaptation to the novel test talker.
+This exposure-to-variability perspective assumes that talker-independent models are better for generalization than talker-specific models.
+
+By contrast, the similarity-based hypothesis argues that increasing the similarity between the cue-category mappings of the exposure and test talkers facilitates generalization.
+Translating this hypothesis into the ideal adapter framework, listeners develop robust talker-specific models during exposure.
+During test, listeners use the model that provides the most information about the test talker’s cue distributions and most readily predicts their individual cue values to guide adaptation.
+This similarity-based perspective assumes that talker-specific models are best for generalization because they provide precise information about cue-category mappings.
+
+Overall, the specificity of a listener’s set of generative models may explain the effects of variability and similarity on generalization.
+The present study tests these two hypotheses in order to probe the mechanisms underlying adaptation to L2-accented speech. 
+The overarching goal is to understand how the L1 speech recognition system learns the patterns of cross-language influence in L2 speech production.
+
+### Present study
+
+How do listeners generalize their experience with L2-accented speech?
+On the one hand, the *structure* of exposure may be the primary driver of talker-independent adaptation.
+Variability has been the primary focus of structural inquiries [@baese2013], with the number of talkers being the key manipulation [@bradlow2008; @bieber2022; @choi2019; @xie2021].
+On the other hand, the *content* of exposure may be the key to effective generalization.
+At a high level, training on the relevant L2 accent tends to facilitate talker-independent adaptation [@bradlow2023; @clarke2004; @xie2018; @alexander2019].
+At a detailed level, exposure to the relevant acoustic-phonetic features of an L2 accent explains generalization beyond shared L1 [@xie2017similarity; @sidaras2009; @reinisch2014].
+Together, a shared L1 and common acoustic-phonetic features create similarity between exposure and test talkers that facilitates adaptation.
+The present study builds on this body of work investigating generalization of L2-accented speech.
+The key difference between this study and earlier work is the operationalization of variability and similarity.
+Specifically, we increased the precision with which variability was implemented [c.f. @baese2013] and expanded the scope of similarity [c.f. @xie2017similarity] in order to better delineate the exposure-to-variability and similarity-based hypotheses.
+The goal was to clarify some of the inconsistent findings in the literature for talker-independent adaptation to L2-accented speech [@bent2021].
+
+Regarding variability, previous studies have almost exclusively investigated this factor as a comparison between single-talker exposure and multi-talker exposure [c.f. @baese2013; @bradlow2023].
+However, multi-talker exposure reduces the amount of experience with any given talker relative to single-talker exposure.
+From the larger perceptual adaptation literature, we know that listeners are highly sensitive to acoustic-phonetic mappings and use them to adapt to new talkers [e.g., @kraljic2006].
+We also know that there is a high degree of within- and between-talker variability in both L1- and L2-accented speech production [@xie2020; @wade2007].
+Depending on the idiosyncrasies of a given exposure talker, altering the amount of experience with this talker may benefit or impede generalization.
+This asymmetry in talker-specific exposure may explain some of the inconsistent findings in the literature [@xie2017similarity; @xie2021].
+Moreover, exposure to multiple talkers increases the sources of covariation to account for, which in turn increases the difficulty of accounting for them during exposure.
+If we assume, as the exposure-to-variability hypothesis does, that experience with covariation is critical for generalization, this lack of clarity obscures how and why variability might facilitate generalization.
+In the present study, we used a single group of talkers with the same L1 to control the type and amount of experience with each talker across levels of variability.
+
+Regarding similarity, previous studies have either conceptualized this factor at the accent level or at the acoustic-phonetic level.
+When it comes to operationalizing either definition of similarity, we run into the same problem as we did with multi-talker versus single-talker exposure.
+That is, we end up comparing two (or more) groups of exposure talkers between conditions.
+If we assume again that listeners are highly sensitive to talker-specific acoustic-phonetic features, then this design confounds talker- and accent-specific effects.
+In other words, we cannot know whether listeners are "learning a talker or learning an accent" or learning both [@xie2017similarity].
+Here, we manipulated the stimuli listeners encounter during exposure rather than the talkers in order to maintain consistency across levels of similarity.
+Moreover, we directly crossed the factors of similarity and variability in the same design, which, to our knowledge, has not yet been done.
+Overall, this study allows us to address the ongoing debate between the exposure-to-variability and similarity-based hypotheses for generalization.
+

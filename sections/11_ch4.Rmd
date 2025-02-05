@@ -1,0 +1,95 @@
+---
+output: bookdown::pdf_document2
+---
+
+# General conclusion
+
+## Summary
+
+This dissertation investigated adaptation to L2-accented speech.
+Spanish-accented voiceless stop VOT was the focus of the experimental manipulations.
+Due to cross-language transfer from Spanish to English in production, the voiceless stops /p/, /t/, and /k/ can be perceptually confusable with their voiced counterparts /b/, /d/, and /g/.
+The ambiguity between voiced and voiceless stop pairs in Spanish-accented English is based on their VOT distributions.
+L1 English listeners tend to associate short lag VOTs with voiced stops, while Spanish-accented English talkers tend to produce short lag VOTs for voiceless stops.
+In order to adapt to Spanish-accented productions of voiceless stops, listeners must learn to associate short lag VOTs with a different set of phonetic categories.
+The ideal adapter framework provides useful conceptual tools for investigating this process [@kleinschmidt2019; @kleinschmidt2015].
+This framework posits that listeners use statistical learning to update generative models of the distributions of phonetic categories over acoustic cues.
+I used the ideal adapter framework to answer the following questions: Does increased covariation during exposure enhance talker-independent adaptation beyond exposure-test similarity (Study 1)? Does covariation along one cue-category mapping facilitate generalization to related mappings (Study 1)? What are the relative contributions of phonetic and semantic levels of processing to perceptual adaptation (Study 2)?
+
+## Does increased covariation during exposure enhance talker-independent adaptation beyond exposure-test similarity?
+
+The results of Study 1 (Chapter 2) suggest that *decreased* covariation in conjunction with exposure-test similarity enhances talker-independent adaptation.
+In Experiment 2, we found that Direct-Invariant exposure reduced the activation of lexical competitors relative to Indirect-Invariant exposure in terms of accuracy on the matching task.
+In Experiment 3, Direct-Invariant exposure also reduced lexical competition relative to both the Test-only group and Direct-Invariant exposure in terms of RT on the primed cross-modal lexical decision task.
+In both cases, we did not observe any evidence that Variant exposure benefited test performance.
+In fact, we found evidence that Invariant exposure actually improved generalization.
+There were two explanations for this finding: (1) the talker-independent generative models that listeners developed with Variant exposure were not as useful as the talker-specific generative models that listeners developed with Invariant exposure (2) listeners developed talker-specific generative models regardless of variability, which led to sub-optimal representations of Variant exposure.
+Both of these accounts would be consistent with exposure to different VOT distributions for each talker.
+To investigate talker-specific VOT-stop distributions, Figure \@ref(fig:spk-vot-fig) plots the density of each talker's VOT values across the Direct and Indirect real words from the exposure phase.
+Focusing on the voiceless stops encountered during Direct exposure (second row), we can see that the VOT distributions varied by both talker and place of articulation.
+This variation is illustrated by comparing both the means and shapes of each distribution, particularly for /p/ (bottom left panel).
+Since Direct-Invariant exposure associated each place of articulation with only one talker, listeners did not need to keep track of talkers and places of articulation separately; rather, these sources of variation were collapsed.
+Overall, our results suggest that limiting the sources of variation in L2-accented speech facilitates adaptation to specific cue-category mappings.
+In terms of the ideal adapter framework, these findings suggest that developing talker-specific generative models for multiple talkers may be the best approach when between-talker and between-category variability is high.
+
+```{r spk-vot-fig, fig.cap = "Exposure VOT distributions by talker, place of articulation, and voicing.", fig.pos="H", dpi = 300}
+knitr::include_graphics("figures/spk_voice_plot.png")
+```
+
+## Does covariation along one cue-category mapping facilitate generalization to related mappings?
+
+The results of Study 1 (Chapter 2) suggest that covariation in VOT-voiced stop mappings generalizes to VOT-voiceless stop mappings.
+Specifically, in Experiment 3, Indirect-Invariant exposure increased the activation of lexical targets relative to Direct-Invariant exposure in terms of RT on the primed cross-modal lexical decision task.
+This finding was unexpected based on previous research and the ideal adapter framework, because it relies on indirect evidence for shifted VOT distributions.
+In Indirect conditions, listeners were exposed to lead VOTs in supporting lexical contexts (e.g., *beehive*).
+Exposure to these atypical distributions (for L1-accented English) shifted the representations of the VOT distributions for voiced stops from short lag to lead.
+In turn, this leftward shift in VOTs for voiced stops triggered a leftward shift in VOTs for voiceless stops, moving the distribution from long lag to short lag.
+
+Considering Figure \@ref(fig:spk-vot-fig), we can see that the VOT distributions for Talkers 1-3's voiceless stops are more short lag than long lag.
+The prevalence of these relatively English-like VOT values disrupts the logic of this argument for shifting distributions; an L1 listener's existing generative models of VOT-voiceless stop distributions would be sufficient for categorization.
+If listeners did not strictly *need* to adapt, then why did we observe adaptation effects?
+One possibility is the presence of an overall L2 accent beyond stop production.
+Across the 648 participants in Experiments 1-3, all but nine indicated that the test talker had an accent.
+Moreover, more than 90% of participants identified the test talker as a bilingual.
+The talkers' L2-accented features may have encouraged listeners to develop new generative models according to this socio-indexical information [@kleinschmidt2019].
+Furthermore, development may have been enhanced by exposure to the shifted VOT distributions for voiced stops.
+Another possibility is that the shift in VOTs for voiced stops prompted listeners to re-weight the acoustic cues to voicing [@shultz2012; @clayards2017; @crinnion2024; @toscanomc2010].
+That is, instead of using VOT as the primary cue, listeners may have begun to use secondary cues like fundamental frequency.
+Updating cue weights may have then benefited perception of voiceless stops during test.
+
+## What are the relative contributions of phonetic and semantic levels of processing to perceptual adaptation?
+
+The experiments in Study 1 (Chapter 2) investigated talker-independent adaptation to Spanish-accented speech.
+The experiment in Study 2 (Chapter 3) focused on talker-specific adaptation.
+The goal was to investigate the relative contributions of acoustic-phonetic and lexico-semantic levels of processing.
+In behavioral paradigms, exposure to a talker's cue-category mappings during exposure facilitates perception of the same talker during test compared to a different talker.
+In neurocognitive paradigms, adaptation is not typically the primary focus; as a result, effects of perceptual adaptation on neural signatures are less clear.
+We observed differences in VOT perception on the N1 and in phonetic categorization on the P2, which emerged as differences in priming on the N400 disappeared.
+The changes we observed in response to Unrelated primes on the N1-P2 complex highlight the role of selective attention in adaptation.
+Previous ERP research has shown that the N1-P2 complex reflects the deployment of attention to specific aspects of the speech signal [@joos2014; @hillyard1973; @sanders2008].
+Previous behavioral work on perceptual adaptation has also demonstrated a link between these two constructs [@francis2008; @tzeng2024; @kim2020].
+It is possible that the reduction in N400 effects reflects a shift in attention from the visual prime to the actual speech signal.
+
+## Limitations and future directions
+
+Based on theories of L1-L2 transfer in the language system, we assumed that the mean stop VOTs produced by Spanish-accented talkers would be Spanish-like.
+That is, we assumed that voiceless stops would be likely to have short lag VOTs and voiced stops would be likely to have lead VOTs.
+When we calculated the VOTs produced by our four talkers, we found that voiced stop VOTs were generally Spanish-like, but voiceless stop VOTs were not (see Figure \@ref(fig:spk-vot-fig)).
+In Study 1 (Chapter 2), the reduction in ambiguity between voiced and voiceless stops reduced the need for adaptation at all, which is likely why performance in the Test-only condition did not differ greatly from performance in any of the exposure conditions.
+Another aspect of the stimuli that is worth noting is the difference in VOT distributions between voiced and voiceless stops.
+As Figure \@ref(fig:spk-vot-fig) shows, the range of VOT values for voiced stops was nearly twice as wide as the range for voiceless stops.
+Moreover, the shapes of the distributions were quite different.
+Voiceless stop VOTs were more normally distributed (with the exception of Talker 4’s distribution for /p/), while voiced stop VOTs varied by talker and place of articulation.
+In Study 2 (Chapter 3), Talker 4’s voiceless stop VOTs were shortened by 25% to bring them more fully into the short lag range; however, the shape of the distribution was not altered.
+Future iterations of Studies 1 and 2 could both reduce the mean VOTs and change the shape of the VOT distributions to further investigate how cue-category variability influences adaptation.
+
+## Conclusion
+
+Across four experiments, this dissertation explored both talker-specific and talker-independent adaptation to Spanish-accented speech.
+VOT provided a window into the adaptation process in both brain and behavior.
+The results of the two studies highlight the flexibility of the perceptual system.
+The results also support the idea that changes in acoustic-phonetic representations drive adaption.
+
+
+
+

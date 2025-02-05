@@ -1,0 +1,39 @@
+---
+output: bookdown::pdf_document2
+---
+
+\begin{centering}
+
+The Pennsylvania State University\\
+The Graduate School
+
+\vspace{3 cm}
+
+\MakeUppercase{\bf Cross-language transfer in voice onset time: A window into perceptual adaptation in brain and behavior}
+
+\vspace{3 cm}
+
+A Dissertation in\\
+Psychology\\
+by\\
+Holly A. Zaharchuk
+
+\vspace{1.5 cm}
+
+\copyright 2024 Holly A. Zaharchuk
+
+\vspace{1.5 cm}
+
+Submitted in Partial Fulfillment\\
+of the Requirements\\
+for the Degree of\\
+
+\vspace{0.75 cm}
+
+Doctor of Philosophy
+
+\vspace{0.75 cm}
+
+August 2024
+
+\end{centering}

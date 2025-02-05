@@ -1,0 +1,238 @@
+---
+output: bookdown::pdf_document2
+---
+
+```{r child = 'code/5_ch2_3_code.Rmd', cache = TRUE}
+```
+
+## Experiment 3: Investigating fine-grained perceptual changes from exposure to Spanish-accented stops
+
+### Methods
+
+The exposure phase was the same as Experiment 2, but the task used in the test phase was different.
+
+#### Design
+
+To better detect subtle changes in perception as a function of exposure to Spanish-accented speech, we implemented the primed cross-modal lexical decision task from @xie2017similarity.
+This design is illustrated in Figure \@ref(fig:exp3-fig).
+We maintained the same three types of Target: Identity, Competitor, and Unrelated.
+However, participants performed a different task with these targets relative to Experiment 2.
+Specifically, participants decided whether the visual target was a real English word or not.
+The auditory primes should increase or decrease RTs on the visual targets as a function of perceptual adaptation to Spanish-accented voiceless stops.
+
+```{r exp3-fig, fig.cap = "Experiment 3 design.", fig.pos="H", dpi = 300}
+knitr::include_graphics("figures/diss_3.png")
+```
+
+#### Participants {#methods-pars-2}
+
+We recruited `r par_all[4]` participants through Prolific.
+After removing ineligible participants, `r par_diff$elig_2[4]` remained.
+After removing participants with poor data quality, `r par_qual[4]` remained for analysis (`r par_text$report[4]`)
+All aspects of recruitment were the same as those described in Experiments 1 and 2.
+
+A separate group of `r par_all[5]` participants was also recruited to complete the experiment without the exposure phase.
+There were `r par_diff$elig_2[5]` participants remaining after checking the eligibility criteria, and `r par_qual[5]` participants remained after checking for data quality (`r par_text$report[5]`).
+
+#### Stimuli
+
+The real words and pseudowords in the exposure task were the same as those in Experiment 2.
+The auditory primes in the test task were also the same.
+The only difference was in the visual targets.
+
+The unrelated target for each filler prime (144) was replaced with a pseudoword with a different filler onset from the prime.
+Potential pseudowords were downloaded from the ELP's set of normed pseudowords.
+The best possible match was selected for each prime by (orthographic) vowel and number of letters.
+Three additional pseudoword targets were selected for practice.
+
+#### Experimental lists
+
+The experimental lists for the exposure task were the same as in Experiment 2.
+Talker assignment was also counterbalanced the same way.
+
+For the critical primes (72), the combinations of auditory prime and visual target were counterbalanced across participants in three experimental lists as in Experiment 2.
+For the filler primes (144), perfect counterbalancing across these three lists was not possible, since three quarters of the filler items in each list (108) needed to have unrelated pseudoword targets.
+Three sets of primes, divided evenly by onset, were rotated through the assignment of Identity or Unrelated (pseudoword) target as evenly as possible.
+This resulted in 12 experimental lists for the test phase, one for each combination of critical prime-target pair (3) and talker assignment (4).
+
+#### Tasks and procedure
+
+The headphone check, exposure task, and post-experiment questionnaire were the same as Experiment 2.
+The procedure was also the same.
+The only difference was in the structure of the test task.
+
+The test phase featured the cross-modal primed lexical decision task from @xie2017similarity.
+On each trial, participants first heard a real word (auditory prime) and then saw a real word or pseudoword written on the screen (visual target).
+They indicated whether the visual target was a real English word or not by pressing the *d* or *k* key on their keyboard.
+The real word response was mapped to the same key as in the exposure task.
+Participants completed six practice trials followed by 216 main trials presented in random order.
+Half of the practice trials (3) and half of the main trials (108) required real word responses.
+All of the trials with critical primes (72) required real word responses.
+
+#### Analysis
+
+The data processing, model fitting, and analysis approach were the same as in Experiment 2.
+Prior to analyzing exposure task performance for real words with experimental onsets, we removed responses with RTs less than 50 ms (*N* = `r dat_rem_exp$rem_1[3]`; `r dat_rem_exp$pct_1[3]`).
+We then detected and removed outliers (*N* = `r dat_rem_exp$rem_2[3]`; `r dat_rem_exp$pct_2[3]`).
+Prior to analyzing test task performance for critical prime-target pairs, we removed responses with RTs less than 50 ms (*N* = `r dat_rem_test$rem_1[3]`; `r dat_rem_test$pct_1[3]`).
+We then detected and removed outliers (*N* = `r dat_rem_test$rem_2[3]`; `r dat_rem_test$pct_2[3]`).
+
+### Results
+
+#### Exposure
+
+There were no effects of Variability or Similarity on accuracy.
+There was a main effect of Similarity on RTs (`r exp_rt_2_comp_form`), with faster RTs in Indirect conditions (`r exp_rt_2_indirect`) than in Direct conditions (`r exp_rt_2_direct`; `r exp_rt_2_dir_indir`).
+
+#### First test analysis: Comparing the exposure groups to the Test-only group
+
+For accuracy, we observed a significant interaction between Exposure and Target (`r test_acc_2_comp_form`); however, pairwise comparisons within each level of Target did not reveal significant differences between the Test-only condition and any of the exposure conditions (*ps* > .05).
+We report pairwise differences between exposure conditions in the next analysis.
+We also observed a significant interaction between Exposure and Target for RTs (`r test_rt_2_comp_form`).
+This interaction was driven by slower RTs on Competitor targets in the Direct-Invariant condition (`r test_rt_2_train_invsim`) than in the Test-only condition (`r test_rt_2_train_no`; `r test_rt_2_no_invsim`).
+Pairwise comparisons are shown in Table \@ref(tab:exp3-test1-tab) and illustrated in Figure \@ref(fig:exp3-test-fig) below.
+To investigate the differences between exposure conditions, we conducted the second set of analyses comparing the factors of Variability and Similarity.
+
+```{r exp3-test1-tab, fig.pos="H"}
+test_rt_2_train_tab %>%
+  select(contrast, match_type, diff:p, -d) %>%
+  arrange(contrast, match_type) %>%
+  kable(col.names = c("Contrast", "Target level", "Difference (ms)", "\\textit{z}", "\\textit{p}"),
+        escape = FALSE,
+        caption = "Experiment 3 RT differences, \\textit{z} ratios, and \\textit{p} values for contrasts between the Test-only and exposure groups.") %>%
+  kable_styling(bootstrap_options = "bordered") %>%
+  collapse_rows(columns = 1)
+```
+
+#### Second test analysis: Comparing the effects of Variability and Similarity
+
+For accuracy, we observed significant two-way interactions between Variability and Target (`r test_acc_2a_comp_var_form`) and between Similarity and Target (`r test_acc_2a_comp_sim_form`).
+We followed up on these interactions with separate pairwise comparisons for Variability and Similarity within each level of Target.
+Within the Identity level of Target, Invariant exposure (`r test_acc_2a_invar_id`) was associated with higher accuracy than Variant exposure (`r test_acc_2a_var_id`; `r test_acc_2a_var_invar`).
+Within the Competitor level of Target, Indirect exposure (`r test_acc_2a_indir_comp`) was associated with higher accuracy than Direct exposure (`r test_acc_2a_dir_comp`; `r test_acc_2a_dir_indir`).
+
+```{r exp3-test2-tab, fig.pos="H"}
+test_rt_2a_combo %>%
+  select(Contrast, Level, Target, Effect, z, p) %>%
+  arrange(Level, Target) %>%
+  kable(col.names = c("Contrast", "Exposure level", "Target level", "Difference (ms)", "\\textit{z}", "\\textit{p}"),
+        escape = FALSE,
+        caption = "Experiment 3 RT differences, \\textit{z} ratios, and \\textit{p} values for contrasts between exposure groups.") %>%
+  kable_styling(bootstrap_options = "bordered") %>%
+  collapse_rows(columns = c(1:2))
+```
+
+For RT, we also observed significant two-way interactions between Variability and Target (`r test_rt_2a_comp_var_form`) and between Similarity and Target (`r test_rt_2a_comp_sim_form`).
+We followed up on these interactions with separate pairwise comparisons for Variability and Similarity within each level of Target; however, the pairwise comparisons between levels of Variability or levels of Similarity were not significant (*ps* > .05).
+To further probe the source of the interactions in the model, we conducted pairwise comparisons between Direct and Indirect exposure at each level of Target and Variability and between Variant and Invariant exposure at each level of Target and Similarity.
+The results of these analyses can be found in Table \@ref(tab:exp3-test2-tab) and are illustrated in Figure \@ref(fig:exp3-test-fig).
+
+```{r exp3-test-fig, fig.cap = "Experiment 3 estimated marginal means and 95\\% CIs for test RT.", fig.pos="H", dpi = 300}
+knitr::include_graphics("sections/code/outputs/train_plot_2.png")
+```
+
+### Discussion
+
+Experiment 3 followed up on the findings of Experiment 2 with a different test task.
+Recall that in Experiment 2, we observed higher accuracy on Competitor targets in the Direct-Invariant group than in any of the other groups.
+This difference, however, was only significant for the comparison with Indirect-Invariant training.
+The Test-only group performed similarly to the exposure groups, limiting our interpretation of the data.
+We posited that Direct-Invariant training reduced lexical competition between voiced and voiceless stops, thereby increasing correct rejection of Competitor targets as matches for the Spanish-accented auditory primes.
+The matching task required participants to explicitly compare the visual target to the auditory prime.
+In Experiment 3, we took a more implicit approach.
+The priming task probed the extent to which the auditory prime activated the visual target.
+In this way, we could investigate changes in the perception of Spanish-accented stops.
+
+When we compared the four exposure conditions to the Test-only condition, we observed slower RTs for Competitor targets after Direct-Invariant exposure.
+We interpret this reduction in speed as a reduction in lexical competition.
+For example, consider the auditory prime *park* and the visual target *bark*, which are minimal pairs that differ only in the voicing of their onsets.
+The more the onset of *park* is perceived as /b/, the more it will activate the target *bark*.
+This increase in activation will facilitate the lexical decision for *bark*, resulting in faster RTs.
+Our results suggest that, in the absence of exposure to Spanish-accented speech, Spanish-accented *park* was perceived **more** like *bark*.
+By contrast, with Direct-Invariant exposure, Spanish-accented *park* was perceived **less** like *bark*.
+This reduction in lexical activation after training suggests that talker-specific exposure to Spanish-accented /p/, /t/, and /k/ improved phonetic categorization of short lag VOTs.
+Based on this evidence for talker-independent adaptation, we conducted analyses to distinguish the effects of Variability and Similarity.
+
+Within the Direct conditions, Invariant exposure reduced lexical competition more than Variant exposure.
+This effect was illustrated by significantly slower RTs on Competitor targets for the Direct-Invariant group compared to the Direct-Variant group.
+In the previous analysis, we also saw that the Direct-Invariant group was slower on Competitor targets than the Test-only group.
+This suggests that the Test-only and Direct-Variant groups exhibited similar levels of *park*-*bark* priming, indexing increased activation of /b/ by Spanish-accented /p/.
+This finding is striking, considering that the Direct-Variant group had the same amount of exposure to Spanish-accented /p/, /t/, and /k/ as the Direct-Invariant group.
+We will interpret this effect of Variability more fully in Section \@ref(discuss-study1).
+In short, we will argue that listeners developed sparse talker-specific models rather than more robust talker-independent models during Variant exposure.
+Because this level of organization is subject to listeners' use of indexical and social information [@kleinschmidt2019], we will investigate their perceptions of the test talker in Section \@ref(corr-intro).
+
+Within the Invariant conditions, Indirect exposure increased lexical activation more than Direct exposure.
+This effect was illustrated by marginally faster RTs on Identity targets for the Indirect-Invariant group compared to the Direct-Invariant group.
+In other words, previous talker-specific exposure to Spanish-accented /b/, /d/, and /g/ facilitated activation of their voiceless counterparts.
+For example, consider the auditory prime *park* and the visual target *park*.
+The more the onset of *park* is perceived as /p/, the more it will activate the target *park*.
+This increase in activation will facilitate the lexical decision for *park*, resulting in faster RTs.
+Our results suggest that, after exposure to Spanish-accented /b/, Spanish-accented *park* was perceived **more** like *park* than after exposure to Spanish-accented /p/.
+This finding was not expected under the exposure-to-variability and similarity-based hypotheses, nor under the ideal adapter framework.
+The increase in lexical activation after Indirect-Invariant exposure suggests that experience with the mapping between lead VOTs and voiced stops can facilitate the mapping between short lag VOTs and voiceless stops.
+Put another way, exposure to an accent-shifted cue continuum can generalize across both categories and talkers.
+We will discuss the reasons for and implications of this finding more thoroughly in Section \@ref(discuss-var).
+
+## Correlation analysis {#corr-intro}
+
+Having analyzed the task data, we now compare post-experiment questionnaire responses to test task performance.
+Recall that the test task used in Experiments 1 and 2 was different from the one used in Experiment 3.
+In both cases, performance on Competitor targets indexed lexical competition.
+However, lexical competition had a different relation to performance depending on the task.
+For the matching task, accuracy was a direct measure of competition between primes like *park* and targets like *bark*.
+Differences in accuracy reflected differences in the activation of the onset competitor *bark*.
+RT was less clearly related to differences in activation for competitors (since RT analyses were conducted on accurate responses).
+By contrast, for the primed lexical decision task, RT was the clear measure of lexical competition, while accuracy was related more broadly to lexical activation.
+Also recall that the test task used in Experiments 1 and 2 did not reveal significant differences between the Test-only and exposure groups.
+Considering all of these factors, the correlation analysis presented here only includes the participants from Experiment 3 where we observed differential effects of exposure on test performance.
+
+### Materials and analysis {#corr-mat}
+
+Here we describe the post-experiment questionnaire items in detail.
+The labels for the items in Figure \@ref(fig:exp3-corr-fig) are included in parentheses below.
+
+First, participants answered questions related to the test talker's accent.
+Participants indicated whether the talker had an accent or not, then rated the strength of the accent (Accent strength) and identified the type of accent.
+For the type of accent, participants selected all that applied from the following options: city or region in the US; city or region outside the US; social, racial, or ethnic group; another language; and speech or language impairment.
+Responses including the "another language" option were coded as 1/2, while responses that did not include this option were coded as -1/2 for analysis (Accent: L2).
+
+Next, participants rated how well they understood the talker (Comprehensibility) and how easy it was to understand the talker (Ease).
+They also identified the talker's L1 and proficiency in their L1 (L1 fluency).
+Participants selected from the top 10 most spoken languages in the world [@ethnologue2024_2].
+Spanish was coded as 1/2 and all other languages were coded as -1/2 (L1: Spanish).
+Participants then identified whether the talker was bilingual or not; if so, they identified the talker's L2 and rated their proficiency (L2 fluency).
+The same options were provided for identifying the talker's L2, with English coded as 1/2 and the remaining options coded as -1/2 (L2: English).
+
+Finally, participants identified the talker's place of origin.
+They began by selecting a global region---Africa, Americas, Asia, Europe, or Oceania---followed by a sub-region within the chosen region [@un2024].
+If the Americas region was selected, participants were also able to select a specific country within their chosen sub-region.
+Mexico was coded as 1/2 and all other responses were coded as -1/2 (Country: Mexico).
+
+For the correlations with task performance, we used average RT on Competitor targets as a measure of lexical competition (Competitor RT).
+In the primed lexical decision task, RT was a direct measure of competition between minimal pairs, with differences in RT reflecting differences in activation of the onset competitor *bark*.
+By contrast, accuracy was less clearly related to differences in activation for competitors, making this measure difficult to interpret in the context of a correlation analysis.
+Thus, we did not include Competitor accuracy here.
+We also coded participants in the Test-only group as -1/2 and participants in the exposure groups as 1/2 to measure general effects of exposure on test talker judgments (With/out exposure).
+
+Pairwise correlations were calculated with the *psych* package [@revelle2023].
+A Hommel correction was applied to the *p* values.
+
+### Results
+
+All pairwise correlations are illustrated in Figure \@ref(fig:exp3-corr-fig).
+None of the questionnaire items correlated with performance on Competitor targets (*ps* > .05).
+
+```{r exp3-corr-fig, fig.cap = "Experiment 3 correlation matrix between test performance and post-experiment questionnaire items.", fig.pos="H", dpi = 300}
+knitr::include_graphics("sections/code/outputs/corr_plot_1.png")
+```
+
+### Discussion
+
+Across participants in Experiment 3, we did not observe any correlations between participant judgments and test performance.
+We also did not observe differences between participants who had completed the exposure phase and those who had not.
+Within the context of listener perceptions of the talker, ratings of ease, comprehensibility, and accent strength patterned together.
+Ease and comprehensibility were also strongly related to ratings of fluency in the L2.
+Overall, lexical competition was not particularly sensitive to the social factors we measured.
+
+

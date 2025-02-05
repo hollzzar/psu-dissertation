@@ -2,8 +2,7 @@
 
 # Package list
 pkg_list <- c("tidyverse", "lme4", "emmeans", "lubridate", "knitr", 
-              "car", "ggplot2", "patchwork", "kableExtra", "ggsignif",
-              "gghalves", "optimx", "dfoptim")
+              "car", "ggplot2", "patchwork", "kableExtra")
 
 # Load packages
 pacman::p_load(pkg_list, character.only = TRUE)
@@ -21,21 +20,10 @@ code_tab <- read.csv("~/Mirror/dissertation/13_eeg/input/code_tab.csv") %>%
 g_point <- 2
 g_line <- 1
 font_fam <- "Avenir"
-text_size <- 24
-alpha_lev <- 0.6
-acc_range <- c(0.48, 1.02)
-acc_seq <- seq(0.4, 1.1, 0.1)
-g_dodge <- 0.75
-sig_size <- 8
+text_size <- 22
 
 # Set up colors
-# col_sim_1a <- c("#41ab5d", "#78c679", "#addd8e")
-# col_sim <- col_sim_1a[1:2]
-# col_var <- c("#fd8d3c", "#feb24c")
-col_exp_1a <- c("#762a83", "#1b7837", 
-                "#af8dc3", "#7fbf7b", 
-                "#e7d4e8", "#d9f0d3")
-col_exp <- col_exp_1a[1:4]
+col_exp <- c("#bbbbbb", "#fdb863", "#e66101", "#a8a3d1", "#5e3c99")
 col_vot <- c("#2c7fb8", "#41b6c4", "#c7e9b4", "#7fcdbb")
 col_test <- c("#7a0177", "#dd3497", "#fa9fb5")
 col_corr <- c("#f03b20", "#FFFFFF", "#3182bd")
@@ -111,7 +99,7 @@ num_formatting <- function(val) {
   sprintf("%.2f", val)
 }
 
-# Make function to output APA formatting for chi-square tests from lmer
+# Make function to output APA formatting for chi-square tests
 # Use with numbers that need to be passed through formatting functions
 mod_comp <- function(aov_tab, comp) {
   
@@ -130,27 +118,6 @@ mod_comp <- function(aov_tab, comp) {
   sprintf("$\\chi^2$(%s, *N* = %s) = %s, *p* %s", df_val, n_val, stat_val, p_val)
   
 }
-
-# Make function to output APA formatting for chi-square tests (lm)
-# Use with numbers that need to be passed through formatting functions
-mod_comp_lm <- function(aov_tab, comp) {
-  
-  # Pull values
-  stat_val <- aov_tab[comp, 1]
-  df_val <- aov_tab[comp, 2]
-  p_val <- aov_tab[comp, 4]
-  n_val <- df_val + 1
-  
-  # Format values
-  stat_val <- stat_formatting(stat_val)
-  df_val <- df_formatting(df_val)
-  p_val <- p_formatting(p_val, format_code = 1)
-  
-  # Print
-  sprintf("$\\chi^2$(%s, *N* = %s) = %s, *p* %s", df_val, n_val, stat_val, p_val)
-  
-}
-
 
 # APA formatting for pairwise comparisons
 pair_comp <- function(pairs_tab, comp) {
@@ -195,24 +162,24 @@ apa_rt <- function(rt_tab) {
   if ("lower.CL" %in% tabs) {
     
     rt_tab <- rt_tab %>% 
-      mutate(rt = -1000/emmean,
-             rt_low = -1000/lower.CL,
-             rt_high = -1000/upper.CL,
-             report = sprintf("*M* = %.0f, 95%% CI [%.0f, %.0f]", rt, rt_low, rt_high))
+      mutate(rt = zero_formatting(-1000/emmean),
+             rt_low = zero_formatting(-1000/lower.CL),
+             rt_high = zero_formatting(-1000/upper.CL),
+             report = sprintf("*M* = %s, 95%% CI [%s, %s]", rt, rt_low, rt_high))
     
     rt_tab %>%
-      select(all_of(tabs), rt, rt_low, rt_high, report)
+      select(all_of(tabs), report)
     
   } else {
     
     rt_tab <- rt_tab %>% 
-      mutate(rt = -1000/emmean,
-             rt_low = -1000/asymp.LCL,
-             rt_high = -1000/asymp.UCL,
-             report = sprintf("*M* = %.0f, 95%% CI [%.0f, %.0f]", rt, rt_low, rt_high))
+      mutate(rt = zero_formatting(-1000/emmean),
+             rt_low = zero_formatting(-1000/asymp.LCL),
+             rt_high = zero_formatting(-1000/asymp.UCL),
+             report = sprintf("*M* = %s, 95%% CI [%s, %s]", rt, rt_low, rt_high))
     
     rt_tab %>%
-      select(all_of(tabs), rt, rt_low, rt_high, report)
+      select(all_of(tabs), report)
     
   }
   
@@ -261,12 +228,7 @@ apa_corr <- function(corr_list) {
     rownames_to_column("Var1") %>% 
     pivot_longer(cols = c(everything(), -Var1), 
                  names_to = "Var2", 
-                 values_to = "p") %>%
-    rowwise() %>%
-    mutate(pair = paste0(sort(c(Var1, Var2)), collapse = "")) %>%
-    ungroup() %>%
-    dplyr::filter(!duplicated(pair) & Var1 != Var2) %>%
-    select(-pair)
+                 values_to = "p") 
   
   corr_n <- corr_list$n %>% 
     as.data.frame() %>% 
@@ -275,7 +237,7 @@ apa_corr <- function(corr_list) {
                  names_to = "Var2", 
                  values_to = "n") 
   
-  corr_dat <- left_join(corr_p, corr_r, by = c("Var1", "Var2")) %>%
+  corr_dat <- left_join(corr_r, corr_p, by = c("Var1", "Var2")) %>%
     left_join(corr_n, by = c("Var1", "Var2")) %>%
     rowwise() %>%
     mutate(df = n - 2,

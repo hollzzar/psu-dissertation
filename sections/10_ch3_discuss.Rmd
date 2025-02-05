@@ -1,0 +1,91 @@
+---
+output: bookdown::pdf_document2
+---
+
+## Discussion
+
+The current study investigated the neurocognitive correlates of talker-specific adaptation to L2-accented speech.
+We compared two proposed loci of perceptual adaptation: acoustic-phonetic and lexico-semantic.
+Behavioral work has shown that listeners adapt to L2-accented talkers by re-tuning their phonetic categories [@xie2017structure; @reinisch2014; @xie2017similarity].
+Theoretical [e.g., @sumner2014; @goldinger1998; @pierrehumbert2016] and computational [@kleinschmidt2015; @kleinschmidt2019] models of speech perception also identify the acoustic-phonetic level of processing as the site of adaptation.
+By contrast, neurocognitive work has observed changes in lexico-semantic access with exposure to L2-accented speech [@romerorivas2015].
+More broadly, ERP studies comparing L1- and L2-accented speech have shown that listeners consistently exhibit larger N400 effects for L2 talkers [e.g., @gosselin2021].
+In our study, we observed differences in VOT encoding on the N1 and in phonetic categorization on the P2, which emerged as differences in priming on the N400 disappeared.
+Our results provide strongest support for acoustic-phonetic-driven adaptation to L2-accented speech.
+
+### Behavioral adaptation
+
+At the behavioral level, listeners exhibited perceptual adaptation to Spanish-accented /p/, /t/, and /k/ as a function of exposure.
+Cross-language transfer in Spanish-accented English shortens the VOTs for voiceless stops [@flege1987], which makes them perceptually confusible with voiced stops [@chodroff2019; @lisker1970].
+In a perceptual adaptation paradigm [@xie2017structure; @xie2017similarity], we exposed listeners to ambiguous voiceless stop onsets in the context of multisyllabic real words (e.g., *passage*).
+We probed the status of the adaptation process with monosyllabic real words that have voiced stop onset competitors (e.g., *park*-*bark*).
+To investigate learning in real time, we measured accuracy on a primed cross-modal go/no-go lexical decision task (LDT).
+First, we compared performance on the Test targets with ambiguous onsets to performance on the Filler targets with unambiguous onsets.
+Performance was analyzed in relation to the cumulative amount of experience with Exposure targets with ambiguous onsets in disambiguating lexical contexts.
+Performance increased at a faster rate for Test targets versus Filler targets, indicating that the Exposure targets facilitated perceptual adaptation to Spanish-accented voiceless stop onsets.
+Second, we compared performance on the Test targets in relation to the three prime types: Identity, Competitor, and Unrelated.
+Priming effects did not change with exposure, with accuracy on targets following Competitor primes consistently between Identity and Unrelated primes.
+
+The results of these behavioral analyses suggest that lexically-guided perceptual re-tuning of Spanish-accented voiceless stops had differential effects on high-level categorization versus low-level perception. 
+Phonetic categorization behavior for voiceless stops did not change throughout the experiment, as evidenced by the main effect of Prime that did not interact with Exposure.
+Similarly, the mean error rates in @xie2017structure did not differ between participants with exposure to the critical cue-category mapping and participants with control exposure.
+This suggests that high-level categorization behavior is not sufficiently sensitive to priming effects.
+However, overall perception of voiceless stops did improve with experience, such that Test target accuracy increased at a higher rate than Filler target accuracy.
+Increasing exposure to multisyllabic words with /p/, /t/, and /k/ onsets increased recognition of monosyllabic words with these same onsets.
+By contrast, recognition of multisyllabic words with different onsets did not increase at the same rate.
+Together, these results suggest that changes in low-level perception of Spanish-accented voiceless stops facilitated word recognition.
+
+### Neurocognitive adaptation
+
+At the neurocognitive level, listeners exhibited fine-grained changes in perception with increasing exposure to Spanish-accented /p/, /t/, and /k/.
+The ERP analyses focused on the differential effects of prime type on Test targets.
+These analyses were conducted in three time windows: 175-250 ms, 250-375 ms, and 450-650 ms.
+These time windows correspond to the N1, P2, and N400 components, respectively.
+Building on the ideal adapter framework, we predicted that changes in Competitor primes would constitute evidence for perceptual adaptation.
+Specifically, Competitor primes were expected to behave like Identity primes at the beginning of the experiment, when perceptual ambiguity between voiced and voiceless stops was maximal.
+By the end of the experiment, Competitor primes were expected to diverge from Identity primes and pattern with the Unrelated primes, since Competitor and Unrelated primes are both mismatches for the target.
+This pattern of results was observed most strongly on the N1 component.
+During the initial stages of adaptation, Unrelated primes were significantly different from Identity and Competitor primes, which did not differ from one another.
+During the later stages of adaptation, the N1 displayed graded sensitivity to prime type, with Unrelated and Competitor primes eliciting more positive responses.
+By contrast, Identity primes continued to elicit similarly negative responses on the N1.
+These results are broadly consistent with those of @sarrett2020, who demonstrated an interaction between semantic bias and encoding of ambiguous VOTs.
+For example, in a sentence like "The state fruit of Georgia is the ___" [@sarrett2020], there is a strong semantic bias toward categorizing the ambiguous onset of the final word [?i\textipa{\textteshlig}] as a /p/ (*peach*) rather than as a /b/ (*beach*).
+N1 amplitudes were reduced (less negative) in these voiceless-biased contexts compared to voiced-biased contexts, suggesting more /p/-like encoding of ambiguous VOTs.
+In our study, responses to voiceless stop targets were reduced over time in neutral and voiced-biased contexts, suggesting more voiceless-like encoding of ambiguous VOTs with exposure.
+Taken together, these results provide support for the prediction following from the ideal adapter framework: namely, that low-level acoustic-phonetic processes support adaptation to L2-accented speech.
+
+An unexpected finding was that responses to Unrelated primes exhibited the largest changes with exposure.
+In all three time windows, we observed greater shifts in processing test targets like *park* after primes like *wand*, particularly compared to primes like *park*.
+On the N1, these shifts were consistent with increasing perception of short lag VOTs as voiceless stops after Unrelated primes.
+We also observed this shift with Competitor primes in line with our predictions for acoustic-phonetic processing; however, Unrelated primes exhibited the highest rate of change.
+Moreover, Unrelated primes ultimately elicited the least negative responses to the Test targets.
+These findings can be explained by the behavioral data, where we observed the lowest overall accuracy for Unrelated prime trials.
+This means that participants had the most room for growth on this trial type compared to the other two.
+Previous research suggests that there is a "Goldilocks zone" for perceptual adaptation, in which maximally ambiguous tokens that fall between typical and atypical productions exhibit the greatest gains in performance [@babel2019].
+In our study, the Unrelated prime type appears to have landed in this optimal zone for learning at the neurocognitive level.
+We were not able to analyze RTs for the priming effects in this task, where Test targets were no-go trials; however, we would also expect a faster rate of growth for Unrelated prime performance based on the ERP data.
+
+On the P2 and N400, the changes in priming were consistent with reductions in processing difficulty for Unrelated primes.
+First, we consider the P2, where responses to Unrelated primes decreased in negativity throughout the task.
+Larger P2 amplitudes are associated with easier extraction of acoustic-phonetic information from the speech signal [@crowley2004].
+In addition, changes in P2 amplitude have been associated with successful rule-learning [@dediego2007; @rossi2013; @tong2009].
+According to the ideal adapter framework, listeners use their experience with a talker to update their generative models for particular phonetic categories over acoustic cues [@kleinschmidt2015].
+Together, this suggests that exposure to Spanish-accented speech helped listeners update their cue-category mappings between short lag VOTs and voiceless stops.
+Turning to the N400, responses to Unrelated primes also decreased in negativity throughout the task, converging with responses to Competitor and Identity primes.
+In @romerorivas2015, a reduction in the N400 response to semantically expected words embedded in L2-accented sentences between experiment halves was interpreted as an adaptation effect.
+This was in contrast to the P200 response @romerorivas2015 observed, which remained consistently higher for the L1-accented talker than for the L2-accented talker.
+Our results suggest that the reduction in the N400 response to Unrelated primes is a product of adaptation at earlier stages of processing.
+As the N400 effect in our experiment decreased, sensitivity to the voicing contrast emerged on the N1 and updates to VOT-stop representations emerged on the P2.
+Taken together, perceptual adaptation to L2-accented speech appears to be driven by increasing sensitivity to the cue-category mappings that characterize a talker's accent.
+
+### Conclusion
+
+This study is among the first to systematically examine the neural signatures associated with adaptation to accented speech.
+In behavior, listeners show remarkable speed and plasticity in adjusting to L2-accented speech [@clarke2004; @xie2018].
+Our results show that these changes in behavior are supported by changes in specific neurocognitive mechanisms.
+In particular, we found that exposure shifted the differential responses of the N1-P2 complex to priming.
+The N1 reflected changes in the encoding of VOT as an acoustic cue to voicing, while the P2 reflected changes in the relations between this cue and the phonetic categories /p/, /t/, and /k/.
+These results not only provide the first neurocognitive evidence for the ideal adapter framework [@kleinschmidt2015; @kleinschmidt2019], but also suggest that changes in acoustic-phonetic linguistic representations drive adaptation [@xie2023].
+
+
+
